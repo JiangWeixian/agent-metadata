@@ -1,0 +1,52 @@
+name: Probe ACP Agents
+
+on:
+  workflow_dispatch:
+    inputs:
+      agents:
+        description: "Comma-separated agent IDs to probe (empty = all)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+          cache-dependency-path: acp-probe/pnpm-lock.yaml
+
+      - name: Setup uv (for uvx agents)
+        run: pip install uv
+
+      - name: Install dependencies
+        working-directory: acp-probe
+        run: pnpm install --frozen-lockfile
+
+      - name: Run probe
+        working-directory: acp-probe
+        run: pnpm start
+        env:
+          ACP_OUTPUT: acp-capabilities.json
+          ACP_VERBOSE: "0"
+          ACP_AGENTS: ${{ inputs.agents }}
+
+      - name: Upload capabilities artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: acp-capabilities
+          path: acp-probe/acp-capabilities.json
+          if-no-files-found: error
