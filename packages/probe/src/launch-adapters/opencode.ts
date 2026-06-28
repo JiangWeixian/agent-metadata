@@ -5,8 +5,8 @@ import type { LaunchAdapter } from "./types";
 const DUMMY_KEY = "sk-probe-dummy-000000000000000000000000000000";
 
 /**
- * opencode 适配器：在隔离 probeHome 下写假 auth.json，靠 XDG_DATA_HOME 重定向数据目录。
- * opencode 在 session/new 只校验 auth.json 存在性、不验真伪 → 可 headless 拿 modes/commands。
+ * opencode adapter: writes a dummy auth.json under the isolated probeHome, relying on XDG_DATA_HOME to redirect the data dir.
+ * opencode only validates the existence of auth.json at session/new (not its authenticity) → headless modes/commands retrieval works.
  */
 export const opencodeLaunchAdapter: LaunchAdapter = {
   agentId: "opencode",

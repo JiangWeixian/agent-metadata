@@ -129,7 +129,7 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
     agentId: "corust-agent",
     apply: () => ({
       env: { CORUST_API_KEY: DUMMY_KEY },
-      note: "corust-agent: CORUST_API_KEY env (binary strings show 'Check your CORUST_API_KEY' + 'auth resolver: no credentials found'; gateway.corust.ai may validate — 急校验 candidate).",
+      note: "corust-agent: CORUST_API_KEY env (binary strings show 'Check your CORUST_API_KEY' + 'auth resolver: no credentials found'; gateway.corust.ai may validate — eager-validation candidate).",
     }),
   },
   {

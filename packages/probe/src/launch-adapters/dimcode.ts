@@ -9,11 +9,11 @@ const DUMMY_BASE = "https://api.probe.invalid";
 const DUMMY_MODEL = "probe-dummy-model";
 
 /**
- * dimcode 适配器：ACP 报 "Provider credentials are required"。
- * 需 `~/.dimcode/v2/` 下有 SQLite provider 记录 + config.json 的 defaultProvider。
- * 纯写 config.json 不够（provider 详情在 SQLite）→ 用 `npx dimcode provider add/switch` 预配置
- * （npx 自己装 dimcode，无需全局 dim）。用 HOME 隔离到 probeHome，避免污染真实 ~/.dimcode。
- * session/new 只查 provider 已配（不联网验 key 真伪）→ dummy provider 即可。
+ * dimcode adapter: ACP reports "Provider credentials are required".
+ * Requires a SQLite provider record under `~/.dimcode/v2/` + config.json's defaultProvider.
+ * Writing config.json alone is insufficient (provider details live in SQLite) → use `npx dimcode provider add/switch` to preconfigure
+ * (npx installs dimcode itself; no global dim needed). HOME is isolated to probeHome to avoid polluting the real ~/.dimcode.
+ * session/new only checks whether a provider is configured (no network key validation) → a dummy provider suffices.
  */
 export const dimcodeLaunchAdapter: LaunchAdapter = {
   agentId: "dimcode",

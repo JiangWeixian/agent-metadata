@@ -5,9 +5,9 @@ import type { LaunchAdapter } from "./types";
 const DUMMY_KEY = "sk-probe-dummy-000000000000000000000000000000";
 
 /**
- * kimi 适配器：kimi 走 OAuth，凭证存 ~/.kimi/credentials/kimi-code.json。
- * resolve_api_key 加载 token 时只看 expires_at 是否过期、不验真伪。
- * 写入假 token（expires_at 远未来）+ 用 HOME 隔离到 probeHome，避免污染真实 ~/.kimi。
+ * kimi adapter: kimi uses OAuth; credentials are stored in ~/.kimi/credentials/kimi-code.json.
+ * resolve_api_key only checks whether the token's expires_at has passed, without verifying its authenticity.
+ * Write a dummy token (far-future expires_at) + isolate HOME to probeHome to avoid polluting the real ~/.kimi.
  */
 export const kimiLaunchAdapter: LaunchAdapter = {
   agentId: "kimi",

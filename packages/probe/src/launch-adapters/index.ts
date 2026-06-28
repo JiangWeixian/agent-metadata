@@ -12,8 +12,8 @@ export interface AppliedLaunchPatch {
 }
 
 /**
- * 启动补丁编排：为 agent 找适配器 → 在隔离 probeHome 下 apply → 返回 patch（env/args/note）。
- * 无适配器返回 null（调用方按原样启动）。适配器负责写自己的凭证文件到 probeHome。
+ * Launch patch orchestration: find the adapter for the agent → apply it under the isolated probeHome → return the patch (env/args/note).
+ * Returns null when no adapter exists (the caller launches as-is). Each adapter is responsible for writing its own credential files into probeHome.
  */
 export async function applyLaunchPatch(
   agentId: string,

@@ -5,10 +5,10 @@ import type { LaunchAdapter } from "./types";
 const DUMMY_KEY = "sk-probe-dummy-000000000000000000000000000000";
 
 /**
- * autohand 适配器：底层 CLI 装好后，ACP server 要求 `autohand login`。
- * ensureAuthenticated 读 ~/.autohand/config.json 的 auth.token + auth.expiresAt，
- * 只本地比较 expiresAt < new Date()（不联网验 token 真伪）→ 写假 token + 远未来 expiresAt 即可绕过。
- * 用 HOME 隔离到 probeHome，避免污染真实 ~/.autohand。
+ * autohand adapter: once the underlying CLI is installed, the ACP server requires `autohand login`.
+ * ensureAuthenticated reads auth.token + auth.expiresAt from ~/.autohand/config.json,
+ * and only compares expiresAt < new Date() locally (no network token verification) → writing a dummy token + a far-future expiresAt bypasses it.
+ * HOME is isolated to probeHome to avoid polluting the real ~/.autohand.
  */
 export const autohandLaunchAdapter: LaunchAdapter = {
   agentId: "autohand",
@@ -28,7 +28,7 @@ export const autohandLaunchAdapter: LaunchAdapter = {
     );
     return {
       env: { HOME: probeHome },
-      note: "autohand: dummy ~/.autohand/config.json {auth:{token,expiresAt:远未来}} under HOME isolation. ensureAuthenticated only checks expiry locally (no network). Requires底层 CLI `autohand` on PATH.",
+      note: "autohand: dummy ~/.autohand/config.json {auth:{token,expiresAt:far-future}} under HOME isolation. ensureAuthenticated only checks expiry locally (no network). Requires the underlying CLI `autohand` on PATH.",
     };
   },
 };
