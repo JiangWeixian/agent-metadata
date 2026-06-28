@@ -1,8 +1,12 @@
 {
   "name": "acp-agent-metadata",
   "version": "0.0.0",
-  "description": "Type-safe ACP agent capability metadata (modes, commands, auth methods)",
   "type": "module",
+  "description": "Type-safe ACP agent capability metadata (modes, commands, auth methods)",
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -186,13 +190,9 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist",
-    "package.json"
-  ],
   "scripts": {
     "codegen": "tsx scripts/codegen.ts",
-    "build": "pnpm run codegen && tsup",
+    "build": "tsup",
     "set-date-version": "tsx scripts/set-date-version.ts",
     "typecheck": "tsc --noEmit"
   },
@@ -206,8 +206,6 @@
     "vitest": "^2.0.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
+    "onlyBuiltDependencies": ["esbuild"]
   }
 }

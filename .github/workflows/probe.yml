@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       agents:
-        description: "Comma-separated agent IDs to probe (empty = all)"
+        description: Comma-separated agent IDs to probe (empty = all)
         required: false
         default: ""
   schedule:
@@ -49,14 +49,14 @@ jobs:
           ACP_VERBOSE: "0"
           ACP_AGENTS: ${{ inputs.agents }}
 
-      - name: Run build (codegen + tsup)
+      - name: Run codegen
         working-directory: packages/data
-        run: pnpm build
+        run: pnpm codegen
 
       - name: Check for changes
         id: changes
         run: |
-          git add packages/data/dist packages/data/package.json
+          git add packages/data/dist-src packages/data/package.json
           if git diff --cached --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "No changes detected, skipping PR."
@@ -72,7 +72,7 @@ jobs:
           ---
           "acp-agent-metadata": patch
           ---
-          
+
           Update agent metadata snapshot
           EOF
           git add .changeset/data-update.md
@@ -88,5 +88,5 @@ jobs:
           git push origin "$BRANCH"
           gh pr create \
             --title "chore: update agent metadata snapshot ($(date -u +%Y-%m-%d))" \
-            --body "Automated probe run. Review the dist/ diff for data changes. Includes a changeset for release." \
+            --body "Automated probe run. Review the dist-src/ diff for data changes. Includes a changeset for release." \
             --label "automated"

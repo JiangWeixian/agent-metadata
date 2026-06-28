@@ -1,7 +1,7 @@
 # agent-metadata
 
 [![version](https://img.shields.io/npm/v/acp-agent-metadata?style=flat-square)](https://www.npmjs.com/package/acp-agent-metadata)
-[![agents](https://img.shields.io/badge/agents-34-9cf?style=flat-square)](dist/agents/)
+[![agents](https://img.shields.io/badge/agents-34-9cf?style=flat-square)](packages/data/dist-src/agents/)
 
 Typed metadata for [Agent Client Protocol (ACP)](https://agentclientprotocol.com) coding agents — their session modes, slash commands, capabilities, and auth methods — captured by probing each agent's live ACP server and shipped as a tree-shakeable npm package.
 
@@ -9,7 +9,7 @@ Typed metadata for [Agent Client Protocol (ACP)](https://agentclientprotocol.com
 
 Every ACP-speaking coding agent advertises what it can do: which [session modes](https://agentclientprotocol.com/protocol/session-modes) it supports, which slash commands it exposes, and how it authenticates. This repo runs an automated probe (`packages/probe`) that launches each agent over stdio, interrogates its `initialize` / `session/new` responses, and codegens the results into a typed package (`acp-agent-metadata`) that other tooling can import.
 
-The data covers **34 agents**, including `gemini`, `cline`, `cursor`, `claude-acp`, `codex-acp`, `kimi`, `opencode`, and `goose`. See the full list in [`packages/data/dist/agents/`](packages/data/dist/agents/).
+The data covers **34 agents**, including `gemini`, `cline`, `cursor`, `claude-acp`, `codex-acp`, `kimi`, `opencode`, and `goose`. See the full list in [`packages/data/dist-src/agents/`](packages/data/dist-src/agents/).
 
 ## Packages
 
@@ -62,22 +62,22 @@ Each agent entry follows the `AgentMetadata` interface — `id`, `name`, `versio
 ## How the data is produced
 
 ```text
-probe cache/*.json  ──codegen──▶  dist-src/*.ts  ──tsup──▶  dist/  (committed)
+probe cache/*.json  ──codegen──▶  dist-src/*.ts (committed)  ──tsup──▶  dist/ (gitignored, built at publish)
 ```
 
 1. `packages/probe` spawns each agent, speaks ACP, and writes one `cache/<id>.json` per agent.
 2. `packages/data` runs `pnpm codegen`, which keeps only `status: "ok"` agents, maps them through a fixed field allowlist, and emits `.ts` source.
 3. `tsup` compiles that source into ESM + CJS with resolved `.d.ts` (SDK types inlined).
-4. The compiled `dist/` is committed, so releases ship exactly what was probed.
+4. `dist-src/` is committed as the reviewable source of truth; `dist/` is gitignored and built at publish time.
 
-`cache/` and `dist-src/` are gitignored intermediates. Probing runs on CI on a schedule (`0 6 * * 1` UTC) and on demand; see [`.github/workflows/probe.yml`](.github/workflows/probe.yml).
+`cache/` remains a gitignored intermediate; `dist-src/` is committed; `dist/` is gitignored and built at publish. Probing runs on CI on a schedule (`0 6 * * 1` UTC) and on demand; see [`.github/workflows/probe.yml`](.github/workflows/probe.yml).
 
 ## Development
 
 ```bash
 pnpm install            # install workspace deps
 pnpm test               # run vitest (codegen snapshot tests)
-pnpm build              # codegen + tsup → packages/data/dist
+pnpm build              # tsup → packages/data/dist (from committed dist-src)
 pnpm lint:fix           # eslint . --fix
 ```
 

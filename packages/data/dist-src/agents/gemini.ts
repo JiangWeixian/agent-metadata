@@ -1,29 +1,6 @@
-"use strict";
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+import type { AgentMetadata } from "../types.js";
 
-// dist-src/agents/gemini.ts
-var gemini_exports = {};
-__export(gemini_exports, {
-  agent: () => agent
-});
-module.exports = __toCommonJS(gemini_exports);
-var agent = {
+export const agent: AgentMetadata = {
   "agentCapabilities": {
     "loadSession": true,
     "mcpCapabilities": {
@@ -185,7 +162,3 @@ var agent = {
   "protocolVersion": 1,
   "version": "0.49.0"
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  agent
-});
