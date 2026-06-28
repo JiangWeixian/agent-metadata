@@ -1,0 +1,15 @@
+{
+  "id": "qoder",
+  "name": "Qoder CLI",
+  "version": "0.2.14",
+  "status": "auth_required",
+  "error": "ACP error -32000: Authentication required",
+  "protocolVersion": 1,
+  "agentInfo": { "name": "qodercli", "version": "0.2.14" },
+  "agentCapabilities": null,
+  "authMethods": null,
+  "modes": null,
+  "currentModeId": null,
+  "configOptions": null,
+  "commands": null
+}

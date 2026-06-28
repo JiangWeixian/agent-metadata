@@ -1,0 +1,36 @@
+{
+  "id": "gemini",
+  "name": "Gemini CLI",
+  "version": "0.49.0",
+  "status": "ok",
+  "error": null,
+  "protocolVersion": 1,
+  "agentInfo": {
+    "name": "gemini-cli",
+    "version": "0.49.0"
+  },
+  "agentCapabilities": {
+    "loadSession": true
+  },
+  "authMethods": [
+    {
+      "id": "oauth-personal",
+      "name": "Log in with Google",
+      "description": "Log in with your Google account"
+    }
+  ],
+  "modes": [
+    {
+      "id": "default",
+      "name": "Default"
+    }
+  ],
+  "currentModeId": "default",
+  "configOptions": [],
+  "commands": [
+    {
+      "name": "research_codebase",
+      "description": "Research the codebase"
+    }
+  ]
+}
