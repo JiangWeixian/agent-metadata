@@ -57,6 +57,9 @@ jobs:
       - name: install dependencies
         run: pnpm install --frozen-lockfile=false
 
+      - name: build
+        run: pnpm build
+
       - name: create and publish versions
         run: |
           pnpm ci:snapshot
