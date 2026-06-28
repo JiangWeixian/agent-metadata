@@ -22,6 +22,8 @@ import type {
   ConfigOption,
 } from "@agentclientprotocol/sdk";
 
+export type { SessionMode, AvailableCommand, AuthMethod, AgentCapabilities, ConfigOption };
+
 export interface AgentMetadata {
   id: string;
   name: string;
@@ -41,6 +43,7 @@ export interface AgentMetadata {
 - `modes`/`commands`/`authMethods` 是数组（空数组也是合法 `X[]`），不标 `| null`。
 - `currentModeId` 保留 `string | null`（确实可能为空）。
 - 从 SDK re-export 类型，消费方也能 `import type { SessionMode } from "acp-agent-metadata/types"`。
+- **SDK 不进发布包 dependencies**：`@agentclientprotocol/sdk` 只在 `devDependencies`（构建时用）。tsup `--dts-resolve` 把 SDK 类型内联进生成的 `.d.ts`，消费方无需安装 SDK。
 
 ## 2. 包的导出表面（exports）
 
@@ -114,18 +117,51 @@ dist/
 - `dist/index.js`：import 所有 agent → `export const agents = { gemini: ..., cline: ... }`
 - `dist/index.d.ts`：`export declare const agents: Record<string, AgentMetadata>;` + re-export `./types`
 
-## 3. codegen 脚本
+## 3. codegen + tsup 构建管线
 
-### 输入输出
+### 两阶段：codegen 生成 .ts 源 → tsup 编译为 .js/.cjs/.d.ts
+
+```
+cache/*.json ──codegen──▶ dist-src/                    ──tsup──▶ dist/
+                            ├── types.ts                          ├── types.js / .cjs / .d.ts
+                            ├── index.ts                          ├── index.js / .cjs / .d.ts
+                            └── agents/                            └── agents/
+                                ├── gemini.ts                         ├── gemini.js / .cjs / .d.ts
+                                └── ...                               └── ...
+```
+
+- `dist-src/`：gitignored（中间产物，TS 源码）
+- `dist/`：提交进 git（发布内容，tsup 编译产物）
+
+### 阶段 1：codegen 脚本
 
 - **输入**：`packages/probe/cache/*.json`（只挑 `status === "ok"` 的）
-- **输出**：
-  1. `dist/types.{js,cjs,d.ts}` — copy `src/types.ts`，CJS 版 emit 空 `exports.types = {}`（纯类型）
-  2. `dist/agents/<id>.{js,cjs}` — 对象字面量
-  3. `dist/agents/<id>.d.ts` — `export declare const agent: AgentMetadata;`
-  4. `dist/index.{js,cjs}` — import 所有 agent → export `agents` 对象
-  5. `dist/index.d.ts` — `export declare const agents: Record<string, AgentMetadata>;`
-  6. 改写 `package.json` 的 `exports` 字段（根据当前 ok agent 列表生成完整 map）
+- **输出**：`dist-src/` 下的 .ts 文件
+  1. `dist-src/types.ts` — copy `src/types.ts`（import type from SDK）
+  2. `dist-src/agents/<id>.ts` — `export const agent: AgentMetadata = {...对象字面量...}`
+  3. `dist-src/index.ts` — import 所有 agent → `export const agents = { gemini, cline, ... }`
+  4. 改写 `package.json` 的 `exports` 字段（根据当前 ok agent 列表生成完整 map）
+
+### 阶段 2：tsup 编译
+
+tsup 配置（`packages/data/tsup.config.ts`）：
+
+```ts
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: ["dist-src/index.ts", "dist-src/types.ts", "dist-src/agents/*.ts"],
+  outDir: "dist",
+  format: ["esm", "cjs"],
+  dts: { resolve: true },   // 内联 SDK 类型到 .d.ts，生成的 .d.ts 不再 import @agentclientprotocol/sdk
+  clean: true,
+});
+```
+
+- `format: ["esm", "cjs"]` → 每个 entry 生成 `.js`（ESM）+ `.cjs`（CJS）
+- `dts: { resolve: true }` → 生成 `.d.ts`，把 SDK 的 `SessionMode`/`AuthMethod`/`AgentCapabilities` 等类型**内联**进 .d.ts
+- `clean: true` → 每次清 dist 再生成
+- SDK 只作为 devDependency（tsup 编译时用），不进发布包 dependencies
 
 ### 字段映射（显式白名单）
 
@@ -154,8 +190,12 @@ function toMetadata(r: AgentResult): AgentMetadata {
 ### 运行方式
 
 ```bash
-cd packages/data && pnpm codegen   # tsx scripts/codegen.ts
+cd packages/data
+pnpm codegen   # tsx scripts/codegen.ts → 生成 dist-src/*.ts
+pnpm build     # tsup → 编译 dist-src/ → dist/（.js/.cjs/.d.ts）
 ```
+
+`build` = codegen + tsup。根 package.json 的 `build` script 调 `pnpm --filter acp-agent-metadata run build`。
 
 ### 幂等性
 
@@ -273,12 +313,14 @@ agent-metadata/
 │   │   ├── package.json                   # private: true, 不发布
 │   │   └── tsconfig.json
 │   └── data/                              # 新增：acp-agent-metadata
-│       ├── src/types.ts                   # AgentMetadata 接口
+│       ├── src/types.ts                   # AgentMetadata 接口（import type from SDK）
 │       ├── scripts/
-│       │   ├── codegen.ts                 # 读 cache → 生成 dist
+│       │   ├── codegen.ts                 # 读 cache → 生成 dist-src/*.ts
 │       │   ├── codegen.test.ts            # vitest 快照测试
 │       │   └── set-date-version.ts        # release 阶段覆盖日期版本
-│       ├── dist/                          # 生成产物，提交进 git
+│       ├── tsup.config.ts                 # tsup 构建配置（dts resolve 内联 SDK 类型）
+│       ├── dist-src/                      # codegen 产物（.ts 源），gitignored
+│       ├── dist/                          # tsup 产物（.js/.cjs/.d.ts），提交进 git
 │       ├── package.json                   # exports map 由 codegen 生成
 │       └── tsconfig.json
 ```
@@ -309,7 +351,7 @@ agent-metadata/
   "private": true,
   "packageManager": "pnpm@11.9.0",
   "scripts": {
-    "build": "pnpm --filter acp-agent-metadata run codegen",
+    "build": "pnpm --filter acp-agent-metadata run build",
     "ci:version": "pnpm changeset version",
     "ci:publish": "pnpm --filter acp-agent-metadata run set-date-version && pnpm changeset publish",
     "ci:snapshot": "pnpm changeset version --snapshot snapshot",
@@ -320,7 +362,7 @@ agent-metadata/
 }
 ```
 
-`build` = 跑 codegen（生成 dist）。`ci:prerelease` 先 `build`（codegen）再 publish，保证 snapshot 用的 dist 是最新的。`ci:publish` 不调 build（dist 已提交进 git，release PR 基于已生成的 dist 发版）。
+`build` = codegen（生成 dist-src/*.ts）+ tsup（编译 dist/）。`ci:prerelease` 先 `build`（codegen + tsup）再 publish，保证 snapshot 用的 dist 是最新的。`ci:publish` 不调 build（dist 已提交进 git，release PR 基于已生成的 dist 发版）。
 
 ### 版本统一
 
@@ -331,6 +373,7 @@ agent-metadata/
 ### gitignore 规则
 
 - `packages/probe/cache/`、`packages/probe/.acp-cache/` → gitignored（中间产物）
+- `packages/data/dist-src/` → gitignored（codegen 中间产物，.ts 源）
 - `packages/data/dist/` → **不** gitignored（提交进 git，作为数据包源 + PR diff 可见 + release 基于它发版）
 
 ## 6. 错误处理 + 测试

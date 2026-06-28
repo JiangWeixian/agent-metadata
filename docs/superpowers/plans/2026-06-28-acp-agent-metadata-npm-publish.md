@@ -4,9 +4,9 @@
 
 **Goal:** Restructure the repo into a pnpm workspace with two packages — a private probe tool and a publishable `acp-agent-metadata` data package — and wire up CI to auto-generate typed JS modules from probe output and publish via changesets with date-based versioning.
 
-**Architecture:** pnpm workspace at repo root. `packages/probe/` is the existing acp-probe (moved, private). `packages/data/` is new — a codegen script reads `packages/probe/cache/*.json` (ok agents only), emits `dist/` as typed ESM+CJS modules with per-agent subpath exports, and rewrites `package.json` exports. CI runs probe → codegen → opens a PR with data + changeset. Changesets orchestrates release; a `set-date-version` script overrides the semver bump to `YYYY.MDD.P` before publish.
+**Architecture:** pnpm workspace at repo root. `packages/probe/` is the existing acp-probe (moved, private). `packages/data/` is new — a codegen script reads `packages/probe/cache/*.json` (ok agents only), emits `dist-src/*.ts` (typed TS source), then tsup compiles to `dist/` as ESM+CJS modules with `.d.ts` (SDK types inlined via `dts: { resolve: true }`, zero runtime deps). CI runs probe → codegen → tsup → opens a PR with data + changeset. Changesets orchestrates release; a `set-date-version` script overrides the semver bump to `YYYY.MDD.P` before publish.
 
-**Tech Stack:** pnpm 11.9.0, Node 22, TypeScript 5.9, tsx, vitest, @agentclientprotocol/sdk, @changesets/cli, changesets/action, ESLint (@aiou/eslint-config), husky, lint-staged, commitizen.
+**Tech Stack:** pnpm 11.9.0, Node 22, TypeScript 5.9, tsx, tsup, vitest, @agentclientprotocol/sdk (devDep only), @changesets/cli, changesets/action, ESLint (@aiou/eslint-config), husky, lint-staged, commitizen.
 
 ---
 
@@ -36,13 +36,14 @@
 | `packages/probe/package.json` | moved from `acp-probe/`, private:true, pnpm@11.9.0 |
 | `packages/probe/tsconfig.json` | moved from `acp-probe/` |
 | `packages/probe/.gitignore` | moved from `acp-probe/`, cache paths updated |
-| `packages/data/package.json` | name: acp-agent-metadata, exports map (codegen-generated) |
+| `packages/data/package.json` | name: acp-agent-metadata, exports map (codegen-generated), SDK as devDep only |
 | `packages/data/tsconfig.json` | TS config for data package |
+| `packages/data/tsup.config.ts` | tsup build config: format esm+cjs, dts resolve (inline SDK types) |
 | `packages/data/src/types.ts` | `AgentMetadata` interface + SDK type re-exports |
-| `packages/data/scripts/codegen.ts` | core codegen: read cache → emit dist/ + rewrite exports |
+| `packages/data/scripts/codegen.ts` | core codegen: read cache → emit dist-src/*.ts + rewrite exports |
 | `packages/data/scripts/codegen.test.ts` | vitest tests for codegen |
 | `packages/data/scripts/set-date-version.ts` | override package.json version to YYYY.MDD.P |
-| `packages/data/.gitignore` | ignore node_modules only (dist/ is committed) |
+| `packages/data/.gitignore` | ignore node_modules + dist-src (dist/ is committed) |
 
 ### Files to move (acp-probe/ → packages/probe/)
 
@@ -284,7 +285,7 @@ If the ci skill overwrote the workspace scripts, re-merge them. The final root `
 ```json
 {
   "scripts": {
-    "build": "pnpm --filter acp-agent-metadata run codegen",
+    "build": "pnpm --filter acp-agent-metadata run build",
     "ci:version": "pnpm changeset version",
     "ci:publish": "pnpm --filter acp-agent-metadata run set-date-version && pnpm changeset publish",
     "ci:snapshot": "pnpm changeset version --snapshot snapshot",
@@ -331,6 +332,7 @@ git commit -m "chore: setup ci tooling (eslint, husky, changesets, commitizen)"
 **Files:**
 - Create: `packages/data/package.json`
 - Create: `packages/data/tsconfig.json`
+- Create: `packages/data/tsup.config.ts`
 - Create: `packages/data/.gitignore`
 - Create: `packages/data/src/types.ts`
 
@@ -361,14 +363,15 @@ git commit -m "chore: setup ci tooling (eslint, husky, changesets, commitizen)"
   ],
   "scripts": {
     "codegen": "tsx scripts/codegen.ts",
+    "build": "pnpm run codegen && tsup",
     "set-date-version": "tsx scripts/set-date-version.ts",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@agentclientprotocol/sdk": "^1.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@agentclientprotocol/sdk": "^1.0.0",
     "@types/node": "^22.0.0",
+    "tsup": "^8.0.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",
     "vitest": "^2.0.0"
@@ -381,7 +384,11 @@ git commit -m "chore: setup ci tooling (eslint, husky, changesets, commitizen)"
 }
 ```
 
-Note: `exports` starts with only `.` and `./types` — the per-agent entries are added by codegen in Task 5. `version: "0.0.0"` is the initial placeholder; changesets + set-date-version handle real versioning.
+Key points:
+- `dependencies: {}` — **zero runtime deps**. `@agentclientprotocol/sdk` is in `devDependencies` only (build-time, tsup inlines types into .d.ts).
+- `build` script = `codegen` (generate dist-src/*.ts) + `tsup` (compile to dist/).
+- `exports` starts with only `.` and `./types` — the per-agent entries are added by codegen in Task 4.
+- `version: "0.0.0"` is the initial placeholder; changesets + set-date-version handle real versioning.
 
 - [ ] **Step 2: Create `packages/data/tsconfig.json`**
 
@@ -400,20 +407,41 @@ Note: `exports` starts with only `.` and `./types` — the per-agent entries are
     "lib": ["ES2022"],
     "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*.ts", "scripts/**/*.ts"]
+  "include": ["src/**/*.ts", "scripts/**/*.ts", "dist-src/**/*.ts"]
 }
 ```
 
-- [ ] **Step 3: Create `packages/data/.gitignore`**
+Note: `dist-src/**/*.ts` is included so typecheck covers generated files after codegen runs.
+
+- [ ] **Step 3: Create `packages/data/tsup.config.ts`**
+
+```ts
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: ["dist-src/index.ts", "dist-src/types.ts", "dist-src/agents/*.ts"],
+  outDir: "dist",
+  format: ["esm", "cjs"],
+  dts: { resolve: true },
+  clean: true,
+});
+```
+
+- `format: ["esm", "cjs"]` → each entry generates `.js` (ESM) + `.cjs` (CJS)
+- `dts: { resolve: true }` → generates `.d.ts` with SDK types **inlined** (no `import ... from "@agentclientprotocol/sdk"` in output)
+- `clean: true` → clear dist/ before each build
+
+- [ ] **Step 4: Create `packages/data/.gitignore`**
 
 ```gitignore
 node_modules/
+dist-src/
 *.log
 ```
 
-Note: `dist/` is NOT in `.gitignore` — it is committed to git as the package's published source.
+Note: `dist/` is NOT in `.gitignore` — it is committed to git as the package's published source. `dist-src/` IS ignored (intermediate codegen output).
 
-- [ ] **Step 4: Create `packages/data/src/types.ts`**
+- [ ] **Step 5: Create `packages/data/src/types.ts`**
 
 ```ts
 import type {
@@ -447,15 +475,15 @@ export interface AgentMetadata {
 }
 ```
 
-- [ ] **Step 5: Install dependencies**
+- [ ] **Step 6: Install dependencies**
 
 ```bash
 pnpm install
 ```
 
-Expected: installs deps for `packages/data/` including `vitest`.
+Expected: installs deps for `packages/data/` including `tsup`, `vitest`, and `@agentclientprotocol/sdk` (as devDep).
 
-- [ ] **Step 6: Verify typecheck passes**
+- [ ] **Step 7: Verify typecheck passes**
 
 ```bash
 cd packages/data && pnpm typecheck
@@ -463,18 +491,20 @@ cd packages/data && pnpm typecheck
 
 Expected: PASS (no type errors — `types.ts` only declares interfaces).
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
 git add -A
-git commit -m "feat: scaffold acp-agent-metadata data package with AgentMetadata type"
+git commit -m "feat: scaffold acp-agent-metadata data package with AgentMetadata type + tsup config"
 ```
 
 ---
 
-## Task 4: Implement codegen — field mapping + file emission
+
+## Task 4: Implement codegen — generate dist-src/*.ts
 
 This is the core task. We TDD it: write tests first, then implement.
+codegen generates **TypeScript source files** (`dist-src/*.ts`); tsup compiles them to `dist/` in the build step.
 
 **Files:**
 - Create: `packages/data/scripts/codegen.ts`
@@ -549,74 +579,66 @@ Create `packages/data/scripts/fixtures/qoder.json` — an auth_required agent (s
 
 ```ts
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { existsSync, readFileSync, rmSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, mkdirSync, readdirSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import { generatePackage } from "./codegen";
 
 const FIXTURES_DIR = join(import.meta.dirname, "fixtures");
 const TMP_CACHE = join(import.meta.dirname, "..", "tmp-test-cache");
-const TMP_DIST = join(import.meta.dirname, "..", "tmp-test-dist");
+const TMP_DIST_SRC = join(import.meta.dirname, "..", "tmp-test-dist-src");
 const TMP_PKG = join(import.meta.dirname, "..", "tmp-test-package.json");
 
 describe("codegen", () => {
   beforeEach(() => {
-    // Copy fixtures to tmp cache dir
     rmSync(TMP_CACHE, { recursive: true, force: true });
-    rmSync(TMP_DIST, { recursive: true, force: true });
+    rmSync(TMP_DIST_SRC, { recursive: true, force: true });
     mkdirSync(TMP_CACHE, { recursive: true });
-    const fs = require("node:fs");
-    for (const f of fs.readdirSync(FIXTURES_DIR)) {
-      fs.copyFileSync(join(FIXTURES_DIR, f), join(TMP_CACHE, f));
+    for (const f of readdirSync(FIXTURES_DIR)) {
+      copyFileSync(join(FIXTURES_DIR, f), join(TMP_CACHE, f));
     }
   });
 
   afterEach(() => {
     rmSync(TMP_CACHE, { recursive: true, force: true });
-    rmSync(TMP_DIST, { recursive: true, force: true });
+    rmSync(TMP_DIST_SRC, { recursive: true, force: true });
     try { rmSync(TMP_PKG, { force: true }); } catch {}
   });
 
-  it("emits dist/agents/<id>.js for ok agents only", () => {
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
-    expect(existsSync(join(TMP_DIST, "agents", "gemini.js"))).toBe(true);
-    expect(existsSync(join(TMP_DIST, "agents", "gemini.cjs"))).toBe(true);
-    expect(existsSync(join(TMP_DIST, "agents", "gemini.d.ts"))).toBe(true);
-    // qoder is auth_required — should NOT appear
-    expect(existsSync(join(TMP_DIST, "agents", "qoder.js"))).toBe(false);
+  it("emits dist-src/agents/<id>.ts for ok agents only", () => {
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
+    expect(existsSync(join(TMP_DIST_SRC, "agents", "gemini.ts"))).toBe(true);
+    expect(existsSync(join(TMP_DIST_SRC, "agents", "qoder.ts"))).toBe(false);
   });
 
-  it("emits dist/types.{js,cjs,d.ts}", () => {
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
-    expect(existsSync(join(TMP_DIST, "types.js"))).toBe(true);
-    expect(existsSync(join(TMP_DIST, "types.cjs"))).toBe(true);
-    expect(existsSync(join(TMP_DIST, "types.d.ts"))).toBe(true);
+  it("emits dist-src/types.ts and dist-src/index.ts", () => {
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
+    expect(existsSync(join(TMP_DIST_SRC, "types.ts"))).toBe(true);
+    expect(existsSync(join(TMP_DIST_SRC, "index.ts"))).toBe(true);
   });
 
-  it("emits dist/index.{js,cjs,d.ts} with agents object", () => {
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
-    expect(existsSync(join(TMP_DIST, "index.js"))).toBe(true);
-    expect(existsSync(join(TMP_DIST, "index.cjs"))).toBe(true);
-    expect(existsSync(join(TMP_DIST, "index.d.ts"))).toBe(true);
-    const indexJs = readFileSync(join(TMP_DIST, "index.js"), "utf8");
-    expect(indexJs).toContain("gemini");
-    expect(indexJs).not.toContain("qoder");
+  it("index.ts imports and re-exports ok agents only", () => {
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
+    const indexTs = readFileSync(join(TMP_DIST_SRC, "index.ts"), "utf8");
+    expect(indexTs).toContain("gemini");
+    expect(indexTs).not.toContain("qoder");
+    expect(indexTs).toContain("export const agents");
   });
 
-  it("generated agent data does not contain status or error fields", () => {
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
-    const agentJs = readFileSync(join(TMP_DIST, "agents", "gemini.js"), "utf8");
-    expect(agentJs).not.toContain("status");
-    expect(agentJs).not.toContain("error");
+  it("generated agent .ts does not contain status or error fields", () => {
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
+    const agentTs = readFileSync(join(TMP_DIST_SRC, "agents", "gemini.ts"), "utf8");
+    expect(agentTs).not.toContain("status");
+    expect(agentTs).not.toContain('"error"');
   });
 
-  it("generated agent .d.ts declares correct type", () => {
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
-    const dts = readFileSync(join(TMP_DIST, "agents", "gemini.d.ts"), "utf8");
-    expect(dts).toContain("export declare const agent: AgentMetadata");
+  it("generated agent .ts has correct type annotation", () => {
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
+    const agentTs = readFileSync(join(TMP_DIST_SRC, "agents", "gemini.ts"), "utf8");
+    expect(agentTs).toContain("export const agent: AgentMetadata");
   });
 
   it("rewrites package.json exports with ok agent subpaths", () => {
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
     const pkg = JSON.parse(readFileSync(TMP_PKG, "utf8"));
     expect(pkg.exports["./gemini"]).toBeDefined();
     expect(pkg.exports["./gemini"].import).toBe("./dist/agents/gemini.js");
@@ -624,20 +646,18 @@ describe("codegen", () => {
   });
 
   it("is idempotent — running twice produces identical output", () => {
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
-    const firstRun = readFileSync(join(TMP_DIST, "agents", "gemini.js"), "utf8");
-    generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG);
-    const secondRun = readFileSync(join(TMP_DIST, "agents", "gemini.js"), "utf8");
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
+    const firstRun = readFileSync(join(TMP_DIST_SRC, "agents", "gemini.ts"), "utf8");
+    generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG);
+    const secondRun = readFileSync(join(TMP_DIST_SRC, "agents", "gemini.ts"), "utf8");
     expect(secondRun).toBe(firstRun);
   });
 
   it("throws when no ok agents found", () => {
     rmSync(TMP_CACHE, { recursive: true, force: true });
     mkdirSync(TMP_CACHE, { recursive: true });
-    // Only put the auth_required fixture
-    const fs = require("node:fs");
-    fs.copyFileSync(join(FIXTURES_DIR, "qoder.json"), join(TMP_CACHE, "qoder.json"));
-    expect(() => generatePackage(TMP_CACHE, TMP_DIST, TMP_PKG)).toThrow();
+    copyFileSync(join(FIXTURES_DIR, "qoder.json"), join(TMP_CACHE, "qoder.json"));
+    expect(() => generatePackage(TMP_CACHE, TMP_DIST_SRC, TMP_PKG)).toThrow();
   });
 });
 ```
@@ -653,7 +673,7 @@ Expected: FAIL — `generatePackage` is not defined (module not found).
 - [ ] **Step 4: Implement `packages/data/scripts/codegen.ts`**
 
 ```ts
-import { existsSync, readFileSync, readdirSync, rmSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, rmSync, mkdirSync, writeFileSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 
 import type { AgentMetadata } from "../src/types";
@@ -680,10 +700,6 @@ interface AgentResult {
   commands: unknown[] | null;
 }
 
-/**
- * Map an AgentResult to AgentMetadata via explicit whitelist.
- * Drops status/error. Null fields get defensive defaults.
- */
 function toMetadata(r: AgentResult): AgentMetadata {
   return {
     id: r.id,
@@ -700,10 +716,6 @@ function toMetadata(r: AgentResult): AgentMetadata {
   };
 }
 
-/**
- * Stable JSON serialization: keys sorted alphabetically, 2-space indent.
- * Ensures idempotent output for diff detection.
- */
 function stableStringify(obj: unknown): string {
   return JSON.stringify(sortKeys(obj), null, 2);
 }
@@ -718,9 +730,6 @@ function sortKeys(obj: unknown): unknown {
   return sorted;
 }
 
-/**
- * Load all ok agent results from a cache directory.
- */
 function loadOkAgents(cacheDir: string): AgentResult[] {
   const files = readdirSync(cacheDir).filter((f) => f.endsWith(".json"));
   const agents: AgentResult[] = [];
@@ -734,73 +743,52 @@ function loadOkAgents(cacheDir: string): AgentResult[] {
   return agents.sort((a, b) => a.id.localeCompare(b.id));
 }
 
+function toIdentifier(id: string): string {
+  return id.replace(/-/g, "_");
+}
+
 /**
- * Generate the entire dist/ directory + rewrite package.json exports.
+ * Generate dist-src/*.ts source files + rewrite package.json exports.
+ * tsup then compiles dist-src/ → dist/ (.js/.cjs/.d.ts with SDK types inlined).
  *
- * @param cacheDir - path to packages/probe/cache/ (contains <id>.json files)
- * @param distDir  - path to packages/data/dist/
- * @param pkgPath  - path to packages/data/package.json (exports map rewritten)
+ * @param cacheDir   - path to packages/probe/cache/ (contains <id>.json files)
+ * @param distSrcDir - path to packages/data/dist-src/ (TS source output)
+ * @param pkgPath    - path to packages/data/package.json (exports map rewritten)
  */
-export function generatePackage(cacheDir: string, distDir: string, pkgPath: string): void {
+export function generatePackage(cacheDir: string, distSrcDir: string, pkgPath: string): void {
   const agents = loadOkAgents(cacheDir);
   if (agents.length === 0) {
     throw new Error("codegen: no ok agents found in cache directory");
   }
 
-  // Clean dist
-  rmSync(distDir, { recursive: true, force: true });
-  mkdirSync(join(distDir, "agents"), { recursive: true });
+  rmSync(distSrcDir, { recursive: true, force: true });
+  mkdirSync(join(distSrcDir, "agents"), { recursive: true });
 
-  // 1. Emit types.js / types.cjs / types.d.ts
-  const typesDts = `export type { SessionMode, AvailableCommand, AuthMethod, AgentCapabilities, ConfigOption } from "@agentclientprotocol/sdk";\nimport type { SessionMode, AvailableCommand, AuthMethod, AgentCapabilities, ConfigOption } from "@agentclientprotocol/sdk";\nexport interface AgentMetadata {\n  id: string;\n  name: string;\n  version: string;\n  protocolVersion: number;\n  agentInfo: { name: string; version: string };\n  agentCapabilities: AgentCapabilities;\n  authMethods: AuthMethod[];\n  modes: SessionMode[];\n  currentModeId: string | null;\n  configOptions: ConfigOption[];\n  commands: AvailableCommand[];\n}\n`;
-  writeFileSync(join(distDir, "types.d.ts"), typesDts);
-  writeFileSync(join(distDir, "types.js"), `// Type-only module — no runtime exports\nexport {};\n`);
-  writeFileSync(join(distDir, "types.cjs"), `// Type-only module — no runtime exports\nmodule.exports = {};\n`);
+  // 1. Copy types.ts → dist-src/types.ts
+  const srcTypesPath = join(import.meta.dirname, "..", "src", "types.ts");
+  copyFileSync(srcTypesPath, join(distSrcDir, "types.ts"));
 
-  // 2. Emit per-agent files
+  // 2. Emit per-agent .ts files
   for (const r of agents) {
     const m = toMetadata(r);
     const json = stableStringify(m);
-
-    // ESM
     writeFileSync(
-      join(distDir, "agents", `${r.id}.js`),
-      `export const agent = ${json};\n`,
-    );
-    // CJS
-    writeFileSync(
-      join(distDir, "agents", `${r.id}.cjs`),
-      `const agent = ${json};\nmodule.exports = { agent };\n`,
-    );
-    // d.ts
-    writeFileSync(
-      join(distDir, "agents", `${r.id}.d.ts`),
-      `import type { AgentMetadata } from "../types.js";\nexport declare const agent: AgentMetadata;\n`,
+      join(distSrcDir, "agents", `${r.id}.ts`),
+      `import type { AgentMetadata } from "../types.js";\n\nexport const agent: AgentMetadata = ${json};\n`,
     );
   }
 
-  // 3. Emit index.js (ESM)
-  const importLines = agents.map((a) => `import { agent as ${a.id.replace(/-/g, "_")} } from "./agents/${a.id}.js";`).join("\n");
-  const agentsObj = `{\n${agents.map((a) => `  ${JSON.stringify(a.id)}: ${a.id.replace(/-/g, "_")},`).join("\n")}\n}`;
+  // 3. Emit index.ts
+  const importLines = agents
+    .map((a) => `import { agent as ${toIdentifier(a.id)} } from "./agents/${a.id}.js";`)
+    .join("\n");
+  const agentsObj = `{\n${agents.map((a) => `  ${JSON.stringify(a.id)}: ${toIdentifier(a.id)},`).join("\n")}\n}`;
   writeFileSync(
-    join(distDir, "index.js"),
+    join(distSrcDir, "index.ts"),
     `${importLines}\n\nexport const agents = ${agentsObj};\n`,
   );
 
-  // 4. Emit index.cjs (CJS)
-  const requireLines = agents.map((a) => `const ${a.id.replace(/-/g, "_")} = require("./agents/${a.id}.cjs").agent;`).join("\n");
-  writeFileSync(
-    join(distDir, "index.cjs"),
-    `${requireLines}\n\nconst agents = ${agentsObj};\nmodule.exports = { agents };\n`,
-  );
-
-  // 5. Emit index.d.ts
-  writeFileSync(
-    join(distDir, "index.d.ts"),
-    `import type { AgentMetadata } from "./types.js";\nexport declare const agents: Record<string, AgentMetadata>;\nexport type { AgentMetadata } from "./types.js";\n`,
-  );
-
-  // 6. Rewrite package.json exports
+  // 4. Rewrite package.json exports
   const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
   const exports: Record<string, unknown> = {
     ".": {
@@ -826,18 +814,18 @@ export function generatePackage(cacheDir: string, distDir: string, pkgPath: stri
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 }
 
-// CLI entrypoint — run when executed directly
+// CLI entrypoint
 if (process.argv[1] && process.argv[1].endsWith("codegen.ts")) {
   const cacheDir = join(import.meta.dirname, "..", "..", "probe", "cache");
-  const distDir = join(import.meta.dirname, "..", "dist");
+  const distSrcDir = join(import.meta.dirname, "..", "dist-src");
   const pkgPath = join(import.meta.dirname, "..", "package.json");
   if (!existsSync(cacheDir)) {
     console.error(`codegen: cache directory not found: ${cacheDir}`);
     console.error("Run the probe first: cd packages/probe && pnpm start");
     process.exit(1);
   }
-  generatePackage(cacheDir, distDir, pkgPath);
-  console.log(`codegen: generated dist/ from ${readdirSync(cacheDir).filter(f => f.endsWith('.json')).length} cache files`);
+  generatePackage(cacheDir, distSrcDir, pkgPath);
+  console.log(`codegen: generated dist-src/ from ${readdirSync(cacheDir).filter(f => f.endsWith('.json')).length} cache files`);
 }
 ```
 
@@ -849,15 +837,23 @@ cd packages/data && npx vitest run scripts/codegen.test.ts
 
 Expected: PASS — all 8 tests pass.
 
-- [ ] **Step 6: Run codegen against real cache (if available)**
+- [ ] **Step 6: Run full build (codegen + tsup) against real cache**
 
 ```bash
-cd packages/data && pnpm codegen
+cd packages/data && pnpm build
 ```
 
-Expected: generates `dist/` with 33 agent files + `index.*` + `types.*` + rewrites `package.json` exports. If `packages/probe/cache/` doesn't exist (CI fresh), this will error — that's expected. For local testing, ensure probe has been run at least once.
+Expected: codegen generates `dist-src/*.ts`, tsup compiles to `dist/` with `.js`/`.cjs`/`.d.ts`. If `packages/probe/cache/` doesn't exist, codegen errors — run probe first.
 
-- [ ] **Step 7: Verify generated dist typechecks**
+- [ ] **Step 7: Verify .d.ts has inlined SDK types (no external import)**
+
+```bash
+grep -c "@agentclientprotocol/sdk" packages/data/dist/types.d.ts
+```
+
+Expected: `0` — tsup `dts: { resolve: true }` inlined the SDK types.
+
+- [ ] **Step 8: Verify generated dist typechecks**
 
 ```bash
 cd packages/data && pnpm typecheck
@@ -865,11 +861,11 @@ cd packages/data && pnpm typecheck
 
 Expected: PASS.
 
-- [ ] **Step 8: Commit**
+- [ ] **Step 9: Commit**
 
 ```bash
 git add -A
-git commit -m "feat: implement codegen — generate typed dist/ from probe cache"
+git commit -m "feat: implement codegen + tsup build — generate typed dist/ from probe cache"
 ```
 
 ---
@@ -886,41 +882,30 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 /**
- * Compute the date-based version: YYYY.MDD.P
+ * Compute date-based version: YYYY.MDD.P
  * - YYYY: 4-digit year
- * - MDD: month (no leading zero) + zero-padded day (e.g. June 27 = 627)
+ * - MDD: month (no leading zero) + zero-padded day (June 27 = 627)
  * - P: patch slot (starts at 0, increments if same-day re-release)
  *
  * Examples: 2026.627.0, 2026.627.1, 2026.1201.0
- *
- * This format is semver-valid (no leading zeros in numeric identifiers,
- * exactly 3 numeric components).
+ * Semver-valid (no leading zeros, exactly 3 numeric components).
  */
 function computeDateVersion(date: Date, patch: number): string {
   const year = date.getUTCFullYear();
-  const month = date.getUTCMonth() + 1; // 1-12, no leading zero
-  const day = String(date.getUTCDate()).padStart(2, "0"); // 01-31
+  const month = date.getUTCMonth() + 1;
+  const day = String(date.getUTCDate()).padStart(2, "0");
   return `${year}.${month}${day}.${patch}`;
 }
 
-/**
- * Check if a version already exists on npm for this package.
- * Returns true if the version exists (404 means it doesn't).
- */
 async function versionExistsOnNpm(pkgName: string, version: string): Promise<boolean> {
   try {
     const res = await fetch(`https://registry.npmjs.org/${pkgName}/${version}`);
     return res.ok;
   } catch {
-    // Network error — assume not found, let publish fail later if wrong
     return false;
   }
 }
 
-/**
- * Find the next available patch slot for today's date.
- * Starts at 0, increments until it finds a version not on npm.
- */
 async function nextDateVersion(pkgName: string, date: Date): Promise<string> {
   for (let patch = 0; patch < 100; patch++) {
     const version = computeDateVersion(date, patch);
@@ -928,7 +913,7 @@ async function nextDateVersion(pkgName: string, date: Date): Promise<string> {
       return version;
     }
   }
-  throw new Error(`set-date-version: could not find available version for ${date.toISOString().split("T")[0]} (tried 100 patches)`);
+  throw new Error(`set-date-version: no available version for ${date.toISOString().split("T")[0]}`);
 }
 
 async function main(): Promise<void> {
@@ -939,19 +924,16 @@ async function main(): Promise<void> {
   const now = new Date();
   const version = await nextDateVersion(pkgName, now);
 
-  // Update package.json version
   pkg.version = version;
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
-  // Update CHANGELOG.md if it exists — replace the semver version heading
   const changelogPath = join(import.meta.dirname, "..", "CHANGELOG.md");
   try {
     let changelog = readFileSync(changelogPath, "utf8");
-    // Changesets writes headings like "## 0.0.1" — replace the first one with our date version
     changelog = changelog.replace(/^## \d+\.\d+\.\d+/m, `## ${version}`);
     writeFileSync(changelogPath, changelog);
   } catch {
-    // No CHANGELOG.md yet — that's fine, changesets will create it
+    // No CHANGELOG.md yet — changesets will create it
   }
 
   console.log(`set-date-version: set version to ${version}`);
@@ -969,25 +951,15 @@ main().catch((e) => {
 cd packages/data && pnpm set-date-version
 ```
 
-Expected: prints `set-date-version: set version to 2026.XXXX.0` (today's date) and updates `package.json` version. Since the package isn't published yet, npm returns 404 for all versions, so patch=0.
+Expected: prints `set-date-version: set version to 2026.XXXX.0` and updates `package.json` version.
 
-- [ ] **Step 3: Verify package.json version was updated**
-
-```bash
-node -e "console.log(require('./package.json').version)"
-```
-
-Expected: a date string like `2026.628.0`.
-
-- [ ] **Step 4: Reset version back to placeholder**
-
-Since this was a dry test, reset `package.json` version to `0.0.0`:
+- [ ] **Step 3: Reset version back to placeholder**
 
 ```bash
-node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('package.json','utf8'));p.version='0.0.0';fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\n')"
+node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('packages/data/package.json','utf8'));p.version='0.0.0';fs.writeFileSync('packages/data/package.json',JSON.stringify(p,null,2)+'\n')"
 ```
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add -A
@@ -1055,9 +1027,9 @@ jobs:
           ACP_VERBOSE: "0"
           ACP_AGENTS: ${{ inputs.agents }}
 
-      - name: Run codegen
+      - name: Run build (codegen + tsup)
         working-directory: packages/data
-        run: pnpm codegen
+        run: pnpm build
 
       - name: Check for changes
         id: changes
@@ -1102,7 +1074,7 @@ jobs:
 
 ```bash
 git add .github/workflows/probe.yml
-git commit -m "ci: rewrite probe.yml — probe + codegen + open PR with changeset"
+git commit -m "ci: rewrite probe.yml — probe + build + open PR with changeset"
 ```
 
 ---
@@ -1113,8 +1085,6 @@ git commit -m "ci: rewrite probe.yml — probe + codegen + open PR with changese
 - Modify: `.github/workflows/release.yml` (from ci skill, modified for set-date-version)
 
 - [ ] **Step 1: Overwrite `.github/workflows/release.yml`**
-
-Based on the ci skill template, with `publish` calling `ci:publish` (which includes set-date-version):
 
 ```yaml
 name: Release
@@ -1183,15 +1153,15 @@ git commit -m "ci: configure release.yml with changesets + date version override
 
 ---
 
-## Task 8: Add test script to root + verify snapshot-release.yml
+## Task 8: Add test script + fix snapshot-release.yml
 
 **Files:**
 - Modify: root `package.json` (add `test` script)
-- Verify: `.github/workflows/snapshot-release.yml` (from ci skill, should already be correct)
+- Verify: `.github/workflows/snapshot-release.yml`
 
 - [ ] **Step 1: Add `test` script to root `package.json`**
 
-The ci skill's `ci.yml` runs `pnpm test`. Add a test script to root `package.json` that runs vitest in the data package:
+Merge into existing scripts:
 
 ```json
 {
@@ -1201,16 +1171,9 @@ The ci skill's `ci.yml` runs `pnpm test`. Add a test script to root `package.jso
 }
 ```
 
-Merge this into the existing root `package.json` scripts (don't overwrite the others).
+- [ ] **Step 2: Fix snapshot-release.yml — add build step**
 
-- [ ] **Step 2: Verify snapshot-release.yml is correct**
-
-The ci skill's `snapshot-release.yml` should already have:
-- `workflow_dispatch` trigger
-- pnpm + node 22 setup
-- `pnpm ci:snapshot` + `pnpm ci:prerelease`
-
-But it's missing the `pnpm build` step before snapshot (codegen needs to run to generate dist). Edit `.github/workflows/snapshot-release.yml` and add a build step before the publish:
+Edit `.github/workflows/snapshot-release.yml`, insert a `build` step between `install dependencies` and `create and publish versions`:
 
 ```yaml
       - name: install dependencies
@@ -1225,9 +1188,7 @@ But it's missing the `pnpm build` step before snapshot (codegen needs to run to 
           pnpm ci:prerelease
 ```
 
-Insert the `build` step between `install dependencies` and `create and publish versions`.
-
-- [ ] **Step 3: Run tests to verify everything works**
+- [ ] **Step 3: Run tests**
 
 ```bash
 pnpm test
@@ -1235,7 +1196,7 @@ pnpm test
 
 Expected: vitest runs `codegen.test.ts` — all 8 tests pass.
 
-- [ ] **Step 4: Run lint to verify**
+- [ ] **Step 4: Run lint**
 
 ```bash
 pnpm lint:fix
@@ -1260,53 +1221,49 @@ git commit -m "chore: add test script, fix snapshot-release build step"
 
 ---
 
-## Task 9: Final verification + smoke test codegen locally
-
-**Files:**
-- Verify: all files are in place and working
+## Task 9: Final verification + smoke test
 
 - [ ] **Step 1: Verify directory structure**
 
 ```bash
-find . -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/.acp-cache/*' -not -path '*/cache/*' -not -path '*/.husky/_/*' -type f | sort
+find . -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/.acp-cache/*' -not -path '*/cache/*' -not -path '*/.husky/_/*' -not -path '*/dist-src/*' -type f | sort
 ```
 
 Expected: all files from the spec's file structure section are present.
 
-- [ ] **Step 2: Smoke test codegen with real cache**
+- [ ] **Step 2: Smoke test build with real cache**
 
-If `packages/probe/cache/` exists (from a previous local probe run):
-
-```bash
-cd packages/data && pnpm codegen
-```
-
-Expected: generates `dist/` with files for each ok agent. Verify:
+If `packages/probe/cache/` exists:
 
 ```bash
-ls dist/agents/ | head -10
-ls dist/agents/ | wc -l
+cd packages/data && pnpm build
 ```
 
-Expected: 33 `.js` files, 33 `.cjs` files, 33 `.d.ts` files (one set per ok agent).
-
-- [ ] **Step 3: Verify package.json exports was rewritten**
+Expected: generates `dist/` with `.js`/`.cjs`/`.d.ts` for each ok agent.
 
 ```bash
-node -e "const p=require('./packages/data/package.json');console.log(Object.keys(p.exports).length,'export entries');console.log(Object.keys(p.exports).filter(k=>k!=='.'&&k!=='./types'&&k!=='./package.json').slice(0,5))"
+ls dist/agents/*.js | wc -l
 ```
 
-Expected: 36 export entries (1 for `.` + 1 for `./types` + 33 for agents + 1 for `./package.json`). First 5 agent entries should be agent IDs.
+Expected: 33 (one per ok agent).
 
-- [ ] **Step 4: Verify CJS import works**
+- [ ] **Step 3: Verify package.json exports**
+
+```bash
+node -e "const p=require('./packages/data/package.json');console.log(Object.keys(p.exports).length,'export entries')"
+```
+
+Expected: 36 (1 `.` + 1 `./types` + 33 agents + 1 `./package.json`).
+
+- [ ] **Step 4: Verify CJS import**
 
 ```bash
 node -e "const {agent}=require('./packages/data/dist/agents/gemini.cjs');console.log(agent.id,agent.modes.length+' modes',agent.commands.length+' commands')"
 ```
 
-Expected: `gemini 4 modes 20 commands` (or similar — depends on latest cache).
+Expected: `gemini 4 modes 20 commands` (or similar).
 
-- [ ] **Step 5: Verify ESM import works**
+- [ ] **Step 5: Verify ESM import**
 
 ```bash
 node --input-type=module -e "import {agent} from './packages/data/dist/agents/gemini.js';console.log(agent.id,agent.modes.length+' modes',agent.commands.length+' commands')"
@@ -1314,28 +1271,29 @@ node --input-type=module -e "import {agent} from './packages/data/dist/agents/ge
 
 Expected: same as CJS.
 
-- [ ] **Step 6: Verify aggregate import works**
+- [ ] **Step 6: Verify .d.ts has no SDK import**
 
 ```bash
-node -e "const {agents}=require('./packages/data/dist/index.cjs');console.log(Object.keys(agents).length,'agents');console.log(agents.gemini.id)"
+grep -c "@agentclientprotocol/sdk" packages/data/dist/types.d.ts
 ```
 
-Expected: `33 agents` / `gemini`.
+Expected: `0` (types inlined by tsup).
 
-- [ ] **Step 7: Final commit (if any dist changes)**
+- [ ] **Step 7: Verify package.json has zero runtime dependencies**
+
+```bash
+node -e "const p=require('./packages/data/package.json');console.log('dependencies:',JSON.stringify(p.dependencies||{}))"
+```
+
+Expected: `dependencies: {}`.
+
+- [ ] **Step 8: Final commit + push**
 
 ```bash
 git add -A
 git commit -m "chore: generate dist from latest probe data" || echo "nothing to commit"
-```
-
-- [ ] **Step 8: Push all commits**
-
-```bash
 git push origin develop
 ```
-
----
 
 ## Self-Review Notes
 
