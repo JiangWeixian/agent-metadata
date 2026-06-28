@@ -1,7 +1,7 @@
 {
   "name": "agent-metadata",
-  "private": true,
   "type": "module",
+  "private": true,
   "packageManager": "pnpm@11.9.0",
   "scripts": {
     "build": "pnpm --filter acp-agent-metadata run build",
@@ -10,7 +10,7 @@
     "ci:publish": "pnpm --filter acp-agent-metadata run set-date-version && pnpm changeset publish",
     "ci:snapshot": "pnpm changeset version --snapshot snapshot",
     "ci:prerelease": "pnpm run build && pnpm changeset publish --no-git-tag --tag snapshot",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "eslint packages/probe packages/data/src --fix",
     "prepare": "husky install"
   },
   "devDependencies": {

@@ -1,14 +1,14 @@
-import { mkdir } from "node:fs/promises";
-import { join } from "node:path";
-import { findLaunchAdapter } from "./registry";
-import type { LaunchPatch } from "./types";
+import { mkdir } from 'node:fs/promises'
+import { join } from 'node:path'
+import type { LaunchPatch } from './types'
+import { findLaunchAdapter } from './registry'
 
-export { findLaunchAdapter } from "./registry";
-export type { LaunchAdapter, LaunchPatch } from "./types";
+export { findLaunchAdapter } from './registry'
+export type { LaunchAdapter, LaunchPatch } from './types'
 
 export interface AppliedLaunchPatch {
-  patch: LaunchPatch;
-  probeHome: string;
+  patch: LaunchPatch
+  probeHome: string
 }
 
 /**
@@ -20,12 +20,14 @@ export async function applyLaunchPatch(
   version: string,
   probeRoot: string,
 ): Promise<AppliedLaunchPatch | null> {
-  const adapter = findLaunchAdapter(agentId);
-  if (!adapter) return null;
+  const adapter = findLaunchAdapter(agentId)
+  if (!adapter) {
+    return null
+  }
 
-  const probeHome = join(probeRoot, `${agentId}-${version}`);
-  await mkdir(probeHome, { recursive: true });
+  const probeHome = join(probeRoot, `${agentId}-${version}`)
+  await mkdir(probeHome, { recursive: true })
 
-  const patch = await adapter.apply({ agentId, version, probeHome });
-  return { patch: patch ?? {}, probeHome };
+  const patch = await adapter.apply({ agentId, version, probeHome })
+  return { patch: patch ?? {}, probeHome }
 }

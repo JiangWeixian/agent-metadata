@@ -88,7 +88,7 @@ type UnstructuredCommandInput = {
 interface AgentAuthMethod {
     id: string;
     name: string;
-    description?: string | null;
+    description?: null | string;
     [key: string]: unknown;
 }
 /** Agent capabilities — known fields typed, extensions allowed. */
@@ -107,7 +107,7 @@ interface AgentConfigOption {
     id: string;
     name: string;
     currentValue?: unknown;
-    description?: string | null;
+    description?: null | string;
     [key: string]: unknown;
 }
 interface AgentMetadata {
@@ -123,7 +123,7 @@ interface AgentMetadata {
     agentCapabilities: AgentCapabilities;
     authMethods: AgentAuthMethod[];
     modes: SessionMode[];
-    currentModeId: string | null;
+    currentModeId: null | string;
     configOptions: AgentConfigOption[];
     commands: AvailableCommand[];
 }

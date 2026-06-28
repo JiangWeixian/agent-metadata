@@ -1,8 +1,8 @@
 {
   "name": "@agent-metadata/probe",
   "version": "1.0.0",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "start": "tsx src/index.ts",
     "typecheck": "tsc --noEmit"
@@ -16,8 +16,6 @@
     "typescript": "^5.6.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
+    "onlyBuiltDependencies": ["esbuild"]
   }
 }

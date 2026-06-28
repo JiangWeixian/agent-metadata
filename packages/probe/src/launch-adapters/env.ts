@@ -1,16 +1,16 @@
-import type { LaunchAdapter } from "./types";
+import type { LaunchAdapter } from './types'
 
-const DUMMY_KEY = "sk-probe-dummy-000000000000000000000000000000";
-const DUMMY_BASE = "https://api.probe.invalid";
-const DUMMY_MODEL = "probe-dummy-model";
+const DUMMY_KEY = 'sk-probe-dummy-000000000000000000000000000000'
+const DUMMY_BASE = 'https://api.probe.invalid'
+const DUMMY_MODEL = 'probe-dummy-model'
 
 export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
   {
-    agentId: "goose",
+    agentId: 'goose',
     apply: () => ({
       env: {
-        GOOSE_PROVIDER: "openai",
-        GOOSE_PROVIDER__TYPE: "openai",
+        GOOSE_PROVIDER: 'openai',
+        GOOSE_PROVIDER__TYPE: 'openai',
         GOOSE_PROVIDER__HOST: DUMMY_BASE,
         GOOSE_PROVIDER__API_KEY: DUMMY_KEY,
         GOOSE_MODEL: DUMMY_MODEL,
@@ -20,10 +20,10 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
     }),
   },
   {
-    agentId: "github-copilot-cli",
+    agentId: 'github-copilot-cli',
     apply: () => ({
       env: {
-        COPILOT_PROVIDER_TYPE: "openai",
+        COPILOT_PROVIDER_TYPE: 'openai',
         COPILOT_PROVIDER_BASE_URL: DUMMY_BASE,
         COPILOT_PROVIDER_API_KEY: DUMMY_KEY,
         COPILOT_MODEL: DUMMY_MODEL,
@@ -31,7 +31,7 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
     }),
   },
   {
-    agentId: "codebuddy-code",
+    agentId: 'codebuddy-code',
     apply: () => ({
       env: {
         CODEBUDDY_BASE_URL: DUMMY_BASE,
@@ -44,7 +44,7 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
     }),
   },
   {
-    agentId: "qwen-code",
+    agentId: 'qwen-code',
     apply: () => ({
       env: {
         OPENAI_BASE_URL: DUMMY_BASE,
@@ -54,7 +54,7 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
     }),
   },
   {
-    agentId: "glm-acp-agent",
+    agentId: 'glm-acp-agent',
     apply: () => ({
       env: {
         ACP_GLM_BASE_URL: DUMMY_BASE,
@@ -65,32 +65,32 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
     }),
   },
   {
-    agentId: "deepagents",
+    agentId: 'deepagents',
     apply: () => ({
       env: {
         DEEPAGENTS_CODE_OPENAI_BASE_URL: DUMMY_BASE,
         DEEPAGENTS_CODE_OPENAI_API_KEY: DUMMY_KEY,
         OPENAI_API_KEY: DUMMY_KEY,
       },
-      note: "deepagents model selection may still require user config.",
+      note: 'deepagents model selection may still require user config.',
     }),
   },
   {
-    agentId: "auggie",
+    agentId: 'auggie',
     apply: () => {
       const session = JSON.stringify({
         accessToken: DUMMY_KEY,
         tenantURL: DUMMY_BASE,
-        scopes: ["https://api.augmentcode.com"],
-      });
+        scopes: ['https://api.augmentcode.com'],
+      })
       return {
         env: { AUGMENT_SESSION_AUTH: session },
-        note: "auggie: AUGMENT_SESSION_AUTH = fake OAuth session (~/.augment/session.json format: {accessToken, tenantURL, scopes[]}). _parseSessionFromString validates these 3 fields only.",
-      };
+        note: 'auggie: AUGMENT_SESSION_AUTH = fake OAuth session (~/.augment/session.json format: {accessToken, tenantURL, scopes[]}). _parseSessionFromString validates these 3 fields only.',
+      }
     },
   },
   {
-    agentId: "qoder",
+    agentId: 'qoder',
     apply: () => ({
       env: {
         QODER_PERSONAL_ACCESS_TOKEN: DUMMY_KEY,
@@ -101,39 +101,39 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
     }),
   },
   {
-    agentId: "cline",
+    agentId: 'cline',
     apply: () => ({
       env: { CLINE_API_KEY: DUMMY_KEY },
-      note: "cline: CLINE_API_KEY env (compiled binary, existence check at session/new).",
+      note: 'cline: CLINE_API_KEY env (compiled binary, existence check at session/new).',
     }),
   },
   {
-    agentId: "gemini",
+    agentId: 'gemini',
     apply: () => ({
       env: {
-        GOOGLE_GENAI_USE_GCA: "1",
+        GOOGLE_GENAI_USE_GCA: '1',
         GOOGLE_CLOUD_ACCESS_TOKEN: DUMMY_KEY,
-        GEMINI_API_KEY: "AIzaSyProbeDummyKey0000000000000000000",
+        GEMINI_API_KEY: 'AIzaSyProbeDummyKey0000000000000000000',
       },
-      note: "gemini: GOOGLE_GENAI_USE_GCA=1 + GOOGLE_CLOUD_ACCESS_TOKEN bypasses getTokenInfo network validation in initOauthClient; validateAuthMethod is existence-only for LOGIN_WITH_GOOGLE.",
+      note: 'gemini: GOOGLE_GENAI_USE_GCA=1 + GOOGLE_CLOUD_ACCESS_TOKEN bypasses getTokenInfo network validation in initOauthClient; validateAuthMethod is existence-only for LOGIN_WITH_GOOGLE.',
     }),
   },
   {
-    agentId: "factory-droid",
+    agentId: 'factory-droid',
     apply: () => ({
       env: { FACTORY_API_KEY: DUMMY_KEY },
       note: "factory-droid: FACTORY_API_KEY env (agent's own auth_required message says 'set a FACTORY_API_KEY environment variable').",
     }),
   },
   {
-    agentId: "corust-agent",
+    agentId: 'corust-agent',
     apply: () => ({
       env: { CORUST_API_KEY: DUMMY_KEY },
       note: "corust-agent: CORUST_API_KEY env (binary strings show 'Check your CORUST_API_KEY' + 'auth resolver: no credentials found'; gateway.corust.ai may validate — eager-validation candidate).",
     }),
   },
   {
-    agentId: "poolside",
+    agentId: 'poolside',
     apply: () => ({
       env: {
         POOLSIDE_API_KEY: DUMMY_KEY,
@@ -141,7 +141,7 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
         POOLSIDE_STANDALONE_BASE_URL: DUMMY_BASE,
         POOLSIDE_STANDALONE_MODEL: DUMMY_MODEL,
       },
-      note: "poolside: POOLSIDE_API_KEY + POOLSIDE_STANDALONE_* env. Standalone mode avoids the cloud tenant requirement (otherwise Internal error). authMethods=[] but API-key + standalone path works.",
+      note: 'poolside: POOLSIDE_API_KEY + POOLSIDE_STANDALONE_* env. Standalone mode avoids the cloud tenant requirement (otherwise Internal error). authMethods=[] but API-key + standalone path works.',
     }),
   },
-];
+]

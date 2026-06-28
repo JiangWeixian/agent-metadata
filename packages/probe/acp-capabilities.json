@@ -65,9 +65,7 @@
           "_meta": {
             "terminal-auth": {
               "command": "/Volumes/ORICO/Users/jiangwei/projects/agent-metadata/packages/probe/.acp-cache/amp-acp@0.8.1/amp-acp",
-              "args": [
-                "--setup"
-              ],
+              "args": ["--setup"],
               "label": "Amp API Key Setup"
             }
           }
@@ -8501,9 +8499,7 @@
           "_meta": {
             "terminal-auth": {
               "command": "/Volumes/ORICO/Users/jiangwei/.npm/_npx/a6df615aaf41884e/node_modules/@github/copilot-darwin-arm64/copilot",
-              "args": [
-                "login"
-              ],
+              "args": ["login"],
               "label": "Copilot Login"
             }
           }
@@ -9738,12 +9734,8 @@
         "_meta": {
           "x.ai/fs_notify": true,
           "x.ai/hooks": {
-            "blockingEvents": [
-              "pre_tool_use"
-            ],
-            "decisions": [
-              "deny"
-            ]
+            "blockingEvents": ["pre_tool_use"],
+            "decisions": ["deny"]
           }
         }
       },
@@ -10541,9 +10533,7 @@
           "_meta": {
             "terminal-auth": {
               "command": "npx",
-              "args": [
-                "@jetbrains/junie@latest"
-              ],
+              "args": ["@jetbrains/junie@latest"],
               "label": "Junie CLI login",
               "env": {
                 "JUNIE_HOME": "/Volumes/ORICO/Users/jiangwei/.junie"
@@ -12694,9 +12684,7 @@
           "_meta": {
             "terminal-auth": {
               "command": "./kimi",
-              "args": [
-                "login"
-              ],
+              "args": ["login"],
               "label": "Kimi Code Login",
               "env": {},
               "type": "terminal"
@@ -14144,9 +14132,7 @@
           "name": "Launch pi in the terminal",
           "description": "Start pi in an interactive terminal to configure API keys or login",
           "type": "terminal",
-          "args": [
-            "--terminal-login"
-          ],
+          "args": ["--terminal-login"],
           "env": {}
         }
       ],
@@ -15351,9 +15337,7 @@
           "description": "Requires setting the `OPENAI_API_KEY` environment variable",
           "_meta": {
             "type": "terminal",
-            "args": [
-              "--auth-type=openai"
-            ]
+            "args": ["--auth-type=openai"]
           }
         }
       ],
@@ -15457,9 +15441,7 @@
               "non_interactive",
               "acp"
             ],
-            "subcommands": [
-              "paths"
-            ],
+            "subcommands": ["paths"],
             "modelInvocable": false
           }
         },
@@ -15591,9 +15573,7 @@
               "non_interactive",
               "acp"
             ],
-            "subcommands": [
-              "detail"
-            ],
+            "subcommands": ["detail"],
             "modelInvocable": false
           }
         },
