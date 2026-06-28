@@ -1,29 +1,20 @@
 import type {
   SessionMode,
   AvailableCommand,
-  AuthMethod,
-  AgentCapabilities,
-  SessionConfigOption,
 } from "@agentclientprotocol/sdk";
 
-export type {
-  SessionMode,
-  AvailableCommand,
-  AuthMethod,
-  AgentCapabilities,
-  SessionConfigOption,
-};
+export type { SessionMode, AvailableCommand };
 
 export interface AgentMetadata {
   id: string;
   name: string;
   version: string;
   protocolVersion: number;
-  agentInfo: { name: string; version: string };
-  agentCapabilities: AgentCapabilities;
-  authMethods: AuthMethod[];
+  agentInfo: { name: string; version: string; [key: string]: unknown };
+  agentCapabilities: { [key: string]: unknown };
+  authMethods: { [key: string]: unknown }[];
   modes: SessionMode[];
   currentModeId: string | null;
-  configOptions: SessionConfigOption[];
+  configOptions: unknown[];
   commands: AvailableCommand[];
 }

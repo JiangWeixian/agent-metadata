@@ -14,10 +14,175 @@
       "import": "./dist/types.js",
       "require": "./dist/types.cjs"
     },
+    "./amp-acp": {
+      "types": "./dist/agents/amp-acp.d.ts",
+      "import": "./dist/agents/amp-acp.js",
+      "require": "./dist/agents/amp-acp.cjs"
+    },
+    "./auggie": {
+      "types": "./dist/agents/auggie.d.ts",
+      "import": "./dist/agents/auggie.js",
+      "require": "./dist/agents/auggie.cjs"
+    },
+    "./autohand": {
+      "types": "./dist/agents/autohand.d.ts",
+      "import": "./dist/agents/autohand.js",
+      "require": "./dist/agents/autohand.cjs"
+    },
+    "./claude-acp": {
+      "types": "./dist/agents/claude-acp.d.ts",
+      "import": "./dist/agents/claude-acp.js",
+      "require": "./dist/agents/claude-acp.cjs"
+    },
+    "./cline": {
+      "types": "./dist/agents/cline.d.ts",
+      "import": "./dist/agents/cline.js",
+      "require": "./dist/agents/cline.cjs"
+    },
+    "./codebuddy-code": {
+      "types": "./dist/agents/codebuddy-code.d.ts",
+      "import": "./dist/agents/codebuddy-code.js",
+      "require": "./dist/agents/codebuddy-code.cjs"
+    },
+    "./codex-acp": {
+      "types": "./dist/agents/codex-acp.d.ts",
+      "import": "./dist/agents/codex-acp.js",
+      "require": "./dist/agents/codex-acp.cjs"
+    },
+    "./cortex-code": {
+      "types": "./dist/agents/cortex-code.d.ts",
+      "import": "./dist/agents/cortex-code.js",
+      "require": "./dist/agents/cortex-code.cjs"
+    },
+    "./corust-agent": {
+      "types": "./dist/agents/corust-agent.d.ts",
+      "import": "./dist/agents/corust-agent.js",
+      "require": "./dist/agents/corust-agent.cjs"
+    },
+    "./crow-cli": {
+      "types": "./dist/agents/crow-cli.d.ts",
+      "import": "./dist/agents/crow-cli.js",
+      "require": "./dist/agents/crow-cli.cjs"
+    },
+    "./cursor": {
+      "types": "./dist/agents/cursor.d.ts",
+      "import": "./dist/agents/cursor.js",
+      "require": "./dist/agents/cursor.cjs"
+    },
+    "./deepagents": {
+      "types": "./dist/agents/deepagents.d.ts",
+      "import": "./dist/agents/deepagents.js",
+      "require": "./dist/agents/deepagents.cjs"
+    },
+    "./devin": {
+      "types": "./dist/agents/devin.d.ts",
+      "import": "./dist/agents/devin.js",
+      "require": "./dist/agents/devin.cjs"
+    },
+    "./dimcode": {
+      "types": "./dist/agents/dimcode.d.ts",
+      "import": "./dist/agents/dimcode.js",
+      "require": "./dist/agents/dimcode.cjs"
+    },
+    "./dirac": {
+      "types": "./dist/agents/dirac.d.ts",
+      "import": "./dist/agents/dirac.js",
+      "require": "./dist/agents/dirac.cjs"
+    },
+    "./factory-droid": {
+      "types": "./dist/agents/factory-droid.d.ts",
+      "import": "./dist/agents/factory-droid.js",
+      "require": "./dist/agents/factory-droid.cjs"
+    },
+    "./fast-agent": {
+      "types": "./dist/agents/fast-agent.d.ts",
+      "import": "./dist/agents/fast-agent.js",
+      "require": "./dist/agents/fast-agent.cjs"
+    },
     "./gemini": {
       "types": "./dist/agents/gemini.d.ts",
       "import": "./dist/agents/gemini.js",
       "require": "./dist/agents/gemini.cjs"
+    },
+    "./github-copilot-cli": {
+      "types": "./dist/agents/github-copilot-cli.d.ts",
+      "import": "./dist/agents/github-copilot-cli.js",
+      "require": "./dist/agents/github-copilot-cli.cjs"
+    },
+    "./glm-acp-agent": {
+      "types": "./dist/agents/glm-acp-agent.d.ts",
+      "import": "./dist/agents/glm-acp-agent.js",
+      "require": "./dist/agents/glm-acp-agent.cjs"
+    },
+    "./goose": {
+      "types": "./dist/agents/goose.d.ts",
+      "import": "./dist/agents/goose.js",
+      "require": "./dist/agents/goose.cjs"
+    },
+    "./grok-build": {
+      "types": "./dist/agents/grok-build.d.ts",
+      "import": "./dist/agents/grok-build.js",
+      "require": "./dist/agents/grok-build.cjs"
+    },
+    "./junie": {
+      "types": "./dist/agents/junie.d.ts",
+      "import": "./dist/agents/junie.js",
+      "require": "./dist/agents/junie.cjs"
+    },
+    "./kilo": {
+      "types": "./dist/agents/kilo.d.ts",
+      "import": "./dist/agents/kilo.js",
+      "require": "./dist/agents/kilo.cjs"
+    },
+    "./kimi": {
+      "types": "./dist/agents/kimi.d.ts",
+      "import": "./dist/agents/kimi.js",
+      "require": "./dist/agents/kimi.cjs"
+    },
+    "./mistral-vibe": {
+      "types": "./dist/agents/mistral-vibe.d.ts",
+      "import": "./dist/agents/mistral-vibe.js",
+      "require": "./dist/agents/mistral-vibe.cjs"
+    },
+    "./nova": {
+      "types": "./dist/agents/nova.d.ts",
+      "import": "./dist/agents/nova.js",
+      "require": "./dist/agents/nova.cjs"
+    },
+    "./opencode": {
+      "types": "./dist/agents/opencode.d.ts",
+      "import": "./dist/agents/opencode.js",
+      "require": "./dist/agents/opencode.cjs"
+    },
+    "./pi-acp": {
+      "types": "./dist/agents/pi-acp.d.ts",
+      "import": "./dist/agents/pi-acp.js",
+      "require": "./dist/agents/pi-acp.cjs"
+    },
+    "./poolside": {
+      "types": "./dist/agents/poolside.d.ts",
+      "import": "./dist/agents/poolside.js",
+      "require": "./dist/agents/poolside.cjs"
+    },
+    "./qwen-code": {
+      "types": "./dist/agents/qwen-code.d.ts",
+      "import": "./dist/agents/qwen-code.js",
+      "require": "./dist/agents/qwen-code.cjs"
+    },
+    "./sigit": {
+      "types": "./dist/agents/sigit.d.ts",
+      "import": "./dist/agents/sigit.js",
+      "require": "./dist/agents/sigit.cjs"
+    },
+    "./stakpak": {
+      "types": "./dist/agents/stakpak.d.ts",
+      "import": "./dist/agents/stakpak.js",
+      "require": "./dist/agents/stakpak.cjs"
+    },
+    "./vtcode": {
+      "types": "./dist/agents/vtcode.d.ts",
+      "import": "./dist/agents/vtcode.js",
+      "require": "./dist/agents/vtcode.cjs"
     },
     "./package.json": "./package.json"
   },
