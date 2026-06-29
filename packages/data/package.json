@@ -2,8 +2,13 @@
   "name": "acp-agent-metadata",
   "version": "0.0.0",
   "type": "module",
-  "license": "MIT",
   "description": "Type-safe ACP agent capability metadata (modes, commands, auth methods)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JiangWeixian/agent-metadata.git",
+    "directory": "packages/data"
+  },
   "files": [
     "dist",
     "package.json"
@@ -207,8 +212,6 @@
     "vitest": "^2.0.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
+    "onlyBuiltDependencies": ["esbuild"]
   }
 }
