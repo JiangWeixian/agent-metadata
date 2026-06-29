@@ -9,7 +9,7 @@
     "ci:version": "pnpm changeset version",
     "ci:publish": "pnpm run build && pnpm --filter acp-agent-metadata run set-date-version && pnpm changeset publish",
     "ci:snapshot": "pnpm changeset version --snapshot snapshot",
-    "ci:prerelease": "pnpm run build && pnpm --filter acp-agent-metadata exec npm publish --provenance --access public --tag snapshot",
+    "ci:prerelease": "pnpm run build && pnpm changeset publish --no-git-tag --tag snapshot",
     "lint:fix": "eslint packages/probe packages/data/src --fix",
     "prepare": "husky install"
   },
