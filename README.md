@@ -3,6 +3,8 @@
 [![version](https://img.shields.io/npm/v/acp-agent-metadata?style=flat-square)](https://www.npmjs.com/package/acp-agent-metadata)
 [![agents](https://img.shields.io/badge/agents-34-9cf?style=flat-square)](packages/data/dist-src/agents/)
 
+**English** | [简体中文](README.zh-CN.md)
+
 Typed metadata for [Agent Client Protocol (ACP)](https://agentclientprotocol.com) coding agents — their session modes, slash commands, capabilities, and auth methods — captured by probing each agent's live ACP server and shipped as a tree-shakeable npm package.
 
 ## What this is

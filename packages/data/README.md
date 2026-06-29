@@ -3,6 +3,8 @@
 [![version](https://img.shields.io/npm/v/acp-agent-metadata?style=flat-square)](https://www.npmjs.com/package/acp-agent-metadata)
 [![agents](https://img.shields.io/badge/agents-34-9cf?style=flat-square)](dist-src/agents/)
 
+**English** | [简体中文](README.zh-CN.md)
+
 Type-safe metadata for [ACP](https://agentclientprotocol.com) coding agents — their session modes, slash commands, capabilities, and auth methods — generated from live probes and shipped as ESM + CJS with **zero runtime dependencies**.
 
 This is the publishable package of the [`agent-metadata`](../../README.md) workspace. The probe tool that produces the data lives in [`packages/probe`](../probe).
