@@ -91,8 +91,16 @@ export async function probeAgent(agent: RegistryAgent, opts: ProbeOptions): Prom
   const proc = spawn(resolved.command, launchArgs, {
     cwd: resolved.cwd,
     env: { ...process.env, ...resolved.env, ...seedEnv },
-    stdio: ['pipe', 'pipe', opts.verbose ? 'inherit' : 'ignore'],
+    stdio: ['pipe', 'pipe', 'pipe'],
     detached: true,
+  })
+
+  const stderrChunks: Buffer[] = []
+  proc.stderr?.on('data', (chunk: Buffer) => {
+    stderrChunks.push(chunk)
+    if (opts.verbose) {
+      process.stderr.write(chunk)
+    }
   })
 
   const kill = () => {
@@ -182,6 +190,12 @@ export async function probeAgent(agent: RegistryAgent, opts: ProbeOptions): Prom
   } finally {
     clearTimeout(timer)
     kill()
+  }
+
+  const stderr = Buffer.concat(stderrChunks).toString('utf8').trim()
+  if (stderr && result.status !== 'ok') {
+    const tail = stderr.split('\n').slice(-15).join('\n')
+    result.error = result.error ? `${result.error}\n--- agent stderr (tail) ---\n${tail}` : `--- agent stderr (tail) ---\n${tail}`
   }
 
   return result
