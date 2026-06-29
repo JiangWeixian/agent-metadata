@@ -39,44 +39,12 @@ export const agent: AgentMetadata = {
       "name": "agent-browser"
     },
     {
-      "description": "Create Dim deployable static-site Artifact outputs. Use when the user asks to create, preview, smoke-test, or deploy a static website, landing page, HTML demo, browser app, or static Artifact Deployment test that must be generated under output/index.html and published by Dim.",
-      "name": "artifact-static-site"
-    },
-    {
-      "description": "Multi Agents Looping — a multi-agent deep research protocol that spawns parallel explorer agents each round, gates every round with a fresh verifier agent, loops until coverage passes, then merges findings into a structured investigation report. Use only when the user explicitly asks for a deep investigation or a formal multi-round research effort that justifies spawning and coordinating many agents.",
-      "name": "deep-investigate"
-    },
-    {
-      "description": "Use when asked to analyze code and add explanatory code annotations, file headers, doc comments, inline comments, or JSX-safe comments.",
-      "name": "docs-code"
-    },
-    {
-      "description": "Docs-driven delivery workflow. Use when splitting design docs into tasks, creating implementation plans under docs/plan, executing develop/verify/merge cycles, maintaining design doc consistency, or writing UI layout documentation with ASCII diagrams.",
-      "name": "docs-sprint"
-    },
-    {
-      "description": "Professional DOCX document creation, editing, and formatting using OpenXML SDK (.NET). Three pipelines: (A) create new documents from scratch, (B) fill/edit content in existing documents, (C) apply template formatting with XSD validation gate-check. MUST use this skill whenever the user wants to produce, modify, or format a Word document — including when they say \"write a report\", \"draft a proposal\", \"make a contract\", \"fill in this form\", \"reformat to match this template\", or any task whose final output is a .docx file. Even if the user doesn't mention \"docx\" explicitly, if the task implies a printable/formal document, use this skill.\n",
-      "name": "docx"
-    },
-    {
       "description": "Produce polished Excel spreadsheets (reports, budgets, data exports, any \"export to Excel\" deliverable). Use whenever the user asks for an Excel file, a spreadsheet, or an .xlsx deliverable.",
       "name": "excel"
     },
     {
       "description": "Promote and assist with Figma MCP integration. ACTIVATE when the user shares a Figma URL (figma.com), mentions Figma designs or components, shares PNG images that may originate from Figma, or when Figma MCP tools are already connected and being used. Handles installation encouragement, conversational promotion, and push-back-to-Figma flows.",
       "name": "figma-mcp-helper"
-    },
-    {
-      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
-      "name": "find-skills"
-    },
-    {
-      "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
-      "name": "gpt-taste"
-    },
-    {
-      "description": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.",
-      "name": "high-end-visual-design"
     },
     {
       "description": "RCA runbook for alerts. Given an alert link (or prompted to provide one), identifies the alert type, verifies tooling/auth, and walks through root cause analysis using deep research. Persists learnings to incident-guidelines for future reuse.",
@@ -103,20 +71,12 @@ export const agent: AgentMetadata = {
       "name": "install-wiki"
     },
     {
-      "description": "Use this skill when visual quality and design identity matter for a PDF. CREATE (generate from scratch): \"make a PDF\", \"generate a report\", \"write a proposal\", \"create a resume\", \"beautiful PDF\", \"professional document\", \"cover page\", \"polished PDF\", \"client-ready document\". FILL (complete form fields): \"fill in the form\", \"fill out this PDF\", \"complete the form fields\", \"write values into PDF\", \"what fields does this PDF have\". REFORMAT (apply design to an existing doc): \"reformat this document\", \"apply our style\", \"convert this Markdown/text to PDF\", \"make this doc look good\", \"re-style this PDF\". This skill uses a token-based design system: color, typography, and spacing are derived from the document type and flow through every page. The output is print-ready. Prefer this skill when appearance matters, not just when any PDF output is needed.\n",
-      "name": "pdf"
-    },
-    {
       "description": "Produce polished PDF documents (reports, invoices, resumes, letters, flyers, certificates, any \"export to PDF\" deliverable). Use whenever the user asks for a PDF or a printable document.",
       "name": "pdf-document"
     },
     {
       "description": "Produce polished PowerPoint presentations (decks, slide shows, pitch decks, any \"export to PowerPoint\" deliverable). Use whenever the user asks for a PowerPoint, a slide deck, or a presentation.",
       "name": "powerpoint"
-    },
-    {
-      "description": "Generate, edit, and read PowerPoint presentations. Create from scratch with PptxGenJS (cover, TOC, content, section divider, summary slides), edit existing PPTX via XML workflows, or extract text with markitdown. Triggers: PPT, PPTX, PowerPoint, presentation, slide, deck, slides.",
-      "name": "pptx-generator"
     },
     {
       "description": "Review code changes and identify high-confidence, actionable bugs. Use when the user wants to:\n- Review a pull request or branch diff\n- Find bugs, security issues, or correctness problems in code changes\n- Get a structured summary of review findings\n",
@@ -135,14 +95,6 @@ export const agent: AgentMetadata = {
       "name": "simplify"
     },
     {
-      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.",
-      "name": "skill-creator"
-    },
-    {
-      "description": "Install Agents skills into $AGENTS_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos).",
-      "name": "skill-installer"
-    },
-    {
       "description": "Automates terminal user interface (TUI) testing. Use when you need to launch, interact with, test, or debug terminal applications, capture TUI snapshots, or automate terminal inputs.",
       "name": "tuistory"
     },
@@ -157,10 +109,6 @@ export const agent: AgentMetadata = {
     {
       "description": "Produce polished Word documents (reports, letters, proposals, printable docs, any .docx deliverable). Use whenever the user asks for a Word document or a .docx file.",
       "name": "word-document"
-    },
-    {
-      "description": "Open, create, read, analyze, edit, or validate Excel/spreadsheet files (.xlsx, .xlsm, .csv, .tsv). Use when the user asks to create, build, modify, analyze, read, validate, or format any Excel spreadsheet, financial model, pivot table, or tabular data file. Covers: creating new xlsx from scratch, reading and analyzing existing files, editing existing xlsx with zero format loss, formula recalculation and validation, and applying professional financial formatting standards. Triggers on 'spreadsheet', 'Excel', '.xlsx', '.csv', 'pivot table', 'financial model', 'formula', or any request to produce tabular data in Excel format.",
-      "name": "xlsx"
     }
   ],
   "configOptions": [
