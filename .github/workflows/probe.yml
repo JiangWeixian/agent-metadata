@@ -15,7 +15,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      issues: write
     steps:
       - uses: actions/checkout@v4
 
@@ -88,7 +87,6 @@ jobs:
           git checkout -b "$BRANCH"
           git commit -m "chore: update agent metadata snapshot"
           git push origin "$BRANCH"
-          gh label create automated --description "Automated probe run" --color C9E7C9 --force 2>/dev/null || true
           gh pr create \
             --title "chore: update agent metadata snapshot ($(date -u +%Y-%m-%d))" \
             --body "Automated probe run. Review the dist-src/ diff for data changes. Includes a changeset for release." \
