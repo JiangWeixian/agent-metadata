@@ -1,6 +1,6 @@
 {
   "name": "acp-agent-metadata",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "Type-safe ACP agent capability metadata (modes, commands, auth methods)",
   "license": "MIT",
