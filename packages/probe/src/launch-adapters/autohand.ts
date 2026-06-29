@@ -1,8 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import type { LaunchAdapter } from './types'
-
-const DUMMY_KEY = 'sk-probe-dummy-000000000000000000000000000000'
+import { DUMMY_KEY } from './dummy-env'
 
 /**
  * autohand adapter: once the underlying CLI is installed, the ACP server requires `autohand login`.

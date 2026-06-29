@@ -16,6 +16,7 @@ import { Readable, Writable } from 'node:stream'
 import type { AgentResult, RegistryAgent } from './types'
 import { resolveRun } from './install'
 import { applyLaunchPatch } from './launch-adapters'
+import { BASELINE_DUMMY_ENV } from './launch-adapters/dummy-env'
 
 export interface ProbeOptions {
   cwd: string
@@ -26,24 +27,8 @@ export interface ProbeOptions {
 
 const AUTH_REQUIRED_CODE = -32_000
 
-const DUMMY_KEYS: Record<string, string> = {
-  ANTHROPIC_API_KEY: 'sk-ant-probe-dummy-key-000000000000000000000',
-  OPENAI_API_KEY: 'sk-probe-dummy-key-00000000000000000000000000',
-  GOOGLE_API_KEY: 'AIzaSyProbeDummyKey0000000000000000000',
-  GEMINI_API_KEY: 'AIzaSyProbeDummyKey0000000000000000000',
-  GOOGLE_GENAI_API_KEY: 'AIzaSyProbeDummyKey0000000000000000000',
-  MOONSHOT_API_KEY: 'sk-probe-dummy-key-000000000000000000000',
-  ZAI_API_KEY: 'sk-probe-dummy-key-000000000000000000000',
-  Z_AI_API_KEY: 'sk-probe-dummy-key-000000000000000000000',
-  ZHIPUAI_API_KEY: 'sk-probe-dummy-key-000000000000000000000',
-  DEEPSEEK_API_KEY: 'sk-probe-dummy-key-000000000000000000000',
-  MISTRAL_API_KEY: 'sk-probe-dummy-key-000000000000000000000',
-  XAI_API_KEY: 'xai-probe-dummy-key-000000000000000000000',
-  CODEWHISPERER_API_KEY: 'probe-dummy',
-}
-
 function dummyAuthEnv(): Record<string, string> {
-  return process.env.ACP_DUMMY_AUTH === '1' ? { ...DUMMY_KEYS } : {}
+  return process.env.ACP_DUMMY_AUTH === '1' ? { ...BASELINE_DUMMY_ENV } : {}
 }
 
 export function newResult(agent: RegistryAgent): AgentResult {

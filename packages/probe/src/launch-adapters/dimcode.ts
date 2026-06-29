@@ -3,10 +3,7 @@ import { existsSync } from 'node:fs'
 import { mkdir, rm } from 'node:fs/promises'
 import { join } from 'node:path'
 import type { LaunchAdapter } from './types'
-
-const DUMMY_KEY = 'sk-probe-dummy-000000000000000000000000000000'
-const DUMMY_BASE = 'https://api.probe.invalid'
-const DUMMY_MODEL = 'probe-dummy-model'
+import { DUMMY_BASE, DUMMY_KEY, DUMMY_MODEL } from './dummy-env'
 
 /**
  * dimcode adapter: ACP reports "Provider credentials are required".

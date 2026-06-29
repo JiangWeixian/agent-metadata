@@ -1,8 +1,5 @@
 import type { LaunchAdapter } from './types'
-
-const DUMMY_KEY = 'sk-probe-dummy-000000000000000000000000000000'
-const DUMMY_BASE = 'https://api.probe.invalid'
-const DUMMY_MODEL = 'probe-dummy-model'
+import { DUMMY_BASE, DUMMY_GOOGLE_KEY, DUMMY_KEY, DUMMY_MODEL } from './dummy-env'
 
 export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
   {
@@ -113,7 +110,7 @@ export const ENV_LAUNCH_ADAPTERS: LaunchAdapter[] = [
       env: {
         GOOGLE_GENAI_USE_GCA: '1',
         GOOGLE_CLOUD_ACCESS_TOKEN: DUMMY_KEY,
-        GEMINI_API_KEY: 'AIzaSyProbeDummyKey0000000000000000000',
+        GEMINI_API_KEY: DUMMY_GOOGLE_KEY,
       },
       note: 'gemini: GOOGLE_GENAI_USE_GCA=1 + GOOGLE_CLOUD_ACCESS_TOKEN bypasses getTokenInfo network validation in initOauthClient; validateAuthMethod is existence-only for LOGIN_WITH_GOOGLE.',
     }),
