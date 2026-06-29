@@ -3,10 +3,22 @@ on:
   push:
     branches:
       - develop
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch for snapshot release
+        required: true
+        default: develop
+        type: string
+
 env:
   CI: true
+
 jobs:
+  # Formal release: runs on push to develop (changesets opens a version PR,
+  # then publishes when versions are bumped).
   release:
+    if: github.event_name == 'push'
     timeout-minutes: 15
     runs-on: ubuntu-latest
     permissions:
@@ -30,20 +42,19 @@ jobs:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
       - name: Get pnpm store directory
+        id: pnpm-cache
         shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@v4
         name: Setup pnpm cache
         with:
-          path: ${{ env.STORE_PATH }}
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       - name: Install
-        run: |
-          pnpm install --frozen-lockfile=false
-      - name: create and publish versions
+        run: pnpm install --frozen-lockfile=false
+      - name: Create and publish versions
         uses: changesets/action@v1
         with:
           version: pnpm ci:version
@@ -52,5 +63,51 @@ jobs:
           publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ""
           NPM_CONFIG_PROVENANCE: true
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Snapshot release: runs on manual dispatch, publishes a prerelease under
+  # the `snapshot` dist-tag. Tokenless via OIDC trusted publishing.
+  snapshot:
+    if: github.event_name == 'workflow_dispatch'
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          run_install: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install
+        run: pnpm install --frozen-lockfile=false
+      - name: Create and publish snapshot
+        run: |
+          pnpm ci:snapshot
+          pnpm ci:prerelease
+        env:
+          NPM_TOKEN: ""
+          NPM_CONFIG_PROVENANCE: true
