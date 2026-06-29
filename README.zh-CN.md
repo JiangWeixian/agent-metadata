@@ -32,7 +32,7 @@ npm install acp-agent-metadata
 pnpm add acp-agent-metadata
 ```
 
-要求 Node.js 22+（见 [`.node-version`](.node-version)）。本包内联了 ACP SDK 类型，因此 `@agentclientprotocol/sdk` **不是**运行时依赖。
+运行时要求 Node.js 22+；开发与 CI 使用 Node 24（见 [`.node-version`](.node-version)）。本包内联了 ACP SDK 类型，因此 `@agentclientprotocol/sdk` **不是**运行时依赖。
 
 ## 用法
 
@@ -73,7 +73,7 @@ flowchart LR
 ```
 
 1. `packages/probe` 启动每个智能体，使用 ACP 协议通信，并为每个智能体写入一个 `cache/<id>.json`。
-2. `packages/data` 运行 `pnpm codegen`，只保留 `status: "ok"` 的智能体，通过固定的字段白名单进行映射，并生成 `.ts` 源码。
+2. `packages/data` 运行 `pnpm codegen`，(重新)写入探测结果为 `status: "ok"` 的智能体 —— 并**保留**之前已提交但本次未探测通过的智能体（如需登录或环境特定的失败），因此 CI 不会丢失本地采集到的数据。通过固定的字段白名单映射并生成 `.ts` 源码。
 3. `tsup` 将该源码编译为 ESM + CJS，并解析生成 `.d.ts`（SDK 类型已内联）。
 4. `dist-src/` 作为可审查的事实来源被提交；`dist/` 已 gitignore，在发布时构建。
 
@@ -108,7 +108,7 @@ ACP_AGENTS=kimi ACP_DUMMY_AUTH=1 pnpm start # 探测单个智能体
 
 ## 项目状态
 
-实验性，1.0 之前阶段（当前为 `0.0.0`）。智能体集合、字段结构和包接口可能发生变化。请将数据视为每个智能体在探测时所声明内容的快照，而非稳定契约。
+实验性 —— 发布版本采用日期版本号（CalVer，如 `2026.629.0`）。智能体集合、字段结构和包接口可能发生变化。请将数据视为每个智能体在探测时所声明内容的快照，而非稳定契约。
 
 ## 许可证
 

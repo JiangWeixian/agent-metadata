@@ -84,7 +84,7 @@ flowchart LR
     Src -->|"tsup"| Dist["dist/<br/><i>发布时构建</i>"]
 ```
 
-1. [`scripts/codegen.ts`](scripts/codegen.ts) 从探针包读取每个 `cache/<id>.json`，只保留 `status: "ok"`，通过固定的白名单映射字段，对键排序以保证输出稳定，并写入 `dist-src/*.ts`。
+1. [`scripts/codegen.ts`](scripts/codegen.ts) 从探针包读取每个 `cache/<id>.json`，(重新)写入返回 `status: "ok"` 的智能体，并**保留**之前已提交但本次未通过的 `dist-src` 条目（这样 CI 不会丢失本地采集的数据）。通过固定的白名单映射字段，对键排序以保证输出稳定，再写入 `dist-src/*.ts`。
 2. [`tsup.config.ts`](tsup.config.ts) 将 `dist-src/` 编译为 `dist/`（ESM + CJS），通过 `dts: { resolve: true }` 内联 SDK 类型。
 3. codegen 还会重写 [`package.json`](package.json) 中的 `exports` 映射，以匹配当前智能体集合。
 
@@ -99,4 +99,4 @@ pnpm test        # vitest（codegen 快照测试）
 
 ## 项目状态
 
-实验性，1.0 之前阶段（`0.0.0`）。智能体集合、字段结构和导出接口可能发生变化。数据是每个智能体在探测时所声明内容的快照，而非稳定契约。采用 [MIT](../../LICENSE) 许可证 —— workspace 范围的状态见根目录 [README](../../README.md)。
+实验性 —— 发布版本采用日期版本号（CalVer，如 `2026.629.0`）。智能体集合、字段结构和导出接口可能发生变化。数据是每个智能体在探测时所声明内容的快照，而非稳定契约。采用 [MIT](../../LICENSE) 许可证 —— workspace 范围的状态见根目录 [README](../../README.md)。

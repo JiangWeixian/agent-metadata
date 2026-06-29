@@ -32,7 +32,7 @@ npm install acp-agent-metadata
 pnpm add acp-agent-metadata
 ```
 
-Requires Node.js 22+ (see [`.node-version`](.node-version)). The package bundles the ACP SDK types inline, so `@agentclientprotocol/sdk` is **not** a runtime dependency.
+Requires Node.js 22+ at runtime; development and CI use Node 24 (see [`.node-version`](.node-version)). The package bundles the ACP SDK types inline, so `@agentclientprotocol/sdk` is **not** a runtime dependency.
 
 ## Usage
 
@@ -73,7 +73,7 @@ flowchart LR
 ```
 
 1. `packages/probe` spawns each agent, speaks ACP, and writes one `cache/<id>.json` per agent.
-2. `packages/data` runs `pnpm codegen`, which keeps only `status: "ok"` agents, maps them through a fixed field allowlist, and emits `.ts` source.
+2. `packages/data` runs `pnpm codegen`, which (re)writes agents that probed `status: "ok"` — **preserving** any previously committed agents that didn't (e.g. auth-required or env-specific failures), so a CI run can never drop locally captured data. It maps fields through a fixed allowlist and emits `.ts` source.
 3. `tsup` compiles that source into ESM + CJS with resolved `.d.ts` (SDK types inlined).
 4. `dist-src/` is committed as the reviewable source of truth; `dist/` is gitignored and built at publish time.
 
@@ -108,7 +108,7 @@ Contributions are welcome. Open an [issue](https://github.com/JiangWeixian/agent
 
 ## Project Status
 
-Experimental and pre-1.0 (currently `0.0.0`). The agent set, field shape, and package surface may change. Treat the data as a snapshot of what each agent advertised at probe time, not as a stable contract.
+Experimental — releases use date-based versions (CalVer, e.g. `2026.629.0`). The agent set, field shape, and package surface may change. Treat the data as a snapshot of what each agent advertised at probe time, not as a stable contract.
 
 ## License
 

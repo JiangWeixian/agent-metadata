@@ -84,7 +84,7 @@ flowchart LR
     Src -->|"tsup"| Dist["dist/<br/><i>built at publish</i>"]
 ```
 
-1. [`scripts/codegen.ts`](scripts/codegen.ts) reads each `cache/<id>.json` from the probe package, keeps only `status: "ok"`, maps fields through a fixed allowlist, sorts keys for stable output, and writes `dist-src/*.ts`.
+1. [`scripts/codegen.ts`](scripts/codegen.ts) reads each `cache/<id>.json` from the probe package, (re)writes agents that returned `status: "ok"`, and **preserves** any previously committed `dist-src` entries for agents that didn't (so a CI run can't drop locally captured data). Fields are mapped through a fixed allowlist and keys sorted for stable output, then written to `dist-src/*.ts`.
 2. [`tsup.config.ts`](tsup.config.ts) compiles `dist-src/` into `dist/` as ESM + CJS, with `dts: { resolve: true }` inlining the SDK types.
 3. codegen also rewrites the `exports` map in [`package.json`](package.json) to match the current agent set.
 
@@ -99,4 +99,4 @@ pnpm test        # vitest (codegen snapshot tests)
 
 ## Project status
 
-Experimental and pre-1.0 (`0.0.0`). The agent set, field shape, and export surface may change. The data is a snapshot of what each agent advertised at probe time, not a stable contract. Licensed under [MIT](../../LICENSE) — see the root [README](../../README.md) for workspace-wide status.
+Experimental — releases use date-based versions (CalVer, e.g. `2026.629.0`). The agent set, field shape, and export surface may change. The data is a snapshot of what each agent advertised at probe time, not a stable contract. Licensed under [MIT](../../LICENSE) — see the root [README](../../README.md) for workspace-wide status.
