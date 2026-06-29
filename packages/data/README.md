@@ -97,4 +97,4 @@ pnpm test        # vitest (codegen snapshot tests)
 
 ## Project status
 
-Experimental and pre-1.0 (`0.0.0`). The agent set, field shape, and export surface may change. The data is a snapshot of what each agent advertised at probe time, not a stable contract. See the root [README](../../README.md) for license and workspace-wide status.
+Experimental and pre-1.0 (`0.0.0`). The agent set, field shape, and export surface may change. The data is a snapshot of what each agent advertised at probe time, not a stable contract. Licensed under [MIT](../../LICENSE) — see the root [README](../../README.md) for workspace-wide status.

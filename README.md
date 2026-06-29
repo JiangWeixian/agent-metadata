@@ -107,13 +107,7 @@ Experimental and pre-1.0 (currently `0.0.0`). The agent set, field shape, and pa
 
 ## License
 
-No license file is present in this repository. Until one is added, no open-source license is granted — see [`LICENSE` notes](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) if you intend to use this code.
-
-## Documentation
-
-- [npm publish design](docs/superpowers/specs/2026-06-28-acp-agent-metadata-npm-publish-design.md)
-- [implementation plan](docs/superpowers/plans/2026-06-28-acp-agent-metadata-npm-publish.md)
-- [ACP protocol](https://agentclientprotocol.com)
+[MIT](LICENSE) — see the [`LICENSE`](LICENSE) file for the full text.
 
 ---
 

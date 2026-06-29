@@ -107,13 +107,7 @@ ACP_AGENTS=kimi ACP_DUMMY_AUTH=1 pnpm start # 探测单个智能体
 
 ## 许可证
 
-本仓库中不存在许可证文件。在添加之前，不授予任何开源许可证 —— 如果你打算使用本代码，请参阅 [`LICENSE` 说明](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)。
-
-## 文档
-
-- [npm 发布设计](docs/superpowers/specs/2026-06-28-acp-agent-metadata-npm-publish-design.md)
-- [实现计划](docs/superpowers/plans/2026-06-28-acp-agent-metadata-npm-publish.md)
-- [ACP 协议](https://agentclientprotocol.com)
+[MIT](LICENSE) —— 完整文本见 [`LICENSE`](LICENSE)。
 
 ---
 
