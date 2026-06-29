@@ -78,8 +78,10 @@ Source of truth: [`src/types.ts`](src/types.ts). The capability, auth-method, an
 
 ## How it is built
 
-```text
-../probe/cache/*.json  ──codegen──▶  dist-src/*.ts  ──tsup──▶  dist/
+```mermaid
+flowchart LR
+    Cache["../probe/cache/*.json<br/><i>gitignored</i>"] -->|"pnpm codegen"| Src["dist-src/*.ts<br/><i>committed</i>"]
+    Src -->|"tsup"| Dist["dist/<br/><i>built at publish</i>"]
 ```
 
 1. [`scripts/codegen.ts`](scripts/codegen.ts) reads each `cache/<id>.json` from the probe package, keeps only `status: "ok"`, maps fields through a fixed allowlist, sorts keys for stable output, and writes `dist-src/*.ts`.

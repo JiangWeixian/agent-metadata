@@ -5,11 +5,13 @@
 
 [English](README.md) | **简体中文**
 
-为 [Agent Client Protocol (ACP)](https://agentclientprotocol.com) 编码智能体提供的类型化元数据 —— 包括会话模式、斜杠命令、能力和认证方式。数据通过探测每个智能体的在线 ACP 服务器采集，并以支持 tree-shaking 的 npm 包形式发布。
+为 [Agent Client Protocol (ACP)](https://agentclientprotocol.com) 编码智能体提供的类型化元数据 —— 包括会话模式、斜杠命令、能力和认证方式，以支持 tree-shaking 的 npm 包形式发布。
 
-## 这是什么
+## 为什么需要
 
-每个支持 ACP 的编码智能体都会声明自己的能力：支持哪些[会话模式](https://agentclientprotocol.com/protocol/session-modes)、暴露哪些斜杠命令、以及如何认证。本仓库运行一个自动化探针（`packages/probe`），通过 stdio 启动每个智能体，查询其 `initialize` / `session/new` 响应，并将结果代码生成为一个可被其他工具导入的类型化包（`acp-agent-metadata`）。
+并非总能实时查询智能体的能力：智能体可能离线、在远程环境中不可达、或为每次请求都启动一遍成本太高。本仓库对每个 ACP 智能体探测一次，再把采集到的元数据以静态、类型化的形式发布，你可以随处导入 —— 无需在线智能体。
+
+探针（`packages/probe`）通过 stdio 启动每个智能体，查询其 `initialize` / `session/new` 响应，并将结果代码生成为 `acp-agent-metadata`。
 
 数据覆盖 **34 个智能体**，包括 `gemini`、`cline`、`cursor`、`claude-acp`、`codex-acp`、`kimi`、`opencode` 和 `goose`。完整列表见 [`packages/data/dist-src/agents/`](packages/data/dist-src/agents/)。
 
@@ -63,8 +65,11 @@ import type { AgentMetadata, AvailableCommand, SessionMode } from 'acp-agent-met
 
 ## 数据是如何生成的
 
-```text
-probe cache/*.json  ──codegen──▶  dist-src/*.ts（已提交）  ──tsup──▶  dist/（已 gitignore，发布时构建）
+```mermaid
+flowchart LR
+    Probe["packages/probe<br/>启动每个智能体"] -->|"写入"| Cache["cache/*.json<br/><i>已 gitignore</i>"]
+    Cache -->|"pnpm codegen"| Src["dist-src/*.ts<br/><i>已提交</i>"]
+    Src -->|"tsup"| Dist["dist/<br/><i>发布时构建</i>"]
 ```
 
 1. `packages/probe` 启动每个智能体，使用 ACP 协议通信，并为每个智能体写入一个 `cache/<id>.json`。
@@ -72,7 +77,7 @@ probe cache/*.json  ──codegen──▶  dist-src/*.ts（已提交）  ──
 3. `tsup` 将该源码编译为 ESM + CJS，并解析生成 `.d.ts`（SDK 类型已内联）。
 4. `dist-src/` 作为可审查的事实来源被提交；`dist/` 已 gitignore，在发布时构建。
 
-`cache/` 是已 gitignore 的中间产物；`dist-src/` 已提交；`dist/` 已 gitignore 并在发布时构建。探测在 CI 上按计划运行（`0 6 * * 1` UTC），也可手动触发；见 [`.github/workflows/probe.yml`](.github/workflows/probe.yml)。
+`cache/` 是已 gitignore 的中间产物；`dist-src/` 已提交；`dist/` 已 gitignore 并在发布时构建。探测在 CI 上手动触发；见 [`.github/workflows/probe.yml`](.github/workflows/probe.yml)。
 
 ## 开发
 

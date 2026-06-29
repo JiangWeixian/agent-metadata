@@ -7,8 +7,6 @@ on:
         description: Comma-separated agent IDs to probe (empty = all)
         required: false
         default: ""
-  schedule:
-    - cron: "0 6 * * 1"
 
 jobs:
   probe:

@@ -5,13 +5,15 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-Typed metadata for [Agent Client Protocol (ACP)](https://agentclientprotocol.com) coding agents — their session modes, slash commands, capabilities, and auth methods — captured by probing each agent's live ACP server and shipped as a tree-shakeable npm package.
+Typed metadata for [Agent Client Protocol (ACP)](https://agentclientprotocol.com) coding agents — their session modes, slash commands, capabilities, and auth methods — shipped as a tree-shakeable npm package.
 
-## What this is
+## Why
 
-Every ACP-speaking coding agent advertises what it can do: which [session modes](https://agentclientprotocol.com/protocol/session-modes) it supports, which slash commands it exposes, and how it authenticates. This repo runs an automated probe (`packages/probe`) that launches each agent over stdio, interrogates its `initialize` / `session/new` responses, and codegens the results into a typed package (`acp-agent-metadata`) that other tooling can import.
+Querying an agent's capabilities live isn't always possible: the agent may be offline, unreachable from a remote environment, or too expensive to launch on every request. This repo probes each ACP agent once, then ships the captured metadata as static, typed data you can import anywhere — no live agent required.
 
-The data covers **34 agents**, including `gemini`, `cline`, `cursor`, `claude-acp`, `codex-acp`, `kimi`, `opencode`, and `goose`. See the full list in [`packages/data/dist-src/agents/`](packages/data/dist-src/agents/).
+The probe (`packages/probe`) launches each agent over stdio, interrogates its `initialize` / `session/new` responses, and codegens the results into `acp-agent-metadata`.
+
+Covers **34 agents**, including `gemini`, `cline`, `cursor`, `claude-acp`, `codex-acp`, `kimi`, `opencode`, and `goose`. Full list in [`packages/data/dist-src/agents/`](packages/data/dist-src/agents/).
 
 ## Packages
 
@@ -63,8 +65,11 @@ Each agent entry follows the `AgentMetadata` interface — `id`, `name`, `versio
 
 ## How the data is produced
 
-```text
-probe cache/*.json  ──codegen──▶  dist-src/*.ts (committed)  ──tsup──▶  dist/ (gitignored, built at publish)
+```mermaid
+flowchart LR
+    Probe["packages/probe<br/>spawns each agent"] -->|"writes"| Cache["cache/*.json<br/><i>gitignored</i>"]
+    Cache -->|"pnpm codegen"| Src["dist-src/*.ts<br/><i>committed</i>"]
+    Src -->|"tsup"| Dist["dist/<br/><i>built at publish</i>"]
 ```
 
 1. `packages/probe` spawns each agent, speaks ACP, and writes one `cache/<id>.json` per agent.
@@ -72,7 +77,7 @@ probe cache/*.json  ──codegen──▶  dist-src/*.ts (committed)  ──tsu
 3. `tsup` compiles that source into ESM + CJS with resolved `.d.ts` (SDK types inlined).
 4. `dist-src/` is committed as the reviewable source of truth; `dist/` is gitignored and built at publish time.
 
-`cache/` remains a gitignored intermediate; `dist-src/` is committed; `dist/` is gitignored and built at publish. Probing runs on CI on a schedule (`0 6 * * 1` UTC) and on demand; see [`.github/workflows/probe.yml`](.github/workflows/probe.yml).
+`cache/` remains a gitignored intermediate; `dist-src/` is committed; `dist/` is gitignored and built at publish. Probing runs on CI on demand; see [`.github/workflows/probe.yml`](.github/workflows/probe.yml).
 
 ## Development
 

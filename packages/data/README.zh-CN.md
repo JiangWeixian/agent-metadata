@@ -78,8 +78,10 @@ interface AgentMetadata {
 
 ## 构建方式
 
-```text
-../probe/cache/*.json  ──codegen──▶  dist-src/*.ts  ──tsup──▶  dist/
+```mermaid
+flowchart LR
+    Cache["../probe/cache/*.json<br/><i>已 gitignore</i>"] -->|"pnpm codegen"| Src["dist-src/*.ts<br/><i>已提交</i>"]
+    Src -->|"tsup"| Dist["dist/<br/><i>发布时构建</i>"]
 ```
 
 1. [`scripts/codegen.ts`](scripts/codegen.ts) 从探针包读取每个 `cache/<id>.json`，只保留 `status: "ok"`，通过固定的白名单映射字段，对键排序以保证输出稳定，并写入 `dist-src/*.ts`。
