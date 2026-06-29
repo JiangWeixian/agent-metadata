@@ -23,7 +23,7 @@ export const agent: AgentMetadata = {
           "args": [
             "--setup"
           ],
-          "command": "/Volumes/ORICO/Users/jiangwei/projects/agent-metadata/packages/probe/.acp-cache/amp-acp@0.8.1/amp-acp",
+          "command": "/home/runner/work/agent-metadata/agent-metadata/packages/probe/.acp-cache/amp-acp@0.8.1/amp-acp",
           "label": "Amp API Key Setup"
         }
       },
