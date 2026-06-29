@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Enter the branch name for snapshot release'
+        description: Enter the branch name for snapshot release
         required: true
-        default: 'main'
+        default: develop
         type: string
 
 env:
@@ -38,7 +38,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
 
       - name: get pnpm store directory
         id: pnpm-cache
