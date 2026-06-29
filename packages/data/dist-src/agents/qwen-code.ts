@@ -20,7 +20,7 @@ export const agent: AgentMetadata = {
   "agentInfo": {
     "name": "qwen-code",
     "title": "Qwen Code",
-    "version": "0.19.2"
+    "version": "0.19.3"
   },
   "authMethods": [
     {
@@ -439,7 +439,7 @@ export const agent: AgentMetadata = {
     },
     {
       "_meta": {
-        "argumentHint": "[--fast|--voice] [<model-id>]",
+        "argumentHint": "[--fast|--voice|--vision] [<model-id>]",
         "modelInvocable": false,
         "source": "builtin-command",
         "sourceLabel": "Built-in",
@@ -450,9 +450,9 @@ export const agent: AgentMetadata = {
           "acp"
         ]
       },
-      "description": "Switch the model for this session (--fast for suggestion model, --voice for voice transcription model, [model-id] to switch immediately).",
+      "description": "Switch the model for this session (--fast for suggestion model, --voice for voice transcription model, --vision for the vision bridge model, [model-id] to switch immediately).",
       "input": {
-        "hint": "[--fast|--voice] [<model-id>]"
+        "hint": "[--fast|--voice|--vision] [<model-id>]"
       },
       "name": "model"
     },
@@ -491,13 +491,14 @@ export const agent: AgentMetadata = {
     },
     {
       "_meta": {
-        "argumentHint": "[model|tools|daily|monthly|export]",
+        "argumentHint": "[model|tools|skills|daily|monthly|export]",
         "modelInvocable": false,
         "source": "builtin-command",
         "sourceLabel": "Built-in",
         "subcommands": [
           "model",
           "tools",
+          "skills",
           "daily",
           "monthly",
           "export"
@@ -510,7 +511,7 @@ export const agent: AgentMetadata = {
       },
       "description": "Show usage statistics dashboard.",
       "input": {
-        "hint": "[model|tools|daily|monthly|export]"
+        "hint": "[model|tools|skills|daily|monthly|export]"
       },
       "name": "stats"
     },
@@ -564,6 +565,25 @@ export const agent: AgentMetadata = {
         "hint": "<operation> <file-pattern>"
       },
       "name": "batch"
+    },
+    {
+      "_meta": {
+        "argumentHint": "<extension-path> [template]",
+        "modelInvocable": true,
+        "source": "bundled-skill",
+        "sourceLabel": "Skill",
+        "subcommands": [],
+        "supportedModes": [
+          "interactive",
+          "non_interactive",
+          "acp"
+        ]
+      },
+      "description": "Create, scaffold, customize, validate, and locally test Qwen Code extensions. Use when the user wants a new Qwen Code extension, needs help choosing an extension template, wants to add QWEN.md context, commands, skills, agents, MCP servers, settings, hooks, channels, or LSP servers, or asks how to link and test an extension locally. Invoke with `/extension-creator` followed by an extension path and optional template name.",
+      "input": {
+        "hint": "<extension-path> [template]"
+      },
+      "name": "extension-creator"
     },
     {
       "_meta": {
@@ -676,240 +696,6 @@ export const agent: AgentMetadata = {
         "hint": "[PID or symptom]"
       },
       "name": "stuck"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Create Dim deployable static-site Artifact outputs. Use when the user asks to create, preview, smoke-test, or deploy a static website, landing page, HTML demo, browser app, or static Artifact Deployment test that must be generated under output/index.html and published by Dim.",
-      "input": {
-        "hint": ""
-      },
-      "name": "artifact-static-site"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Multi Agents Looping — a multi-agent deep research protocol that spawns parallel explorer agents each round, gates every round with a fresh verifier agent, loops until coverage passes, then merges findings into a structured investigation report. Use only when the user explicitly asks for a deep investigation or a formal multi-round research effort that justifies spawning and coordinating many agents.",
-      "input": {
-        "hint": ""
-      },
-      "name": "deep-investigate"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Use when asked to analyze code and add explanatory code annotations, file headers, doc comments, inline comments, or JSX-safe comments.",
-      "input": {
-        "hint": ""
-      },
-      "name": "docs-code"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Docs-driven delivery workflow. Use when splitting design docs into tasks, creating implementation plans under docs/plan, executing develop/verify/merge cycles, maintaining design doc consistency, or writing UI layout documentation with ASCII diagrams.",
-      "input": {
-        "hint": ""
-      },
-      "name": "docs-sprint"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Professional DOCX document creation, editing, and formatting using OpenXML SDK (.NET). Three pipelines: (A) create new documents from scratch, (B) fill/edit content in existing documents, (C) apply template formatting with XSD validation gate-check. MUST use this skill whenever the user wants to produce, modify, or format a Word document — including when they say \"write a report\", \"draft a proposal\", \"make a contract\", \"fill in this form\", \"reformat to match this template\", or any task whose final output is a .docx file. Even if the user doesn't mention \"docx\" explicitly, if the task implies a printable/formal document, use this skill.\n",
-      "input": {
-        "hint": ""
-      },
-      "name": "docx"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
-      "input": {
-        "hint": ""
-      },
-      "name": "find-skills"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.",
-      "input": {
-        "hint": ""
-      },
-      "name": "gpt-taste"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.",
-      "input": {
-        "hint": ""
-      },
-      "name": "high-end-visual-design"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Use this skill when visual quality and design identity matter for a PDF. CREATE (generate from scratch): \"make a PDF\", \"generate a report\", \"write a proposal\", \"create a resume\", \"beautiful PDF\", \"professional document\", \"cover page\", \"polished PDF\", \"client-ready document\". FILL (complete form fields): \"fill in the form\", \"fill out this PDF\", \"complete the form fields\", \"write values into PDF\", \"what fields does this PDF have\". REFORMAT (apply design to an existing doc): \"reformat this document\", \"apply our style\", \"convert this Markdown/text to PDF\", \"make this doc look good\", \"re-style this PDF\". This skill uses a token-based design system: color, typography, and spacing are derived from the document type and flow through every page. The output is print-ready. Prefer this skill when appearance matters, not just when any PDF output is needed.\n",
-      "input": {
-        "hint": ""
-      },
-      "name": "pdf"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Generate, edit, and read PowerPoint presentations. Create from scratch with PptxGenJS (cover, TOC, content, section divider, summary slides), edit existing PPTX via XML workflows, or extract text with markitdown. Triggers: PPT, PPTX, PowerPoint, presentation, slide, deck, slides.",
-      "input": {
-        "hint": ""
-      },
-      "name": "pptx-generator"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.",
-      "input": {
-        "hint": ""
-      },
-      "name": "skill-creator"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Install Agents skills into $AGENTS_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos).",
-      "input": {
-        "hint": ""
-      },
-      "name": "skill-installer"
-    },
-    {
-      "_meta": {
-        "modelInvocable": true,
-        "source": "skill-dir-command",
-        "sourceLabel": "User",
-        "subcommands": [],
-        "supportedModes": [
-          "interactive",
-          "non_interactive",
-          "acp"
-        ]
-      },
-      "description": "Open, create, read, analyze, edit, or validate Excel/spreadsheet files (.xlsx, .xlsm, .csv, .tsv). Use when the user asks to create, build, modify, analyze, read, validate, or format any Excel spreadsheet, financial model, pivot table, or tabular data file. Covers: creating new xlsx from scratch, reading and analyzing existing files, editing existing xlsx with zero format loss, formula recalculation and validation, and applying professional financial formatting standards. Triggers on 'spreadsheet', 'Excel', '.xlsx', '.csv', 'pivot table', 'financial model', 'formula', or any request to produce tabular data in Excel format.",
-      "input": {
-        "hint": ""
-      },
-      "name": "xlsx"
     }
   ],
   "configOptions": [
@@ -1000,5 +786,5 @@ export const agent: AgentMetadata = {
   ],
   "name": "Qwen Code",
   "protocolVersion": 1,
-  "version": "0.19.2"
+  "version": "0.19.3"
 };

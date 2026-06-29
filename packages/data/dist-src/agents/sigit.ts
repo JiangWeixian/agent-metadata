@@ -20,7 +20,7 @@ export const agent: AgentMetadata = {
   "agentInfo": {
     "name": "sigit",
     "title": "siGit Code - AI Coding Agent",
-    "version": "1.2.1"
+    "version": "1.2.2"
   },
   "authMethods": [
     {
@@ -141,5 +141,5 @@ export const agent: AgentMetadata = {
   "modes": [],
   "name": "siGit Code",
   "protocolVersion": 1,
-  "version": "1.2.1"
+  "version": "1.2.2"
 };

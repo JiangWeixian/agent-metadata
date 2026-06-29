@@ -4,19 +4,15 @@ import { agent as autohand } from "./agents/autohand.js";
 import { agent as claude_acp } from "./agents/claude-acp.js";
 import { agent as cline } from "./agents/cline.js";
 import { agent as codebuddy_code } from "./agents/codebuddy-code.js";
-import { agent as codex_acp } from "./agents/codex-acp.js";
 import { agent as cortex_code } from "./agents/cortex-code.js";
 import { agent as corust_agent } from "./agents/corust-agent.js";
 import { agent as crow_cli } from "./agents/crow-cli.js";
-import { agent as cursor } from "./agents/cursor.js";
 import { agent as deepagents } from "./agents/deepagents.js";
 import { agent as devin } from "./agents/devin.js";
 import { agent as dimcode } from "./agents/dimcode.js";
 import { agent as dirac } from "./agents/dirac.js";
 import { agent as factory_droid } from "./agents/factory-droid.js";
-import { agent as fast_agent } from "./agents/fast-agent.js";
 import { agent as gemini } from "./agents/gemini.js";
-import { agent as github_copilot_cli } from "./agents/github-copilot-cli.js";
 import { agent as glm_acp_agent } from "./agents/glm-acp-agent.js";
 import { agent as goose } from "./agents/goose.js";
 import { agent as grok_build } from "./agents/grok-build.js";
@@ -40,19 +36,15 @@ export const agents = {
   "claude-acp": claude_acp,
   "cline": cline,
   "codebuddy-code": codebuddy_code,
-  "codex-acp": codex_acp,
   "cortex-code": cortex_code,
   "corust-agent": corust_agent,
   "crow-cli": crow_cli,
-  "cursor": cursor,
   "deepagents": deepagents,
   "devin": devin,
   "dimcode": dimcode,
   "dirac": dirac,
   "factory-droid": factory_droid,
-  "fast-agent": fast_agent,
   "gemini": gemini,
-  "github-copilot-cli": github_copilot_cli,
   "glm-acp-agent": glm_acp_agent,
   "goose": goose,
   "grok-build": grok_build,

@@ -49,11 +49,6 @@
       "import": "./dist/agents/codebuddy-code.js",
       "require": "./dist/agents/codebuddy-code.cjs"
     },
-    "./codex-acp": {
-      "types": "./dist/agents/codex-acp.d.ts",
-      "import": "./dist/agents/codex-acp.js",
-      "require": "./dist/agents/codex-acp.cjs"
-    },
     "./cortex-code": {
       "types": "./dist/agents/cortex-code.d.ts",
       "import": "./dist/agents/cortex-code.js",
@@ -68,11 +63,6 @@
       "types": "./dist/agents/crow-cli.d.ts",
       "import": "./dist/agents/crow-cli.js",
       "require": "./dist/agents/crow-cli.cjs"
-    },
-    "./cursor": {
-      "types": "./dist/agents/cursor.d.ts",
-      "import": "./dist/agents/cursor.js",
-      "require": "./dist/agents/cursor.cjs"
     },
     "./deepagents": {
       "types": "./dist/agents/deepagents.d.ts",
@@ -99,20 +89,10 @@
       "import": "./dist/agents/factory-droid.js",
       "require": "./dist/agents/factory-droid.cjs"
     },
-    "./fast-agent": {
-      "types": "./dist/agents/fast-agent.d.ts",
-      "import": "./dist/agents/fast-agent.js",
-      "require": "./dist/agents/fast-agent.cjs"
-    },
     "./gemini": {
       "types": "./dist/agents/gemini.d.ts",
       "import": "./dist/agents/gemini.js",
       "require": "./dist/agents/gemini.cjs"
-    },
-    "./github-copilot-cli": {
-      "types": "./dist/agents/github-copilot-cli.d.ts",
-      "import": "./dist/agents/github-copilot-cli.js",
-      "require": "./dist/agents/github-copilot-cli.cjs"
     },
     "./glm-acp-agent": {
       "types": "./dist/agents/glm-acp-agent.d.ts",
@@ -207,6 +187,8 @@
     "vitest": "^2.0.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
