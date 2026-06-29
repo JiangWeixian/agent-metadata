@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-process-exit -- CLI build script */
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import type { AgentMetadata } from '../src/types'
@@ -77,12 +77,16 @@ export function generatePackage(cacheDir: string, distSrcDir: string, pkgPath: s
     throw new Error('codegen: no ok agents found in cache directory')
   }
 
-  rmSync(distSrcDir, { recursive: true, force: true })
+  // Non-destructive: never wipe dist-src. Only (re)write agents that probed ok
+  // this run; preserve previously committed files for agents that didn't (e.g.
+  // auth-required or environment-specific failures), so a CI run can never drop
+  // locally captured data.
   mkdirSync(join(distSrcDir, 'agents'), { recursive: true })
 
   const srcTypesPath = join(import.meta.dirname, '..', 'src', 'types.ts')
   copyFileSync(srcTypesPath, join(distSrcDir, 'types.ts'))
 
+  const okIds = new Set(agents.map(a => a.id))
   for (const r of agents) {
     const m = toMetadata(r)
     const json = stableStringify(m)
@@ -92,10 +96,19 @@ export function generatePackage(cacheDir: string, distSrcDir: string, pkgPath: s
     )
   }
 
-  const importLines = agents
-    .map(a => `import { agent as ${toIdentifier(a.id)} } from "./agents/${a.id}.js";`)
+  // The package surface is the union of freshly probed ok agents and any
+  // previously committed agent files we are preserving.
+  const allIds = [...new Set([
+    ...okIds,
+    ...readdirSync(join(distSrcDir, 'agents'))
+      .filter(f => f.endsWith('.ts'))
+      .map(f => f.slice(0, -'.ts'.length)),
+  ])].toSorted((a, b) => a.localeCompare(b))
+
+  const importLines = allIds
+    .map(id => `import { agent as ${toIdentifier(id)} } from "./agents/${id}.js";`)
     .join('\n')
-  const agentsObj = `{\n${agents.map(a => `  ${JSON.stringify(a.id)}: ${toIdentifier(a.id)},`).join('\n')}\n}`
+  const agentsObj = `{\n${allIds.map(id => `  ${JSON.stringify(id)}: ${toIdentifier(id)},`).join('\n')}\n}`
   writeFileSync(
     join(distSrcDir, 'index.ts'),
     `${importLines}\n\nexport const agents = ${agentsObj};\n`,
@@ -114,17 +127,17 @@ export function generatePackage(cacheDir: string, distSrcDir: string, pkgPath: s
       require: './dist/types.cjs',
     },
   }
-  for (const a of agents) {
-    exports[`./${a.id}`] = {
-      types: `./dist/agents/${a.id}.d.ts`,
-      import: `./dist/agents/${a.id}.js`,
-      require: `./dist/agents/${a.id}.cjs`,
+  for (const id of allIds) {
+    exports[`./${id}`] = {
+      types: `./dist/agents/${id}.d.ts`,
+      import: `./dist/agents/${id}.js`,
+      require: `./dist/agents/${id}.cjs`,
     }
   }
   exports['./package.json'] = './package.json'
   pkg.exports = exports
   writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`)
-  return agents.length
+  return allIds.length
 }
 
 function updateReadmeBadges(readmePath: string, agentCount: number): void {
