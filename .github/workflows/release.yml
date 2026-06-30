@@ -109,4 +109,4 @@ jobs:
           pnpm ci:snapshot
           pnpm ci:prerelease
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ""
