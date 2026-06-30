@@ -109,5 +109,4 @@ jobs:
           pnpm ci:snapshot
           pnpm ci:prerelease
         env:
-          NPM_TOKEN: ""
-          NPM_CONFIG_PROVENANCE: true
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
