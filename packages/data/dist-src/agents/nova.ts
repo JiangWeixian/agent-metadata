@@ -43,7 +43,10 @@ export const agent: AgentMetadata = {
   ],
   "configOptions": [],
   "currentModeId": "default",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "nova",
+  "models": [],
   "modes": [
     {
       "description": "Standard assistant mode with balanced behavior",
@@ -63,5 +66,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Nova",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "1.1.21"
 };

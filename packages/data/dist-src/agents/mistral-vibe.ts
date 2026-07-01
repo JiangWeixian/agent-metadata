@@ -167,7 +167,26 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "default",
+  "currentModelId": "mistral-medium-3.5",
+  "currentReasoningEffortId": null,
   "id": "mistral-vibe",
+  "models": [
+    {
+      "description": "mistral-vibe-cli-latest",
+      "id": "mistral-medium-3.5",
+      "name": "mistral-medium-3.5"
+    },
+    {
+      "description": "devstral-small-latest",
+      "id": "devstral-small",
+      "name": "devstral-small"
+    },
+    {
+      "description": "devstral",
+      "id": "local",
+      "name": "local"
+    }
+  ],
   "modes": [
     {
       "description": "Requires approval for tool executions",
@@ -197,5 +216,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Mistral Vibe",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "2.18.0"
 };

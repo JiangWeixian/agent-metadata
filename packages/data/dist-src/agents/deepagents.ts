@@ -74,7 +74,10 @@ export const agent: AgentMetadata = {
   ],
   "configOptions": [],
   "currentModeId": "agent",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "deepagents",
+  "models": [],
   "modes": [
     {
       "description": "Full autonomous agent",
@@ -94,5 +97,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "DeepAgents",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.1.7"
 };

@@ -519,7 +519,127 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "agent",
+  "currentModelId": "claude-opus-4-7[thinking=true,context=300k,effort=xhigh,fast=false]",
+  "currentReasoningEffortId": null,
   "id": "cursor",
+  "models": [
+    {
+      "id": "default[]",
+      "name": "Auto"
+    },
+    {
+      "id": "composer-2.5[fast=true]",
+      "name": "composer-2.5"
+    },
+    {
+      "id": "claude-opus-4-8[thinking=true,context=300k,effort=high,fast=false]",
+      "name": "claude-opus-4-8"
+    },
+    {
+      "id": "gpt-5.5[context=272k,reasoning=medium,fast=false]",
+      "name": "gpt-5.5"
+    },
+    {
+      "id": "claude-sonnet-4-6[thinking=true,context=200k,effort=medium]",
+      "name": "claude-sonnet-4-6"
+    },
+    {
+      "id": "gpt-5.3-codex[reasoning=medium,fast=false]",
+      "name": "gpt-5.3-codex"
+    },
+    {
+      "id": "claude-opus-4-7[thinking=true,context=300k,effort=xhigh,fast=false]",
+      "name": "claude-opus-4-7"
+    },
+    {
+      "id": "grok-build-0.1[context=200k]",
+      "name": "grok-build-0.1"
+    },
+    {
+      "id": "gpt-5.4[context=272k,reasoning=medium,fast=false]",
+      "name": "gpt-5.4"
+    },
+    {
+      "id": "claude-opus-4-6[thinking=true,context=200k,effort=high]",
+      "name": "claude-opus-4-6"
+    },
+    {
+      "id": "claude-opus-4-5[thinking=true]",
+      "name": "claude-opus-4-5"
+    },
+    {
+      "id": "gpt-5.2[reasoning=medium,fast=false]",
+      "name": "gpt-5.2"
+    },
+    {
+      "id": "gemini-3.1-pro[]",
+      "name": "gemini-3.1-pro"
+    },
+    {
+      "id": "gpt-5.4-mini[reasoning=medium]",
+      "name": "gpt-5.4-mini"
+    },
+    {
+      "id": "gpt-5.4-nano[reasoning=medium]",
+      "name": "gpt-5.4-nano"
+    },
+    {
+      "id": "claude-haiku-4-5[thinking=true]",
+      "name": "claude-haiku-4-5"
+    },
+    {
+      "id": "grok-4.3[context=200k]",
+      "name": "grok-4.3"
+    },
+    {
+      "id": "claude-sonnet-4-5[thinking=true,context=200k]",
+      "name": "claude-sonnet-4-5"
+    },
+    {
+      "id": "gpt-5.2-codex[reasoning=medium,fast=false]",
+      "name": "gpt-5.2-codex"
+    },
+    {
+      "id": "gpt-5.1-codex-max[reasoning=medium,fast=false]",
+      "name": "gpt-5.1-codex-max"
+    },
+    {
+      "id": "gpt-5.1[reasoning=medium]",
+      "name": "gpt-5.1"
+    },
+    {
+      "id": "gemini-3-flash[]",
+      "name": "gemini-3-flash"
+    },
+    {
+      "id": "gemini-3.5-flash[]",
+      "name": "gemini-3.5-flash"
+    },
+    {
+      "id": "gpt-5.1-codex-mini[reasoning=medium]",
+      "name": "gpt-5.1-codex-mini"
+    },
+    {
+      "id": "claude-sonnet-4[thinking=false,context=200k]",
+      "name": "claude-sonnet-4"
+    },
+    {
+      "id": "gpt-5-mini[]",
+      "name": "gpt-5-mini"
+    },
+    {
+      "id": "gemini-2.5-flash[]",
+      "name": "gemini-2.5-flash"
+    },
+    {
+      "id": "kimi-k2.5[]",
+      "name": "kimi-k2.5"
+    },
+    {
+      "id": "glm-5.2[reasoning=high]",
+      "name": "glm-5.2"
+    }
+  ],
   "modes": [
     {
       "description": "Full agent capabilities with tool access",
@@ -539,5 +659,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Cursor",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "2026.06.24"
 };

@@ -340,7 +340,10 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "interactive",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "autohand",
+  "models": [],
   "modes": [
     {
       "description": "Ask before each action",
@@ -375,5 +378,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Autohand Code",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.2.1"
 };

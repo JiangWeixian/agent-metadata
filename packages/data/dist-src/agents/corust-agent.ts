@@ -44,7 +44,10 @@ export const agent: AgentMetadata = {
   ],
   "configOptions": [],
   "currentModeId": "default",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "corust-agent",
+  "models": [],
   "modes": [
     {
       "description": "Current behavior: follow permission prompts and workspace rules.",
@@ -64,5 +67,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Corust Agent",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.6.0"
 };

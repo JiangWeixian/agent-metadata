@@ -69,12 +69,20 @@ interface AgentMetadata {
   authMethods: AgentAuthMethod[]
   modes: SessionMode[]
   currentModeId: null | string
+  models: AgentModel[]
+  currentModelId: null | string
+  reasoningEfforts: AgentReasoningEffort[]
+  currentReasoningEffortId: null | string
   configOptions: AgentConfigOption[]
   commands: AvailableCommand[]
 }
+
+// 从 configOptions 派生的类型安全视图，与 modes/currentModeId 结构对称
+interface AgentModel { id: string; name: string; description?: null | string }
+interface AgentReasoningEffort { id: string; name: string; description?: null | string }
 ```
 
-事实来源：[`src/types.ts`](src/types.ts)。能力、认证方式和配置选项接口对已知字段进行了类型化，并通过索引签名允许智能体特定的扩展。
+事实来源：[`src/types.ts`](src/types.ts)。`models`、`currentModelId`、`reasoningEfforts`、`currentReasoningEffortId` 是从 `configOptions`（`category: "model"` + `id: "model"` 和 `category: "thought_level"` 的配置项）派生出来的，消费者无需类型断言即可拿到类型化的列表。`configOptions` 本身原样保留以保证向后兼容。
 
 ## 构建方式
 

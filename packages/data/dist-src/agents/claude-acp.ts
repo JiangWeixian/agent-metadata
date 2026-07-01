@@ -288,7 +288,36 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "default",
+  "currentModelId": "default",
+  "currentReasoningEffortId": "default",
   "id": "claude-acp",
+  "models": [
+    {
+      "description": "Use the default model (currently Opus 4.8 (1M context)) · $5/$25 per Mtok",
+      "id": "default",
+      "name": "Default (recommended)"
+    },
+    {
+      "description": "Opus 4.8 with 1M context · Best for everyday, complex tasks · $5/$25 per Mtok",
+      "id": "opus[1m]",
+      "name": "Opus"
+    },
+    {
+      "description": "Sonnet 4.6 · Efficient for routine tasks · $3/$15 per Mtok",
+      "id": "sonnet",
+      "name": "Sonnet"
+    },
+    {
+      "description": "Sonnet 4.6 for long sessions · $3/$15 per Mtok",
+      "id": "sonnet[1m]",
+      "name": "Sonnet (1M context)"
+    },
+    {
+      "description": "Haiku 4.5 · Fastest for quick answers · $1/$5 per Mtok",
+      "id": "haiku",
+      "name": "Haiku"
+    }
+  ],
   "modes": [
     {
       "description": "Use a model classifier to approve/deny permission prompts",
@@ -323,5 +352,31 @@ export const agent: AgentMetadata = {
   ],
   "name": "Claude Agent",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "default",
+      "name": "Default"
+    },
+    {
+      "id": "low",
+      "name": "Low"
+    },
+    {
+      "id": "medium",
+      "name": "Medium"
+    },
+    {
+      "id": "high",
+      "name": "High"
+    },
+    {
+      "id": "xhigh",
+      "name": "Xhigh"
+    },
+    {
+      "id": "max",
+      "name": "Max"
+    }
+  ],
   "version": "0.52.0"
 };

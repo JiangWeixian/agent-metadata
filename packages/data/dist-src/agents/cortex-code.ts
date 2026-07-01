@@ -378,9 +378,13 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": null,
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "cortex-code",
+  "models": [],
   "modes": [],
   "name": "Cortex Code",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "1.0.73"
 };

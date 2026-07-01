@@ -108,9 +108,26 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": null,
+  "currentModelId": null,
+  "currentReasoningEffortId": "high",
   "id": "junie",
+  "models": [],
   "modes": [],
   "name": "Junie",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "low",
+      "name": "◎ Low effort"
+    },
+    {
+      "id": "medium",
+      "name": "◐ Medium effort"
+    },
+    {
+      "id": "high",
+      "name": "◕ High effort"
+    }
+  ],
   "version": "2045.46.0"
 };

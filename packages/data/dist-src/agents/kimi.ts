@@ -79,7 +79,10 @@ export const agent: AgentMetadata = {
   ],
   "configOptions": [],
   "currentModeId": "default",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "kimi",
+  "models": [],
   "modes": [
     {
       "description": "The default mode.",
@@ -89,5 +92,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Kimi CLI",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "1.48.0"
 };

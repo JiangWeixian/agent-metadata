@@ -2,7 +2,12 @@
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-import type { AgentMetadata } from '../src/types'
+import type {
+  AgentConfigOption,
+  AgentMetadata,
+  AgentModel,
+  AgentReasoningEffort,
+} from '../src/types'
 
 interface AgentResult {
   id: string
@@ -20,7 +25,83 @@ interface AgentResult {
   commands: null | unknown[]
 }
 
+/**
+ * Extract first-class typed fields from raw probe `configOptions` WITHOUT
+ * removing anything — `configOptions` is preserved verbatim for backward
+ * compatibility, and the following are added as derived copies:
+ *  - `category === "model"` + `id === "model"`  → flattened into `models[]`
+ *  - `category === "thought_level"`             → flattened into `reasoningEfforts[]`
+ *
+ * The `currentValue` of the model / thought_level select becomes
+ * `currentModelId` / `currentReasoningEffortId`, mirroring `currentModeId`.
+ * `configOptions` is returned unchanged (the original array, incl. mode /
+ * model / thought_level entries).
+ */
+export interface ExtractedConfig {
+  models: AgentModel[]
+  currentModelId: null | string
+  reasoningEfforts: AgentReasoningEffort[]
+  currentReasoningEffortId: null | string
+  configOptions: AgentConfigOption[]
+}
+
+export function extractConfig(raw: unknown[]): ExtractedConfig {
+  const models: AgentModel[] = []
+  const reasoningEfforts: AgentReasoningEffort[] = []
+  let currentModelId: null | string = null
+  let currentReasoningEffortId: null | string = null
+
+  for (const entry of raw) {
+    const e = (entry ?? {}) as Record<string, unknown>
+    const category = e.category as unknown
+    const id = typeof e.id === 'string' ? e.id : ''
+
+    if (category === 'model' && id === 'model') {
+      if (typeof e.currentValue === 'string') {
+        currentModelId = e.currentValue
+      }
+      for (const opt of Array.isArray(e.options) ? e.options : []) {
+        const o = (opt ?? {}) as Record<string, unknown>
+        if (typeof o.value !== 'string') {
+          continue
+        }
+        const model: AgentModel = { id: o.value, name: typeof o.name === 'string' ? o.name : o.value }
+        if (o.description != null) {
+          model.description = o.description as string
+        }
+        models.push(model)
+      }
+    } else if (category === 'thought_level') {
+      if (typeof e.currentValue === 'string') {
+        currentReasoningEffortId = e.currentValue
+      }
+      for (const opt of Array.isArray(e.options) ? e.options : []) {
+        const o = (opt ?? {}) as Record<string, unknown>
+        if (typeof o.value !== 'string') {
+          continue
+        }
+        const effort: AgentReasoningEffort = { id: o.value, name: typeof o.name === 'string' ? o.name : o.value }
+        if (o.description != null) {
+          effort.description = o.description as string
+        }
+        reasoningEfforts.push(effort)
+      }
+    }
+  }
+
+  return {
+    models,
+    currentModelId,
+    reasoningEfforts,
+    currentReasoningEffortId,
+    configOptions: raw as AgentConfigOption[],
+  }
+}
+
 function toMetadata(r: AgentResult): AgentMetadata {
+  const { models, currentModelId, reasoningEfforts, currentReasoningEffortId, configOptions } = extractConfig(
+    (r.configOptions ?? []) as unknown[],
+  )
   return {
     id: r.id,
     name: r.name,
@@ -31,12 +112,16 @@ function toMetadata(r: AgentResult): AgentMetadata {
     authMethods: (r.authMethods ?? []) as AgentMetadata['authMethods'],
     modes: (r.modes ?? []) as AgentMetadata['modes'],
     currentModeId: r.currentModeId,
-    configOptions: (r.configOptions ?? []) as AgentMetadata['configOptions'],
+    models,
+    currentModelId,
+    reasoningEfforts,
+    currentReasoningEffortId,
+    configOptions,
     commands: (r.commands ?? []) as AgentMetadata['commands'],
   }
 }
 
-function stableStringify(obj: unknown): string {
+export function stableStringify(obj: unknown): string {
   return JSON.stringify(sortKeys(obj), null, 2)
 }
 

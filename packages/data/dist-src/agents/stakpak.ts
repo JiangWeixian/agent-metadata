@@ -23,9 +23,13 @@ export const agent: AgentMetadata = {
   "commands": [],
   "configOptions": [],
   "currentModeId": null,
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "stakpak",
+  "models": [],
   "modes": [],
   "name": "Stakpak",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.3.88"
 };

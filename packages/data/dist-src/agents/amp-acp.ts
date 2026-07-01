@@ -108,9 +108,26 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": null,
+  "currentModelId": null,
+  "currentReasoningEffortId": "high",
   "id": "amp-acp",
+  "models": [],
   "modes": [],
   "name": "Amp",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "high",
+      "name": "high"
+    },
+    {
+      "id": "xhigh",
+      "name": "xhigh"
+    },
+    {
+      "id": "max",
+      "name": "max"
+    }
+  ],
   "version": "0.8.1"
 };

@@ -865,7 +865,595 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "medium",
+  "currentModelId": "anthropic/claude-opus-4-8",
+  "currentReasoningEffortId": "medium",
   "id": "pi-acp",
+  "models": [
+    {
+      "id": "anthropic/claude-3-5-haiku-20241022",
+      "name": "anthropic/Claude Haiku 3.5"
+    },
+    {
+      "id": "anthropic/claude-3-5-haiku-latest",
+      "name": "anthropic/Claude Haiku 3.5 (latest)"
+    },
+    {
+      "id": "anthropic/claude-3-5-sonnet-20240620",
+      "name": "anthropic/Claude Sonnet 3.5"
+    },
+    {
+      "id": "anthropic/claude-3-5-sonnet-20241022",
+      "name": "anthropic/Claude Sonnet 3.5 v2"
+    },
+    {
+      "id": "anthropic/claude-3-7-sonnet-20250219",
+      "name": "anthropic/Claude Sonnet 3.7"
+    },
+    {
+      "id": "anthropic/claude-3-haiku-20240307",
+      "name": "anthropic/Claude Haiku 3"
+    },
+    {
+      "id": "anthropic/claude-3-opus-20240229",
+      "name": "anthropic/Claude Opus 3"
+    },
+    {
+      "id": "anthropic/claude-3-sonnet-20240229",
+      "name": "anthropic/Claude Sonnet 3"
+    },
+    {
+      "id": "anthropic/claude-fable-5",
+      "name": "anthropic/Claude Fable 5"
+    },
+    {
+      "id": "anthropic/claude-haiku-4-5",
+      "name": "anthropic/Claude Haiku 4.5 (latest)"
+    },
+    {
+      "id": "anthropic/claude-haiku-4-5-20251001",
+      "name": "anthropic/Claude Haiku 4.5"
+    },
+    {
+      "id": "anthropic/claude-opus-4-0",
+      "name": "anthropic/Claude Opus 4 (latest)"
+    },
+    {
+      "id": "anthropic/claude-opus-4-1",
+      "name": "anthropic/Claude Opus 4.1 (latest)"
+    },
+    {
+      "id": "anthropic/claude-opus-4-1-20250805",
+      "name": "anthropic/Claude Opus 4.1"
+    },
+    {
+      "id": "anthropic/claude-opus-4-20250514",
+      "name": "anthropic/Claude Opus 4"
+    },
+    {
+      "id": "anthropic/claude-opus-4-5",
+      "name": "anthropic/Claude Opus 4.5 (latest)"
+    },
+    {
+      "id": "anthropic/claude-opus-4-5-20251101",
+      "name": "anthropic/Claude Opus 4.5"
+    },
+    {
+      "id": "anthropic/claude-opus-4-6",
+      "name": "anthropic/Claude Opus 4.6"
+    },
+    {
+      "id": "anthropic/claude-opus-4-7",
+      "name": "anthropic/Claude Opus 4.7"
+    },
+    {
+      "id": "anthropic/claude-opus-4-8",
+      "name": "anthropic/Claude Opus 4.8"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-0",
+      "name": "anthropic/Claude Sonnet 4 (latest)"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-20250514",
+      "name": "anthropic/Claude Sonnet 4"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-5",
+      "name": "anthropic/Claude Sonnet 4.5 (latest)"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-5-20250929",
+      "name": "anthropic/Claude Sonnet 4.5"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-6",
+      "name": "anthropic/Claude Sonnet 4.6"
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash",
+      "name": "deepseek/DeepSeek V4 Flash"
+    },
+    {
+      "id": "deepseek/deepseek-v4-pro",
+      "name": "deepseek/DeepSeek V4 Pro"
+    },
+    {
+      "id": "google/gemini-2.0-flash",
+      "name": "google/Gemini 2.0 Flash"
+    },
+    {
+      "id": "google/gemini-2.0-flash-lite",
+      "name": "google/Gemini 2.0 Flash-Lite"
+    },
+    {
+      "id": "google/gemini-2.5-flash",
+      "name": "google/Gemini 2.5 Flash"
+    },
+    {
+      "id": "google/gemini-2.5-flash-lite",
+      "name": "google/Gemini 2.5 Flash-Lite"
+    },
+    {
+      "id": "google/gemini-2.5-pro",
+      "name": "google/Gemini 2.5 Pro"
+    },
+    {
+      "id": "google/gemini-3-flash-preview",
+      "name": "google/Gemini 3 Flash Preview"
+    },
+    {
+      "id": "google/gemini-3-pro-preview",
+      "name": "google/Gemini 3 Pro Preview"
+    },
+    {
+      "id": "google/gemini-3.1-flash-lite",
+      "name": "google/Gemini 3.1 Flash Lite"
+    },
+    {
+      "id": "google/gemini-3.1-flash-lite-preview",
+      "name": "google/Gemini 3.1 Flash Lite Preview"
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview",
+      "name": "google/Gemini 3.1 Pro Preview"
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview-customtools",
+      "name": "google/Gemini 3.1 Pro Preview Custom Tools"
+    },
+    {
+      "id": "google/gemini-3.5-flash",
+      "name": "google/Gemini 3.5 Flash"
+    },
+    {
+      "id": "google/gemini-flash-latest",
+      "name": "google/Gemini Flash Latest"
+    },
+    {
+      "id": "google/gemini-flash-lite-latest",
+      "name": "google/Gemini Flash-Lite Latest"
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it",
+      "name": "google/Gemma 4 26B A4B IT"
+    },
+    {
+      "id": "google/gemma-4-31b-it",
+      "name": "google/Gemma 4 31B IT"
+    },
+    {
+      "id": "mistral/codestral-latest",
+      "name": "mistral/Codestral (latest)"
+    },
+    {
+      "id": "mistral/devstral-2512",
+      "name": "mistral/Devstral 2"
+    },
+    {
+      "id": "mistral/devstral-latest",
+      "name": "mistral/Devstral 2"
+    },
+    {
+      "id": "mistral/devstral-medium-2507",
+      "name": "mistral/Devstral Medium"
+    },
+    {
+      "id": "mistral/devstral-medium-latest",
+      "name": "mistral/Devstral 2 (latest)"
+    },
+    {
+      "id": "mistral/devstral-small-2505",
+      "name": "mistral/Devstral Small 2505"
+    },
+    {
+      "id": "mistral/devstral-small-2507",
+      "name": "mistral/Devstral Small"
+    },
+    {
+      "id": "mistral/labs-devstral-small-2512",
+      "name": "mistral/Devstral Small 2"
+    },
+    {
+      "id": "mistral/magistral-medium-latest",
+      "name": "mistral/Magistral Medium (latest)"
+    },
+    {
+      "id": "mistral/magistral-small",
+      "name": "mistral/Magistral Small"
+    },
+    {
+      "id": "mistral/ministral-3b-latest",
+      "name": "mistral/Ministral 3B (latest)"
+    },
+    {
+      "id": "mistral/ministral-8b-latest",
+      "name": "mistral/Ministral 8B (latest)"
+    },
+    {
+      "id": "mistral/mistral-large-2411",
+      "name": "mistral/Mistral Large 2.1"
+    },
+    {
+      "id": "mistral/mistral-large-2512",
+      "name": "mistral/Mistral Large 3"
+    },
+    {
+      "id": "mistral/mistral-large-latest",
+      "name": "mistral/Mistral Large (latest)"
+    },
+    {
+      "id": "mistral/mistral-medium-2505",
+      "name": "mistral/Mistral Medium 3"
+    },
+    {
+      "id": "mistral/mistral-medium-2508",
+      "name": "mistral/Mistral Medium 3.1"
+    },
+    {
+      "id": "mistral/mistral-medium-2604",
+      "name": "mistral/Mistral Medium 3.5"
+    },
+    {
+      "id": "mistral/mistral-medium-3.5",
+      "name": "mistral/Mistral Medium 3.5"
+    },
+    {
+      "id": "mistral/mistral-medium-latest",
+      "name": "mistral/Mistral Medium (latest)"
+    },
+    {
+      "id": "mistral/mistral-nemo",
+      "name": "mistral/Mistral Nemo"
+    },
+    {
+      "id": "mistral/mistral-small-2506",
+      "name": "mistral/Mistral Small 3.2"
+    },
+    {
+      "id": "mistral/mistral-small-2603",
+      "name": "mistral/Mistral Small 4"
+    },
+    {
+      "id": "mistral/mistral-small-latest",
+      "name": "mistral/Mistral Small (latest)"
+    },
+    {
+      "id": "mistral/open-mistral-7b",
+      "name": "mistral/Mistral 7B"
+    },
+    {
+      "id": "mistral/open-mistral-nemo",
+      "name": "mistral/Open Mistral Nemo"
+    },
+    {
+      "id": "mistral/open-mixtral-8x22b",
+      "name": "mistral/Mixtral 8x22B"
+    },
+    {
+      "id": "mistral/open-mixtral-8x7b",
+      "name": "mistral/Mixtral 8x7B"
+    },
+    {
+      "id": "mistral/pixtral-12b",
+      "name": "mistral/Pixtral 12B"
+    },
+    {
+      "id": "mistral/pixtral-large-latest",
+      "name": "mistral/Pixtral Large (latest)"
+    },
+    {
+      "id": "moonshotai/kimi-k2-0711-preview",
+      "name": "moonshotai/Kimi K2 0711"
+    },
+    {
+      "id": "moonshotai/kimi-k2-0905-preview",
+      "name": "moonshotai/Kimi K2 0905"
+    },
+    {
+      "id": "moonshotai/kimi-k2-thinking",
+      "name": "moonshotai/Kimi K2 Thinking"
+    },
+    {
+      "id": "moonshotai/kimi-k2-thinking-turbo",
+      "name": "moonshotai/Kimi K2 Thinking Turbo"
+    },
+    {
+      "id": "moonshotai/kimi-k2-turbo-preview",
+      "name": "moonshotai/Kimi K2 Turbo"
+    },
+    {
+      "id": "moonshotai/kimi-k2.5",
+      "name": "moonshotai/Kimi K2.5"
+    },
+    {
+      "id": "moonshotai/kimi-k2.6",
+      "name": "moonshotai/Kimi K2.6"
+    },
+    {
+      "id": "moonshotai/kimi-k2.7-code",
+      "name": "moonshotai/Kimi K2.7 Code"
+    },
+    {
+      "id": "moonshotai/kimi-k2.7-code-highspeed",
+      "name": "moonshotai/Kimi K2.7 Code HighSpeed"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-0711-preview",
+      "name": "moonshotai-cn/Kimi K2 0711"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-0905-preview",
+      "name": "moonshotai-cn/Kimi K2 0905"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-thinking",
+      "name": "moonshotai-cn/Kimi K2 Thinking"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-thinking-turbo",
+      "name": "moonshotai-cn/Kimi K2 Thinking Turbo"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-turbo-preview",
+      "name": "moonshotai-cn/Kimi K2 Turbo"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.5",
+      "name": "moonshotai-cn/Kimi K2.5"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.6",
+      "name": "moonshotai-cn/Kimi K2.6"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.7-code",
+      "name": "moonshotai-cn/Kimi K2.7 Code"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.7-code-highspeed",
+      "name": "moonshotai-cn/Kimi K2.7 Code HighSpeed"
+    },
+    {
+      "id": "openai/gpt-4",
+      "name": "openai/GPT-4"
+    },
+    {
+      "id": "openai/gpt-4-turbo",
+      "name": "openai/GPT-4 Turbo"
+    },
+    {
+      "id": "openai/gpt-4.1",
+      "name": "openai/GPT-4.1"
+    },
+    {
+      "id": "openai/gpt-4.1-mini",
+      "name": "openai/GPT-4.1 mini"
+    },
+    {
+      "id": "openai/gpt-4.1-nano",
+      "name": "openai/GPT-4.1 nano"
+    },
+    {
+      "id": "openai/gpt-4o",
+      "name": "openai/GPT-4o"
+    },
+    {
+      "id": "openai/gpt-4o-2024-05-13",
+      "name": "openai/GPT-4o (2024-05-13)"
+    },
+    {
+      "id": "openai/gpt-4o-2024-08-06",
+      "name": "openai/GPT-4o (2024-08-06)"
+    },
+    {
+      "id": "openai/gpt-4o-2024-11-20",
+      "name": "openai/GPT-4o (2024-11-20)"
+    },
+    {
+      "id": "openai/gpt-4o-mini",
+      "name": "openai/GPT-4o mini"
+    },
+    {
+      "id": "openai/gpt-5",
+      "name": "openai/GPT-5"
+    },
+    {
+      "id": "openai/gpt-5-chat-latest",
+      "name": "openai/GPT-5 Chat Latest"
+    },
+    {
+      "id": "openai/gpt-5-codex",
+      "name": "openai/GPT-5-Codex"
+    },
+    {
+      "id": "openai/gpt-5-mini",
+      "name": "openai/GPT-5 Mini"
+    },
+    {
+      "id": "openai/gpt-5-nano",
+      "name": "openai/GPT-5 Nano"
+    },
+    {
+      "id": "openai/gpt-5-pro",
+      "name": "openai/GPT-5 Pro"
+    },
+    {
+      "id": "openai/gpt-5.1",
+      "name": "openai/GPT-5.1"
+    },
+    {
+      "id": "openai/gpt-5.1-chat-latest",
+      "name": "openai/GPT-5.1 Chat"
+    },
+    {
+      "id": "openai/gpt-5.1-codex",
+      "name": "openai/GPT-5.1 Codex"
+    },
+    {
+      "id": "openai/gpt-5.1-codex-max",
+      "name": "openai/GPT-5.1 Codex Max"
+    },
+    {
+      "id": "openai/gpt-5.1-codex-mini",
+      "name": "openai/GPT-5.1 Codex mini"
+    },
+    {
+      "id": "openai/gpt-5.2",
+      "name": "openai/GPT-5.2"
+    },
+    {
+      "id": "openai/gpt-5.2-chat-latest",
+      "name": "openai/GPT-5.2 Chat"
+    },
+    {
+      "id": "openai/gpt-5.2-codex",
+      "name": "openai/GPT-5.2 Codex"
+    },
+    {
+      "id": "openai/gpt-5.2-pro",
+      "name": "openai/GPT-5.2 Pro"
+    },
+    {
+      "id": "openai/gpt-5.3-chat-latest",
+      "name": "openai/GPT-5.3 Chat (latest)"
+    },
+    {
+      "id": "openai/gpt-5.3-codex",
+      "name": "openai/GPT-5.3 Codex"
+    },
+    {
+      "id": "openai/gpt-5.3-codex-spark",
+      "name": "openai/GPT-5.3 Codex Spark"
+    },
+    {
+      "id": "openai/gpt-5.4",
+      "name": "openai/GPT-5.4"
+    },
+    {
+      "id": "openai/gpt-5.4-mini",
+      "name": "openai/GPT-5.4 mini"
+    },
+    {
+      "id": "openai/gpt-5.4-nano",
+      "name": "openai/GPT-5.4 nano"
+    },
+    {
+      "id": "openai/gpt-5.4-pro",
+      "name": "openai/GPT-5.4 Pro"
+    },
+    {
+      "id": "openai/gpt-5.5",
+      "name": "openai/GPT-5.5"
+    },
+    {
+      "id": "openai/gpt-5.5-pro",
+      "name": "openai/GPT-5.5 Pro"
+    },
+    {
+      "id": "openai/o1",
+      "name": "openai/o1"
+    },
+    {
+      "id": "openai/o1-pro",
+      "name": "openai/o1-pro"
+    },
+    {
+      "id": "openai/o3",
+      "name": "openai/o3"
+    },
+    {
+      "id": "openai/o3-deep-research",
+      "name": "openai/o3-deep-research"
+    },
+    {
+      "id": "openai/o3-mini",
+      "name": "openai/o3-mini"
+    },
+    {
+      "id": "openai/o3-pro",
+      "name": "openai/o3-pro"
+    },
+    {
+      "id": "openai/o4-mini",
+      "name": "openai/o4-mini"
+    },
+    {
+      "id": "openai/o4-mini-deep-research",
+      "name": "openai/o4-mini-deep-research"
+    },
+    {
+      "id": "xai/grok-3",
+      "name": "xai/Grok 3"
+    },
+    {
+      "id": "xai/grok-3-fast",
+      "name": "xai/Grok 3 Fast"
+    },
+    {
+      "id": "xai/grok-4.20-0309-non-reasoning",
+      "name": "xai/Grok 4.20 (Non-Reasoning)"
+    },
+    {
+      "id": "xai/grok-4.20-0309-reasoning",
+      "name": "xai/Grok 4.20 (Reasoning)"
+    },
+    {
+      "id": "xai/grok-4.3",
+      "name": "xai/Grok 4.3"
+    },
+    {
+      "id": "xai/grok-build-0.1",
+      "name": "xai/Grok Build 0.1"
+    },
+    {
+      "id": "xai/grok-code-fast-1",
+      "name": "xai/Grok Code Fast 1"
+    },
+    {
+      "id": "zai/glm-4.5-air",
+      "name": "zai/GLM-4.5-Air"
+    },
+    {
+      "id": "zai/glm-4.7",
+      "name": "zai/GLM-4.7"
+    },
+    {
+      "id": "zai/glm-5-turbo",
+      "name": "zai/GLM-5-Turbo"
+    },
+    {
+      "id": "zai/glm-5.1",
+      "name": "zai/GLM-5.1"
+    },
+    {
+      "id": "zai/glm-5.2",
+      "name": "zai/GLM-5.2"
+    },
+    {
+      "id": "zai/glm-5v-turbo",
+      "name": "zai/GLM-5V-Turbo"
+    }
+  ],
   "modes": [
     {
       "description": null,
@@ -900,5 +1488,31 @@ export const agent: AgentMetadata = {
   ],
   "name": "pi ACP",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "off",
+      "name": "Thinking: off"
+    },
+    {
+      "id": "minimal",
+      "name": "Thinking: minimal"
+    },
+    {
+      "id": "low",
+      "name": "Thinking: low"
+    },
+    {
+      "id": "medium",
+      "name": "Thinking: medium"
+    },
+    {
+      "id": "high",
+      "name": "Thinking: high"
+    },
+    {
+      "id": "xhigh",
+      "name": "Thinking: xhigh"
+    }
+  ],
   "version": "0.0.31"
 };
