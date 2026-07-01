@@ -154,9 +154,13 @@ export const agent: AgentMetadata = {
   ],
   "configOptions": [],
   "currentModeId": null,
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "grok-build",
+  "models": [],
   "modes": [],
   "name": "Grok Build",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.2.73"
 };

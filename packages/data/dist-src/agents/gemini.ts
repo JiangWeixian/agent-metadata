@@ -135,7 +135,10 @@ export const agent: AgentMetadata = {
   ],
   "configOptions": [],
   "currentModeId": "default",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "gemini",
+  "models": [],
   "modes": [
     {
       "description": "Prompts for approval",
@@ -160,5 +163,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Gemini CLI",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.49.0"
 };

@@ -409,7 +409,86 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "default",
+  "currentModelId": "default-model",
+  "currentReasoningEffortId": "enabled",
   "id": "codebuddy-code",
+  "models": [
+    {
+      "description": "x2.00 credits",
+      "id": "default-model",
+      "name": "Default"
+    },
+    {
+      "description": "x1.32 credits",
+      "id": "gemini-3.1-pro",
+      "name": "Gemini-3.1-Pro"
+    },
+    {
+      "description": "x0.33 credits",
+      "id": "gemini-3.0-flash",
+      "name": "Gemini-3.0-Flash"
+    },
+    {
+      "description": "x0.99 credits",
+      "id": "gemini-3.5-flash",
+      "name": "Gemini-3.5-Flash"
+    },
+    {
+      "description": "x0.90 credits",
+      "id": "gemini-2.5-pro",
+      "name": "Gemini-2.5-Pro"
+    },
+    {
+      "description": "x0.22 credits",
+      "id": "gemini-2.5-flash",
+      "name": "Gemini-2.5-Flash"
+    },
+    {
+      "description": "x0.17 credits",
+      "id": "gemini-3.1-flash-lite",
+      "name": "Gemini-3.1-flash-lite"
+    },
+    {
+      "description": "x3.31 credits",
+      "id": "gpt-5.5",
+      "name": "GPT-5.5"
+    },
+    {
+      "description": "x1.65 credits",
+      "id": "gpt-5.4",
+      "name": "GPT-5.4"
+    },
+    {
+      "description": "x1.25 credits",
+      "id": "gpt-5.3-codex",
+      "name": "GPT-5.3-Codex"
+    },
+    {
+      "description": "x0.90 credits",
+      "id": "gpt-5.1-codex",
+      "name": "GPT-5.1-Codex"
+    },
+    {
+      "description": "x0.18 credits",
+      "id": "gpt-5.1-codex-mini",
+      "name": "GPT-5.1-Codex-Mini"
+    },
+    {
+      "description": "x0.29 credits",
+      "id": "deepseek-v3-2-volc",
+      "name": "DeepSeek-V3.2"
+    },
+    {
+      "description": "x0.80 credits",
+      "id": "glm-5.0",
+      "name": "GLM-5.0"
+    },
+    {
+      "description": "x0.45 credits",
+      "id": "kimi-k2.5",
+      "name": "Kimi-K2.5"
+    }
+  ],
   "modes": [
     {
       "description": "Prompts for permission on first use of each tool",
@@ -434,5 +513,47 @@ export const agent: AgentMetadata = {
   ],
   "name": "Codebuddy Code",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "description": "Standard response without extended thinking",
+      "id": "disabled",
+      "name": "Off"
+    },
+    {
+      "description": "Briefest reasoning",
+      "id": "minimal",
+      "name": "Minimal"
+    },
+    {
+      "description": "Light reasoning",
+      "id": "low",
+      "name": "Low"
+    },
+    {
+      "description": "Balanced reasoning",
+      "id": "medium",
+      "name": "Medium"
+    },
+    {
+      "description": "Deep reasoning",
+      "id": "high",
+      "name": "High"
+    },
+    {
+      "description": "Very deep reasoning",
+      "id": "xhigh",
+      "name": "X-High"
+    },
+    {
+      "description": "Maximum reasoning effort",
+      "id": "max",
+      "name": "Max"
+    },
+    {
+      "description": "Use the model default effort",
+      "id": "enabled",
+      "name": "On (default)"
+    }
+  ],
   "version": "2.106.7"
 };

@@ -62,9 +62,13 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": null,
+  "currentModelId": "",
+  "currentReasoningEffortId": null,
   "id": "crow-cli",
+  "models": [],
   "modes": [],
   "name": "crow-cli",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.1.24"
 };

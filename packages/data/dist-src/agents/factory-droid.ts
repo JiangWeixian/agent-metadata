@@ -353,7 +353,176 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "normal",
+  "currentModelId": "claude-opus-4-8",
+  "currentReasoningEffortId": "high",
   "id": "factory-droid",
+  "models": [
+    {
+      "description": "2x Factory token rate",
+      "id": "claude-opus-4-8",
+      "name": "Claude Opus 4.8"
+    },
+    {
+      "description": "4x Factory token rate",
+      "id": "claude-opus-4-8-fast",
+      "name": "Claude Opus 4.8 Fast Mode"
+    },
+    {
+      "description": "2x Factory token rate",
+      "id": "claude-opus-4-7",
+      "name": "Claude Opus 4.7"
+    },
+    {
+      "description": "12x Factory token rate",
+      "id": "claude-opus-4-7-fast",
+      "name": "Claude Opus 4.7 Fast Mode"
+    },
+    {
+      "description": "2x Factory token rate",
+      "id": "claude-opus-4-6",
+      "name": "Claude Opus 4.6"
+    },
+    {
+      "description": "12x Factory token rate",
+      "id": "claude-opus-4-6-fast",
+      "name": "Claude Opus 4.6 Fast Mode"
+    },
+    {
+      "description": "2x Factory token rate",
+      "id": "claude-opus-4-5-20251101",
+      "name": "Claude Opus 4.5"
+    },
+    {
+      "description": "1.2x Factory token rate",
+      "id": "claude-sonnet-4-6",
+      "name": "Claude Sonnet 4.6"
+    },
+    {
+      "description": "1.2x Factory token rate",
+      "id": "claude-sonnet-4-5-20250929",
+      "name": "Claude Sonnet 4.5"
+    },
+    {
+      "description": "0.4x Factory token rate",
+      "id": "claude-haiku-4-5-20251001",
+      "name": "Claude Haiku 4.5"
+    },
+    {
+      "description": "2x Factory token rate",
+      "id": "gpt-5.5",
+      "name": "GPT-5.5"
+    },
+    {
+      "description": "5x Factory token rate",
+      "id": "gpt-5.5-fast",
+      "name": "GPT-5.5 Fast Mode"
+    },
+    {
+      "description": "12x Factory token rate",
+      "id": "gpt-5.5-pro",
+      "name": "GPT-5.5 Pro"
+    },
+    {
+      "description": "1x Factory token rate",
+      "id": "gpt-5.4",
+      "name": "GPT-5.4"
+    },
+    {
+      "description": "2x Factory token rate",
+      "id": "gpt-5.4-fast",
+      "name": "GPT-5.4 Fast Mode"
+    },
+    {
+      "description": "0.3x Factory token rate",
+      "id": "gpt-5.4-mini",
+      "name": "GPT-5.4 Mini"
+    },
+    {
+      "description": "0.7x Factory token rate",
+      "id": "gpt-5.3-codex",
+      "name": "GPT-5.3-Codex"
+    },
+    {
+      "description": "1.4x Factory token rate",
+      "id": "gpt-5.3-codex-fast",
+      "name": "GPT-5.3-Codex Fast Mode"
+    },
+    {
+      "description": "0.7x Factory token rate",
+      "id": "gpt-5.2",
+      "name": "GPT-5.2"
+    },
+    {
+      "description": "0.8x Factory token rate",
+      "id": "gemini-3.1-pro-preview",
+      "name": "Gemini 3.1 Pro"
+    },
+    {
+      "description": "0.6x Factory token rate",
+      "id": "gemini-3.5-flash",
+      "name": "Gemini 3.5 Flash"
+    },
+    {
+      "description": "0.2x Factory token rate",
+      "id": "gemini-3-flash-preview",
+      "name": "Gemini 3 Flash"
+    },
+    {
+      "description": "0.55x Factory token rate",
+      "id": "glm-5.2",
+      "name": "Droid Core (GLM-5.2)"
+    },
+    {
+      "description": "0.55x Factory token rate",
+      "id": "glm-5.1",
+      "name": "Droid Core (GLM-5.1)"
+    },
+    {
+      "description": "0.38x Factory token rate",
+      "id": "kimi-k2.7-code",
+      "name": "Droid Core (Kimi K2.7 Code)"
+    },
+    {
+      "description": "0.4x Factory token rate",
+      "id": "kimi-k2.6",
+      "name": "Droid Core (Kimi K2.6)"
+    },
+    {
+      "description": "0.4x Factory token rate",
+      "id": "nemotron-3-ultra",
+      "name": "Droid Core (Nemotron 3 Ultra)"
+    },
+    {
+      "description": "0.7x Factory token rate",
+      "id": "deepseek-v4-pro",
+      "name": "Droid Core (DeepSeek V4 Pro)"
+    },
+    {
+      "description": "0.12x Factory token rate",
+      "id": "minimax-m3",
+      "name": "Droid Core (MiniMax M3)"
+    },
+    {
+      "description": "0.12x Factory token rate",
+      "id": "minimax-m2.7",
+      "name": "Droid Core (MiniMax M2.7)"
+    },
+    {
+      "description": "0.12x Factory token rate",
+      "id": "minimax-m2.5",
+      "name": "Droid Core (MiniMax M2.5)"
+    },
+    {
+      "description": "0.7x Factory token rate",
+      "id": "gpt-5.2-codex",
+      "name": "GPT-5.2-Codex [Deprecated]"
+    },
+    {
+      "description": "0.5x Factory token rate",
+      "id": "gpt-5.1-codex-max",
+      "name": "GPT-5.1-Codex-Max [Deprecated]"
+    }
+  ],
   "modes": [
     {
       "description": "Auto-approves only read operations",
@@ -383,5 +552,31 @@ export const agent: AgentMetadata = {
   ],
   "name": "Factory Droid",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "off",
+      "name": "Off"
+    },
+    {
+      "id": "low",
+      "name": "Low"
+    },
+    {
+      "id": "medium",
+      "name": "Medium"
+    },
+    {
+      "id": "high",
+      "name": "High"
+    },
+    {
+      "id": "xhigh",
+      "name": "Extra High"
+    },
+    {
+      "id": "max",
+      "name": "Maximum"
+    }
+  ],
   "version": "0.159.1"
 };

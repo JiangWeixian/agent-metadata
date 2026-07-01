@@ -292,7 +292,10 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "code",
+  "currentModelId": null,
+  "currentReasoningEffortId": "none",
   "id": "vtcode",
+  "models": [],
   "modes": [
     {
       "description": "Answer questions with read-only workspace inspection",
@@ -312,5 +315,27 @@ export const agent: AgentMetadata = {
   ],
   "name": "VT Code",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "minimal",
+      "name": "Minimal"
+    },
+    {
+      "id": "low",
+      "name": "Low"
+    },
+    {
+      "id": "medium",
+      "name": "Medium"
+    },
+    {
+      "id": "high",
+      "name": "High"
+    },
+    {
+      "id": "xhigh",
+      "name": "Extra High"
+    }
+  ],
   "version": "0.96.14"
 };

@@ -19,7 +19,10 @@ export const agent: AgentMetadata = {
   "commands": [],
   "configOptions": [],
   "currentModeId": "default",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "auggie",
+  "models": [],
   "modes": [
     {
       "description": "Agent mode: Full access to modify and interact with code",
@@ -34,5 +37,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Auggie CLI",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.31.0"
 };

@@ -144,7 +144,10 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "accept-edits",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "devin",
+  "models": [],
   "modes": [
     {
       "id": "accept-edits",
@@ -165,5 +168,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Devin",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "2026.8.18"
 };

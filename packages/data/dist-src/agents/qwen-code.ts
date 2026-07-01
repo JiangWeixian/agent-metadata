@@ -756,7 +756,21 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "default",
+  "currentModelId": "$runtime|openai|probe-dummy-model(openai)",
+  "currentReasoningEffortId": null,
   "id": "qwen-code",
+  "models": [
+    {
+      "description": "Qwen 3.6 Plus — efficient hybrid model with leading coding performance",
+      "id": "coder-model(qwen-oauth)",
+      "name": "coder-model"
+    },
+    {
+      "description": "",
+      "id": "$runtime|openai|probe-dummy-model(openai)",
+      "name": "probe-dummy-model"
+    }
+  ],
   "modes": [
     {
       "description": "Analyze only, do not modify files or execute commands",
@@ -786,5 +800,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "Qwen Code",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.19.3"
 };

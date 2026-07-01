@@ -1707,9 +1707,1615 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": null,
+  "currentModelId": "kilo/stealth/claude-sonnet-4.6",
+  "currentReasoningEffortId": "none",
   "id": "kilo",
+  "models": [
+    {
+      "id": "xai/grok-4.20-0309-non-reasoning",
+      "name": "xAI/Grok 4.20 (Non-Reasoning)"
+    },
+    {
+      "id": "xai/grok-4.20-0309-reasoning",
+      "name": "xAI/Grok 4.20 (Reasoning)"
+    },
+    {
+      "id": "xai/grok-4.20-multi-agent-0309",
+      "name": "xAI/Grok 4.20 Multi-Agent"
+    },
+    {
+      "id": "xai/grok-4.3",
+      "name": "xAI/Grok 4.3"
+    },
+    {
+      "id": "xai/grok-build-0.1",
+      "name": "xAI/Grok Build 0.1"
+    },
+    {
+      "id": "xai/grok-imagine-image",
+      "name": "xAI/Grok Imagine Image"
+    },
+    {
+      "id": "xai/grok-imagine-image-quality",
+      "name": "xAI/Grok Imagine Image Quality"
+    },
+    {
+      "id": "xai/grok-imagine-video",
+      "name": "xAI/Grok Imagine Video"
+    },
+    {
+      "id": "moonshotai/kimi-k2-0711-preview",
+      "name": "Moonshot AI/Kimi K2 0711"
+    },
+    {
+      "id": "moonshotai/kimi-k2-0905-preview",
+      "name": "Moonshot AI/Kimi K2 0905"
+    },
+    {
+      "id": "moonshotai/kimi-k2-thinking",
+      "name": "Moonshot AI/Kimi K2 Thinking"
+    },
+    {
+      "id": "moonshotai/kimi-k2-thinking-turbo",
+      "name": "Moonshot AI/Kimi K2 Thinking Turbo"
+    },
+    {
+      "id": "moonshotai/kimi-k2-turbo-preview",
+      "name": "Moonshot AI/Kimi K2 Turbo"
+    },
+    {
+      "id": "moonshotai/kimi-k2.5",
+      "name": "Moonshot AI/Kimi K2.5"
+    },
+    {
+      "id": "moonshotai/kimi-k2.6",
+      "name": "Moonshot AI/Kimi K2.6"
+    },
+    {
+      "id": "moonshotai/kimi-k2.7-code",
+      "name": "Moonshot AI/Kimi K2.7 Code"
+    },
+    {
+      "id": "moonshotai/kimi-k2.7-code-highspeed",
+      "name": "Moonshot AI/Kimi K2.7 Code HighSpeed"
+    },
+    {
+      "id": "mistral/codestral-latest",
+      "name": "Mistral/Codestral (latest)"
+    },
+    {
+      "id": "mistral/magistral-medium-latest",
+      "name": "Mistral/Magistral Medium (latest)"
+    },
+    {
+      "id": "mistral/magistral-small",
+      "name": "Mistral/Magistral Small"
+    },
+    {
+      "id": "mistral/ministral-3b-latest",
+      "name": "Mistral/Ministral 3B (latest)"
+    },
+    {
+      "id": "mistral/ministral-8b-latest",
+      "name": "Mistral/Ministral 8B (latest)"
+    },
+    {
+      "id": "mistral/open-mistral-7b",
+      "name": "Mistral/Mistral 7B"
+    },
+    {
+      "id": "mistral/mistral-embed",
+      "name": "Mistral/Mistral Embed"
+    },
+    {
+      "id": "mistral/mistral-large-latest",
+      "name": "Mistral/Mistral Large (latest)"
+    },
+    {
+      "id": "mistral/mistral-large-2411",
+      "name": "Mistral/Mistral Large 2.1"
+    },
+    {
+      "id": "mistral/mistral-large-2512",
+      "name": "Mistral/Mistral Large 3"
+    },
+    {
+      "id": "mistral/mistral-medium-latest",
+      "name": "Mistral/Mistral Medium (latest)"
+    },
+    {
+      "id": "mistral/mistral-medium-2505",
+      "name": "Mistral/Mistral Medium 3"
+    },
+    {
+      "id": "mistral/mistral-medium-2508",
+      "name": "Mistral/Mistral Medium 3.1"
+    },
+    {
+      "id": "mistral/mistral-medium-2604",
+      "name": "Mistral/Mistral Medium 3.5"
+    },
+    {
+      "id": "mistral/mistral-nemo",
+      "name": "Mistral/Mistral Nemo"
+    },
+    {
+      "id": "mistral/mistral-small-latest",
+      "name": "Mistral/Mistral Small (latest)"
+    },
+    {
+      "id": "mistral/mistral-small-2506",
+      "name": "Mistral/Mistral Small 3.2"
+    },
+    {
+      "id": "mistral/mistral-small-2603",
+      "name": "Mistral/Mistral Small 4"
+    },
+    {
+      "id": "mistral/open-mixtral-8x22b",
+      "name": "Mistral/Mixtral 8x22B"
+    },
+    {
+      "id": "mistral/open-mixtral-8x7b",
+      "name": "Mistral/Mixtral 8x7B"
+    },
+    {
+      "id": "mistral/pixtral-12b",
+      "name": "Mistral/Pixtral 12B"
+    },
+    {
+      "id": "mistral/pixtral-large-latest",
+      "name": "Mistral/Pixtral Large (latest)"
+    },
+    {
+      "id": "google/gemini-2.5-flash",
+      "name": "Google/Gemini 2.5 Flash"
+    },
+    {
+      "id": "google/gemini-2.5-flash-preview-tts",
+      "name": "Google/Gemini 2.5 Flash Preview TTS"
+    },
+    {
+      "id": "google/gemini-2.5-flash-lite",
+      "name": "Google/Gemini 2.5 Flash-Lite"
+    },
+    {
+      "id": "google/gemini-2.5-pro",
+      "name": "Google/Gemini 2.5 Pro"
+    },
+    {
+      "id": "google/gemini-2.5-pro-preview-tts",
+      "name": "Google/Gemini 2.5 Pro Preview TTS"
+    },
+    {
+      "id": "google/gemini-3-flash-preview",
+      "name": "Google/Gemini 3 Flash Preview"
+    },
+    {
+      "id": "google/gemini-3.1-flash-lite",
+      "name": "Google/Gemini 3.1 Flash Lite"
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview",
+      "name": "Google/Gemini 3.1 Pro Preview"
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview-customtools",
+      "name": "Google/Gemini 3.1 Pro Preview Custom Tools"
+    },
+    {
+      "id": "google/gemini-3.5-flash",
+      "name": "Google/Gemini 3.5 Flash"
+    },
+    {
+      "id": "google/gemini-embedding-001",
+      "name": "Google/Gemini Embedding 001"
+    },
+    {
+      "id": "google/gemini-flash-latest",
+      "name": "Google/Gemini Flash Latest"
+    },
+    {
+      "id": "google/gemini-flash-lite-latest",
+      "name": "Google/Gemini Flash-Lite Latest"
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it",
+      "name": "Google/Gemma 4 26B A4B IT"
+    },
+    {
+      "id": "google/gemma-4-31b-it",
+      "name": "Google/Gemma 4 31B IT"
+    },
+    {
+      "id": "google/gemini-2.5-flash-image",
+      "name": "Google/Nano Banana"
+    },
+    {
+      "id": "google/gemini-3.1-flash-image-preview",
+      "name": "Google/Nano Banana 2"
+    },
+    {
+      "id": "google/gemini-3-pro-image-preview",
+      "name": "Google/Nano Banana Pro"
+    },
+    {
+      "id": "openai/chatgpt-image-latest",
+      "name": "OpenAI/chatgpt-image-latest"
+    },
+    {
+      "id": "openai/gpt-3.5-turbo",
+      "name": "OpenAI/GPT-3.5-turbo"
+    },
+    {
+      "id": "openai/gpt-4",
+      "name": "OpenAI/GPT-4"
+    },
+    {
+      "id": "openai/gpt-4-turbo",
+      "name": "OpenAI/GPT-4 Turbo"
+    },
+    {
+      "id": "openai/gpt-4.1",
+      "name": "OpenAI/GPT-4.1"
+    },
+    {
+      "id": "openai/gpt-4.1-mini",
+      "name": "OpenAI/GPT-4.1 mini"
+    },
+    {
+      "id": "openai/gpt-4.1-nano",
+      "name": "OpenAI/GPT-4.1 nano"
+    },
+    {
+      "id": "openai/gpt-4o",
+      "name": "OpenAI/GPT-4o"
+    },
+    {
+      "id": "openai/gpt-4o-2024-05-13",
+      "name": "OpenAI/GPT-4o (2024-05-13)"
+    },
+    {
+      "id": "openai/gpt-4o-2024-08-06",
+      "name": "OpenAI/GPT-4o (2024-08-06)"
+    },
+    {
+      "id": "openai/gpt-4o-2024-11-20",
+      "name": "OpenAI/GPT-4o (2024-11-20)"
+    },
+    {
+      "id": "openai/gpt-4o-mini",
+      "name": "OpenAI/GPT-4o mini"
+    },
+    {
+      "id": "openai/gpt-5",
+      "name": "OpenAI/GPT-5"
+    },
+    {
+      "id": "openai/gpt-5-mini",
+      "name": "OpenAI/GPT-5 Mini"
+    },
+    {
+      "id": "openai/gpt-5-nano",
+      "name": "OpenAI/GPT-5 Nano"
+    },
+    {
+      "id": "openai/gpt-5-pro",
+      "name": "OpenAI/GPT-5 Pro"
+    },
+    {
+      "id": "openai/gpt-5-codex",
+      "name": "OpenAI/GPT-5-Codex"
+    },
+    {
+      "id": "openai/gpt-5.1",
+      "name": "OpenAI/GPT-5.1"
+    },
+    {
+      "id": "openai/gpt-5.1-chat-latest",
+      "name": "OpenAI/GPT-5.1 Chat"
+    },
+    {
+      "id": "openai/gpt-5.1-codex",
+      "name": "OpenAI/GPT-5.1 Codex"
+    },
+    {
+      "id": "openai/gpt-5.1-codex-max",
+      "name": "OpenAI/GPT-5.1 Codex Max"
+    },
+    {
+      "id": "openai/gpt-5.1-codex-mini",
+      "name": "OpenAI/GPT-5.1 Codex mini"
+    },
+    {
+      "id": "openai/gpt-5.2",
+      "name": "OpenAI/GPT-5.2"
+    },
+    {
+      "id": "openai/gpt-5.2-chat-latest",
+      "name": "OpenAI/GPT-5.2 Chat"
+    },
+    {
+      "id": "openai/gpt-5.2-codex",
+      "name": "OpenAI/GPT-5.2 Codex"
+    },
+    {
+      "id": "openai/gpt-5.2-pro",
+      "name": "OpenAI/GPT-5.2 Pro"
+    },
+    {
+      "id": "openai/gpt-5.3-chat-latest",
+      "name": "OpenAI/GPT-5.3 Chat (latest)"
+    },
+    {
+      "id": "openai/gpt-5.3-codex",
+      "name": "OpenAI/GPT-5.3 Codex"
+    },
+    {
+      "id": "openai/gpt-5.3-codex-spark",
+      "name": "OpenAI/GPT-5.3 Codex Spark"
+    },
+    {
+      "id": "openai/gpt-5.4",
+      "name": "OpenAI/GPT-5.4"
+    },
+    {
+      "id": "openai/gpt-5.4-fast",
+      "name": "OpenAI/GPT-5.4 Fast"
+    },
+    {
+      "id": "openai/gpt-5.4-mini",
+      "name": "OpenAI/GPT-5.4 mini"
+    },
+    {
+      "id": "openai/gpt-5.4-mini-fast",
+      "name": "OpenAI/GPT-5.4 mini Fast"
+    },
+    {
+      "id": "openai/gpt-5.4-nano",
+      "name": "OpenAI/GPT-5.4 nano"
+    },
+    {
+      "id": "openai/gpt-5.4-pro",
+      "name": "OpenAI/GPT-5.4 Pro"
+    },
+    {
+      "id": "openai/gpt-5.5",
+      "name": "OpenAI/GPT-5.5"
+    },
+    {
+      "id": "openai/gpt-5.5-fast",
+      "name": "OpenAI/GPT-5.5 Fast"
+    },
+    {
+      "id": "openai/gpt-5.5-pro",
+      "name": "OpenAI/GPT-5.5 Pro"
+    },
+    {
+      "id": "openai/gpt-image-1",
+      "name": "OpenAI/gpt-image-1"
+    },
+    {
+      "id": "openai/gpt-image-1-mini",
+      "name": "OpenAI/gpt-image-1-mini"
+    },
+    {
+      "id": "openai/gpt-image-1.5",
+      "name": "OpenAI/gpt-image-1.5"
+    },
+    {
+      "id": "openai/gpt-image-2",
+      "name": "OpenAI/gpt-image-2"
+    },
+    {
+      "id": "openai/o1",
+      "name": "OpenAI/o1"
+    },
+    {
+      "id": "openai/o1-pro",
+      "name": "OpenAI/o1-pro"
+    },
+    {
+      "id": "openai/o3",
+      "name": "OpenAI/o3"
+    },
+    {
+      "id": "openai/o3-deep-research",
+      "name": "OpenAI/o3-deep-research"
+    },
+    {
+      "id": "openai/o3-mini",
+      "name": "OpenAI/o3-mini"
+    },
+    {
+      "id": "openai/o3-pro",
+      "name": "OpenAI/o3-pro"
+    },
+    {
+      "id": "openai/o4-mini",
+      "name": "OpenAI/o4-mini"
+    },
+    {
+      "id": "openai/o4-mini-deep-research",
+      "name": "OpenAI/o4-mini-deep-research"
+    },
+    {
+      "id": "openai/text-embedding-3-large",
+      "name": "OpenAI/text-embedding-3-large"
+    },
+    {
+      "id": "openai/text-embedding-3-small",
+      "name": "OpenAI/text-embedding-3-small"
+    },
+    {
+      "id": "openai/text-embedding-ada-002",
+      "name": "OpenAI/text-embedding-ada-002"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-0711-preview",
+      "name": "Moonshot AI (China)/Kimi K2 0711"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-0905-preview",
+      "name": "Moonshot AI (China)/Kimi K2 0905"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-thinking",
+      "name": "Moonshot AI (China)/Kimi K2 Thinking"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-thinking-turbo",
+      "name": "Moonshot AI (China)/Kimi K2 Thinking Turbo"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2-turbo-preview",
+      "name": "Moonshot AI (China)/Kimi K2 Turbo"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.5",
+      "name": "Moonshot AI (China)/Kimi K2.5"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.6",
+      "name": "Moonshot AI (China)/Kimi K2.6"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.7-code",
+      "name": "Moonshot AI (China)/Kimi K2.7 Code"
+    },
+    {
+      "id": "moonshotai-cn/kimi-k2.7-code-highspeed",
+      "name": "Moonshot AI (China)/Kimi K2.7 Code HighSpeed"
+    },
+    {
+      "id": "anthropic/claude-fable-5",
+      "name": "Anthropic/Claude Fable 5"
+    },
+    {
+      "id": "anthropic/claude-haiku-4-5-20251001",
+      "name": "Anthropic/Claude Haiku 4.5"
+    },
+    {
+      "id": "anthropic/claude-haiku-4-5",
+      "name": "Anthropic/Claude Haiku 4.5 (latest)"
+    },
+    {
+      "id": "anthropic/claude-opus-4-20250514",
+      "name": "Anthropic/Claude Opus 4"
+    },
+    {
+      "id": "anthropic/claude-opus-4-0",
+      "name": "Anthropic/Claude Opus 4 (latest)"
+    },
+    {
+      "id": "anthropic/claude-opus-4-1-20250805",
+      "name": "Anthropic/Claude Opus 4.1"
+    },
+    {
+      "id": "anthropic/claude-opus-4-1",
+      "name": "Anthropic/Claude Opus 4.1 (latest)"
+    },
+    {
+      "id": "anthropic/claude-opus-4-5-20251101",
+      "name": "Anthropic/Claude Opus 4.5"
+    },
+    {
+      "id": "anthropic/claude-opus-4-5",
+      "name": "Anthropic/Claude Opus 4.5 (latest)"
+    },
+    {
+      "id": "anthropic/claude-opus-4-6",
+      "name": "Anthropic/Claude Opus 4.6"
+    },
+    {
+      "id": "anthropic/claude-opus-4-6-fast",
+      "name": "Anthropic/Claude Opus 4.6 Fast"
+    },
+    {
+      "id": "anthropic/claude-opus-4-7",
+      "name": "Anthropic/Claude Opus 4.7"
+    },
+    {
+      "id": "anthropic/claude-opus-4-7-fast",
+      "name": "Anthropic/Claude Opus 4.7 Fast"
+    },
+    {
+      "id": "anthropic/claude-opus-4-8",
+      "name": "Anthropic/Claude Opus 4.8"
+    },
+    {
+      "id": "anthropic/claude-opus-4-8-fast",
+      "name": "Anthropic/Claude Opus 4.8 Fast"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-20250514",
+      "name": "Anthropic/Claude Sonnet 4"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-0",
+      "name": "Anthropic/Claude Sonnet 4 (latest)"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-5-20250929",
+      "name": "Anthropic/Claude Sonnet 4.5"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-5",
+      "name": "Anthropic/Claude Sonnet 4.5 (latest)"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4-6",
+      "name": "Anthropic/Claude Sonnet 4.6"
+    },
+    {
+      "id": "deepseek/deepseek-chat",
+      "name": "DeepSeek/DeepSeek Chat"
+    },
+    {
+      "id": "deepseek/deepseek-reasoner",
+      "name": "DeepSeek/DeepSeek Reasoner"
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash",
+      "name": "DeepSeek/DeepSeek V4 Flash"
+    },
+    {
+      "id": "deepseek/deepseek-v4-pro",
+      "name": "DeepSeek/DeepSeek V4 Pro"
+    },
+    {
+      "id": "kilo/ai21/jamba-large-1.7",
+      "name": "Kilo Gateway/AI21: Jamba Large 1.7"
+    },
+    {
+      "id": "kilo/amazon/nova-2-lite-v1",
+      "name": "Kilo Gateway/Amazon: Nova 2 Lite"
+    },
+    {
+      "id": "kilo/amazon/nova-lite-v1",
+      "name": "Kilo Gateway/Amazon: Nova Lite 1.0"
+    },
+    {
+      "id": "kilo/amazon/nova-micro-v1",
+      "name": "Kilo Gateway/Amazon: Nova Micro 1.0"
+    },
+    {
+      "id": "kilo/amazon/nova-premier-v1",
+      "name": "Kilo Gateway/Amazon: Nova Premier 1.0"
+    },
+    {
+      "id": "kilo/amazon/nova-pro-v1",
+      "name": "Kilo Gateway/Amazon: Nova Pro 1.0"
+    },
+    {
+      "id": "kilo/~anthropic/claude-haiku-latest",
+      "name": "Kilo Gateway/Anthropic Claude Haiku Latest"
+    },
+    {
+      "id": "kilo/~anthropic/claude-sonnet-latest",
+      "name": "Kilo Gateway/Anthropic Claude Sonnet Latest"
+    },
+    {
+      "id": "kilo/anthropic/claude-3-haiku",
+      "name": "Kilo Gateway/Anthropic: Claude 3 Haiku"
+    },
+    {
+      "id": "kilo/anthropic/claude-haiku-4.5",
+      "name": "Kilo Gateway/Anthropic: Claude Haiku 4.5"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4 ($$$$)"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.1",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.1 ($$$$)"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.5",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.5"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.6",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.6"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.6-fast",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.6 (Fast) ($$$$)"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.7",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.7"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.7-fast",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.7 (Fast) ($$$$)"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.8",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.8"
+    },
+    {
+      "id": "kilo/anthropic/claude-opus-4.8-fast",
+      "name": "Kilo Gateway/Anthropic: Claude Opus 4.8 (Fast) ($$$$)"
+    },
+    {
+      "id": "kilo/~anthropic/claude-opus-latest",
+      "name": "Kilo Gateway/Anthropic: Claude Opus Latest"
+    },
+    {
+      "id": "kilo/anthropic/claude-sonnet-4",
+      "name": "Kilo Gateway/Anthropic: Claude Sonnet 4"
+    },
+    {
+      "id": "kilo/anthropic/claude-sonnet-4.5",
+      "name": "Kilo Gateway/Anthropic: Claude Sonnet 4.5"
+    },
+    {
+      "id": "kilo/anthropic/claude-sonnet-4.6",
+      "name": "Kilo Gateway/Anthropic: Claude Sonnet 4.6"
+    },
+    {
+      "id": "kilo/arcee-ai/trinity-large-thinking",
+      "name": "Kilo Gateway/Arcee AI: Trinity Large Thinking"
+    },
+    {
+      "id": "kilo/arcee-ai/trinity-mini",
+      "name": "Kilo Gateway/Arcee AI: Trinity Mini"
+    },
+    {
+      "id": "kilo/arcee-ai/virtuoso-large",
+      "name": "Kilo Gateway/Arcee AI: Virtuoso Large"
+    },
+    {
+      "id": "kilo/kilo-auto/balanced",
+      "name": "Kilo Gateway/Auto Balanced"
+    },
+    {
+      "id": "kilo/kilo-auto/efficient",
+      "name": "Kilo Gateway/Auto Efficient"
+    },
+    {
+      "id": "kilo/kilo-auto/free",
+      "name": "Kilo Gateway/Auto Free"
+    },
+    {
+      "id": "kilo/kilo-auto/frontier",
+      "name": "Kilo Gateway/Auto Frontier"
+    },
+    {
+      "id": "kilo/kilo-auto/small",
+      "name": "Kilo Gateway/Auto Small"
+    },
+    {
+      "id": "kilo/bytedance-seed/seed-1.6",
+      "name": "Kilo Gateway/ByteDance Seed: Seed 1.6"
+    },
+    {
+      "id": "kilo/bytedance-seed/seed-1.6-flash",
+      "name": "Kilo Gateway/ByteDance Seed: Seed 1.6 Flash"
+    },
+    {
+      "id": "kilo/bytedance-seed/seed-2.0-lite",
+      "name": "Kilo Gateway/ByteDance Seed: Seed-2.0-Lite"
+    },
+    {
+      "id": "kilo/bytedance-seed/seed-2.0-mini",
+      "name": "Kilo Gateway/ByteDance Seed: Seed-2.0-Mini"
+    },
+    {
+      "id": "kilo/cohere/command-r-08-2024",
+      "name": "Kilo Gateway/Cohere: Command R (08-2024)"
+    },
+    {
+      "id": "kilo/cohere/command-r-plus-08-2024",
+      "name": "Kilo Gateway/Cohere: Command R+ (08-2024)"
+    },
+    {
+      "id": "kilo/cohere/north-mini-code:free",
+      "name": "Kilo Gateway/Cohere: North Mini Code (free)"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-chat",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V3"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-chat-v3-0324",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V3 0324"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-chat-v3.1",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V3.1"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-v3.1-terminus",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V3.1 Terminus"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-v3.2",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V3.2"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-v3.2-exp",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V3.2 Exp"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-v4-flash",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V4 Flash"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-v4-flash:discounted",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V4 Flash (>40% off)"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-v4-pro",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V4 Pro"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-v4-pro:discounted",
+      "name": "Kilo Gateway/DeepSeek: DeepSeek V4 Pro (>80% off)"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-r1",
+      "name": "Kilo Gateway/DeepSeek: R1"
+    },
+    {
+      "id": "kilo/deepseek/deepseek-r1-0528",
+      "name": "Kilo Gateway/DeepSeek: R1 0528"
+    },
+    {
+      "id": "kilo/openrouter/free",
+      "name": "Kilo Gateway/Free Models Router"
+    },
+    {
+      "id": "kilo/~google/gemini-flash-latest",
+      "name": "Kilo Gateway/Google Gemini Flash Latest"
+    },
+    {
+      "id": "kilo/~google/gemini-pro-latest",
+      "name": "Kilo Gateway/Google Gemini Pro Latest"
+    },
+    {
+      "id": "kilo/google/gemini-2.5-flash",
+      "name": "Kilo Gateway/Google: Gemini 2.5 Flash"
+    },
+    {
+      "id": "kilo/google/gemini-2.5-flash-lite",
+      "name": "Kilo Gateway/Google: Gemini 2.5 Flash Lite"
+    },
+    {
+      "id": "kilo/google/gemini-2.5-flash-lite-preview-09-2025",
+      "name": "Kilo Gateway/Google: Gemini 2.5 Flash Lite Preview 09-2025"
+    },
+    {
+      "id": "kilo/google/gemini-2.5-pro",
+      "name": "Kilo Gateway/Google: Gemini 2.5 Pro"
+    },
+    {
+      "id": "kilo/google/gemini-2.5-pro-preview-05-06",
+      "name": "Kilo Gateway/Google: Gemini 2.5 Pro Preview 05-06"
+    },
+    {
+      "id": "kilo/google/gemini-2.5-pro-preview",
+      "name": "Kilo Gateway/Google: Gemini 2.5 Pro Preview 06-05"
+    },
+    {
+      "id": "kilo/google/gemini-3-flash-preview",
+      "name": "Kilo Gateway/Google: Gemini 3 Flash Preview"
+    },
+    {
+      "id": "kilo/google/gemini-3.1-flash-lite",
+      "name": "Kilo Gateway/Google: Gemini 3.1 Flash Lite"
+    },
+    {
+      "id": "kilo/google/gemini-3.1-flash-lite-preview",
+      "name": "Kilo Gateway/Google: Gemini 3.1 Flash Lite Preview"
+    },
+    {
+      "id": "kilo/google/gemini-3.1-pro-preview",
+      "name": "Kilo Gateway/Google: Gemini 3.1 Pro Preview"
+    },
+    {
+      "id": "kilo/google/gemini-3.1-pro-preview-customtools",
+      "name": "Kilo Gateway/Google: Gemini 3.1 Pro Preview Custom Tools"
+    },
+    {
+      "id": "kilo/google/gemini-3.5-flash",
+      "name": "Kilo Gateway/Google: Gemini 3.5 Flash"
+    },
+    {
+      "id": "kilo/google/gemma-3-12b-it",
+      "name": "Kilo Gateway/Google: Gemma 3 12B"
+    },
+    {
+      "id": "kilo/google/gemma-3-27b-it",
+      "name": "Kilo Gateway/Google: Gemma 3 27B"
+    },
+    {
+      "id": "kilo/google/gemma-4-26b-a4b-it",
+      "name": "Kilo Gateway/Google: Gemma 4 26B A4B "
+    },
+    {
+      "id": "kilo/google/gemma-4-31b-it",
+      "name": "Kilo Gateway/Google: Gemma 4 31B"
+    },
+    {
+      "id": "kilo/ibm-granite/granite-4.1-8b",
+      "name": "Kilo Gateway/IBM: Granite 4.1 8B"
+    },
+    {
+      "id": "kilo/inception/mercury-2",
+      "name": "Kilo Gateway/Inception: Mercury 2"
+    },
+    {
+      "id": "kilo/inclusionai/ling-2.6-1t",
+      "name": "Kilo Gateway/inclusionAI: Ling-2.6-1T"
+    },
+    {
+      "id": "kilo/inclusionai/ling-2.6-flash",
+      "name": "Kilo Gateway/inclusionAI: Ling-2.6-flash"
+    },
+    {
+      "id": "kilo/inclusionai/ring-2.6-1t",
+      "name": "Kilo Gateway/inclusionAI: Ring-2.6-1T"
+    },
+    {
+      "id": "kilo/kwaipilot/kat-coder-pro-v2",
+      "name": "Kilo Gateway/Kwaipilot: KAT-Coder-Pro V2"
+    },
+    {
+      "id": "kilo/meta-llama/llama-3.1-70b-instruct",
+      "name": "Kilo Gateway/Meta: Llama 3.1 70B Instruct"
+    },
+    {
+      "id": "kilo/meta-llama/llama-3.1-8b-instruct",
+      "name": "Kilo Gateway/Meta: Llama 3.1 8B Instruct"
+    },
+    {
+      "id": "kilo/meta-llama/llama-3.3-70b-instruct",
+      "name": "Kilo Gateway/Meta: Llama 3.3 70B Instruct"
+    },
+    {
+      "id": "kilo/meta-llama/llama-4-maverick",
+      "name": "Kilo Gateway/Meta: Llama 4 Maverick"
+    },
+    {
+      "id": "kilo/meta-llama/llama-4-scout",
+      "name": "Kilo Gateway/Meta: Llama 4 Scout"
+    },
+    {
+      "id": "kilo/minimax/minimax-m1",
+      "name": "Kilo Gateway/MiniMax: MiniMax M1"
+    },
+    {
+      "id": "kilo/minimax/minimax-m2",
+      "name": "Kilo Gateway/MiniMax: MiniMax M2"
+    },
+    {
+      "id": "kilo/minimax/minimax-m2.1",
+      "name": "Kilo Gateway/MiniMax: MiniMax M2.1"
+    },
+    {
+      "id": "kilo/minimax/minimax-m2.5",
+      "name": "Kilo Gateway/MiniMax: MiniMax M2.5"
+    },
+    {
+      "id": "kilo/minimax/minimax-m2.7",
+      "name": "Kilo Gateway/MiniMax: MiniMax M2.7"
+    },
+    {
+      "id": "kilo/minimax/minimax-m3",
+      "name": "Kilo Gateway/MiniMax: MiniMax M3"
+    },
+    {
+      "id": "kilo/mistralai/mistral-large",
+      "name": "Kilo Gateway/Mistral Large"
+    },
+    {
+      "id": "kilo/mistralai/mistral-large-2407",
+      "name": "Kilo Gateway/Mistral Large 2407"
+    },
+    {
+      "id": "kilo/mistralai/codestral-2508",
+      "name": "Kilo Gateway/Mistral: Codestral 2508"
+    },
+    {
+      "id": "kilo/mistralai/devstral-2512",
+      "name": "Kilo Gateway/Mistral: Devstral 2 2512"
+    },
+    {
+      "id": "kilo/mistralai/ministral-14b-2512",
+      "name": "Kilo Gateway/Mistral: Ministral 3 14B 2512"
+    },
+    {
+      "id": "kilo/mistralai/ministral-3b-2512",
+      "name": "Kilo Gateway/Mistral: Ministral 3 3B 2512"
+    },
+    {
+      "id": "kilo/mistralai/ministral-8b-2512",
+      "name": "Kilo Gateway/Mistral: Ministral 3 8B 2512"
+    },
+    {
+      "id": "kilo/mistralai/mistral-large-2512",
+      "name": "Kilo Gateway/Mistral: Mistral Large 3 2512"
+    },
+    {
+      "id": "kilo/mistralai/mistral-medium-3",
+      "name": "Kilo Gateway/Mistral: Mistral Medium 3"
+    },
+    {
+      "id": "kilo/mistralai/mistral-medium-3.1",
+      "name": "Kilo Gateway/Mistral: Mistral Medium 3.1"
+    },
+    {
+      "id": "kilo/mistralai/mistral-medium-3-5",
+      "name": "Kilo Gateway/Mistral: Mistral Medium 3.5"
+    },
+    {
+      "id": "kilo/mistralai/mistral-nemo",
+      "name": "Kilo Gateway/Mistral: Mistral Nemo"
+    },
+    {
+      "id": "kilo/mistralai/mistral-small-3.2-24b-instruct",
+      "name": "Kilo Gateway/Mistral: Mistral Small 3.2 24B"
+    },
+    {
+      "id": "kilo/mistralai/mistral-small-2603",
+      "name": "Kilo Gateway/Mistral: Mistral Small 4"
+    },
+    {
+      "id": "kilo/mistralai/mixtral-8x22b-instruct",
+      "name": "Kilo Gateway/Mistral: Mixtral 8x22B Instruct"
+    },
+    {
+      "id": "kilo/mistralai/mistral-saba",
+      "name": "Kilo Gateway/Mistral: Saba"
+    },
+    {
+      "id": "kilo/mistralai/voxtral-small-24b-2507",
+      "name": "Kilo Gateway/Mistral: Voxtral Small 24B 2507"
+    },
+    {
+      "id": "kilo/~moonshotai/kimi-latest",
+      "name": "Kilo Gateway/MoonshotAI Kimi Latest"
+    },
+    {
+      "id": "kilo/moonshotai/kimi-k2",
+      "name": "Kilo Gateway/MoonshotAI: Kimi K2 0711"
+    },
+    {
+      "id": "kilo/moonshotai/kimi-k2-0905",
+      "name": "Kilo Gateway/MoonshotAI: Kimi K2 0905"
+    },
+    {
+      "id": "kilo/moonshotai/kimi-k2-thinking",
+      "name": "Kilo Gateway/MoonshotAI: Kimi K2 Thinking"
+    },
+    {
+      "id": "kilo/moonshotai/kimi-k2.5",
+      "name": "Kilo Gateway/MoonshotAI: Kimi K2.5"
+    },
+    {
+      "id": "kilo/moonshotai/kimi-k2.6",
+      "name": "Kilo Gateway/MoonshotAI: Kimi K2.6"
+    },
+    {
+      "id": "kilo/moonshotai/kimi-k2.7-code",
+      "name": "Kilo Gateway/MoonshotAI: Kimi K2.7 Code"
+    },
+    {
+      "id": "kilo/nvidia/llama-3.3-nemotron-super-49b-v1.5",
+      "name": "Kilo Gateway/NVIDIA: Llama 3.3 Nemotron Super 49B V1.5"
+    },
+    {
+      "id": "kilo/nvidia/nemotron-3-nano-30b-a3b",
+      "name": "Kilo Gateway/NVIDIA: Nemotron 3 Nano 30B A3B"
+    },
+    {
+      "id": "kilo/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "name": "Kilo Gateway/NVIDIA: Nemotron 3 Nano Omni (free)"
+    },
+    {
+      "id": "kilo/nvidia/nemotron-3-super-120b-a12b",
+      "name": "Kilo Gateway/NVIDIA: Nemotron 3 Super"
+    },
+    {
+      "id": "kilo/nvidia/nemotron-3-super-120b-a12b:free",
+      "name": "Kilo Gateway/NVIDIA: Nemotron 3 Super (free)"
+    },
+    {
+      "id": "kilo/nvidia/nemotron-3-ultra-550b-a55b",
+      "name": "Kilo Gateway/NVIDIA: Nemotron 3 Ultra"
+    },
+    {
+      "id": "kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "name": "Kilo Gateway/NVIDIA: Nemotron 3 Ultra (free)"
+    },
+    {
+      "id": "kilo/~openai/gpt-latest",
+      "name": "Kilo Gateway/OpenAI GPT Latest"
+    },
+    {
+      "id": "kilo/~openai/gpt-mini-latest",
+      "name": "Kilo Gateway/OpenAI GPT Mini Latest"
+    },
+    {
+      "id": "kilo/openai/gpt-audio",
+      "name": "Kilo Gateway/OpenAI: GPT Audio"
+    },
+    {
+      "id": "kilo/openai/gpt-audio-mini",
+      "name": "Kilo Gateway/OpenAI: GPT Audio Mini"
+    },
+    {
+      "id": "kilo/openai/gpt-chat-latest",
+      "name": "Kilo Gateway/OpenAI: GPT Chat Latest"
+    },
+    {
+      "id": "kilo/openai/gpt-3.5-turbo",
+      "name": "Kilo Gateway/OpenAI: GPT-3.5 Turbo"
+    },
+    {
+      "id": "kilo/openai/gpt-3.5-turbo-0613",
+      "name": "Kilo Gateway/OpenAI: GPT-3.5 Turbo (older v0613)"
+    },
+    {
+      "id": "kilo/openai/gpt-3.5-turbo-16k",
+      "name": "Kilo Gateway/OpenAI: GPT-3.5 Turbo 16k"
+    },
+    {
+      "id": "kilo/openai/gpt-4",
+      "name": "Kilo Gateway/OpenAI: GPT-4 ($$$$)"
+    },
+    {
+      "id": "kilo/openai/gpt-4-turbo",
+      "name": "Kilo Gateway/OpenAI: GPT-4 Turbo ($$$$)"
+    },
+    {
+      "id": "kilo/openai/gpt-4-turbo-preview",
+      "name": "Kilo Gateway/OpenAI: GPT-4 Turbo Preview ($$$$)"
+    },
+    {
+      "id": "kilo/openai/gpt-4.1",
+      "name": "Kilo Gateway/OpenAI: GPT-4.1"
+    },
+    {
+      "id": "kilo/openai/gpt-4.1-mini",
+      "name": "Kilo Gateway/OpenAI: GPT-4.1 Mini"
+    },
+    {
+      "id": "kilo/openai/gpt-4.1-nano",
+      "name": "Kilo Gateway/OpenAI: GPT-4.1 Nano"
+    },
+    {
+      "id": "kilo/openai/gpt-4o",
+      "name": "Kilo Gateway/OpenAI: GPT-4o"
+    },
+    {
+      "id": "kilo/openai/gpt-4o-2024-05-13",
+      "name": "Kilo Gateway/OpenAI: GPT-4o (2024-05-13)"
+    },
+    {
+      "id": "kilo/openai/gpt-4o-2024-08-06",
+      "name": "Kilo Gateway/OpenAI: GPT-4o (2024-08-06)"
+    },
+    {
+      "id": "kilo/openai/gpt-4o-2024-11-20",
+      "name": "Kilo Gateway/OpenAI: GPT-4o (2024-11-20)"
+    },
+    {
+      "id": "kilo/openai/gpt-4o-mini",
+      "name": "Kilo Gateway/OpenAI: GPT-4o-mini"
+    },
+    {
+      "id": "kilo/openai/gpt-4o-mini-2024-07-18",
+      "name": "Kilo Gateway/OpenAI: GPT-4o-mini (2024-07-18)"
+    },
+    {
+      "id": "kilo/openai/gpt-5",
+      "name": "Kilo Gateway/OpenAI: GPT-5"
+    },
+    {
+      "id": "kilo/openai/gpt-5-codex",
+      "name": "Kilo Gateway/OpenAI: GPT-5 Codex"
+    },
+    {
+      "id": "kilo/openai/gpt-5-mini",
+      "name": "Kilo Gateway/OpenAI: GPT-5 Mini"
+    },
+    {
+      "id": "kilo/openai/gpt-5-nano",
+      "name": "Kilo Gateway/OpenAI: GPT-5 Nano"
+    },
+    {
+      "id": "kilo/openai/gpt-5-pro",
+      "name": "Kilo Gateway/OpenAI: GPT-5 Pro ($$$$)"
+    },
+    {
+      "id": "kilo/openai/gpt-5.1",
+      "name": "Kilo Gateway/OpenAI: GPT-5.1"
+    },
+    {
+      "id": "kilo/openai/gpt-5.1-chat",
+      "name": "Kilo Gateway/OpenAI: GPT-5.1 Chat"
+    },
+    {
+      "id": "kilo/openai/gpt-5.1-codex",
+      "name": "Kilo Gateway/OpenAI: GPT-5.1-Codex"
+    },
+    {
+      "id": "kilo/openai/gpt-5.1-codex-max",
+      "name": "Kilo Gateway/OpenAI: GPT-5.1-Codex-Max"
+    },
+    {
+      "id": "kilo/openai/gpt-5.1-codex-mini",
+      "name": "Kilo Gateway/OpenAI: GPT-5.1-Codex-Mini"
+    },
+    {
+      "id": "kilo/openai/gpt-5.2",
+      "name": "Kilo Gateway/OpenAI: GPT-5.2"
+    },
+    {
+      "id": "kilo/openai/gpt-5.2-chat",
+      "name": "Kilo Gateway/OpenAI: GPT-5.2 Chat"
+    },
+    {
+      "id": "kilo/openai/gpt-5.2-pro",
+      "name": "Kilo Gateway/OpenAI: GPT-5.2 Pro ($$$$)"
+    },
+    {
+      "id": "kilo/openai/gpt-5.2-codex",
+      "name": "Kilo Gateway/OpenAI: GPT-5.2-Codex"
+    },
+    {
+      "id": "kilo/openai/gpt-5.3-chat",
+      "name": "Kilo Gateway/OpenAI: GPT-5.3 Chat"
+    },
+    {
+      "id": "kilo/openai/gpt-5.3-codex",
+      "name": "Kilo Gateway/OpenAI: GPT-5.3-Codex"
+    },
+    {
+      "id": "kilo/openai/gpt-5.4",
+      "name": "Kilo Gateway/OpenAI: GPT-5.4"
+    },
+    {
+      "id": "kilo/openai/gpt-5.4-mini",
+      "name": "Kilo Gateway/OpenAI: GPT-5.4 Mini"
+    },
+    {
+      "id": "kilo/openai/gpt-5.4-nano",
+      "name": "Kilo Gateway/OpenAI: GPT-5.4 Nano"
+    },
+    {
+      "id": "kilo/openai/gpt-5.4-pro",
+      "name": "Kilo Gateway/OpenAI: GPT-5.4 Pro ($$$$)"
+    },
+    {
+      "id": "kilo/openai/gpt-5.5",
+      "name": "Kilo Gateway/OpenAI: GPT-5.5"
+    },
+    {
+      "id": "kilo/openai/gpt-5.5-pro",
+      "name": "Kilo Gateway/OpenAI: GPT-5.5 Pro ($$$$)"
+    },
+    {
+      "id": "kilo/openai/gpt-oss-120b",
+      "name": "Kilo Gateway/OpenAI: gpt-oss-120b"
+    },
+    {
+      "id": "kilo/openai/gpt-oss-20b",
+      "name": "Kilo Gateway/OpenAI: gpt-oss-20b"
+    },
+    {
+      "id": "kilo/openai/gpt-oss-safeguard-20b",
+      "name": "Kilo Gateway/OpenAI: gpt-oss-safeguard-20b"
+    },
+    {
+      "id": "kilo/openai/o1",
+      "name": "Kilo Gateway/OpenAI: o1 ($$$$)"
+    },
+    {
+      "id": "kilo/openai/o3",
+      "name": "Kilo Gateway/OpenAI: o3"
+    },
+    {
+      "id": "kilo/openai/o3-deep-research",
+      "name": "Kilo Gateway/OpenAI: o3 Deep Research ($$$$)"
+    },
+    {
+      "id": "kilo/openai/o3-mini",
+      "name": "Kilo Gateway/OpenAI: o3 Mini"
+    },
+    {
+      "id": "kilo/openai/o3-mini-high",
+      "name": "Kilo Gateway/OpenAI: o3 Mini High"
+    },
+    {
+      "id": "kilo/openai/o3-pro",
+      "name": "Kilo Gateway/OpenAI: o3 Pro ($$$$)"
+    },
+    {
+      "id": "kilo/openai/o4-mini",
+      "name": "Kilo Gateway/OpenAI: o4 Mini"
+    },
+    {
+      "id": "kilo/openai/o4-mini-deep-research",
+      "name": "Kilo Gateway/OpenAI: o4 Mini Deep Research"
+    },
+    {
+      "id": "kilo/openai/o4-mini-high",
+      "name": "Kilo Gateway/OpenAI: o4 Mini High"
+    },
+    {
+      "id": "kilo/openrouter/owl-alpha",
+      "name": "Kilo Gateway/Owl Alpha"
+    },
+    {
+      "id": "kilo/poolside/laguna-m.1",
+      "name": "Kilo Gateway/Poolside: Laguna M.1"
+    },
+    {
+      "id": "kilo/poolside/laguna-m.1:free",
+      "name": "Kilo Gateway/Poolside: Laguna M.1 (free)"
+    },
+    {
+      "id": "kilo/poolside/laguna-xs.2",
+      "name": "Kilo Gateway/Poolside: Laguna XS.2"
+    },
+    {
+      "id": "kilo/poolside/laguna-xs.2:free",
+      "name": "Kilo Gateway/Poolside: Laguna XS.2 (free)"
+    },
+    {
+      "id": "kilo/qwen/qwen-plus-2025-07-28",
+      "name": "Kilo Gateway/Qwen: Qwen Plus 0728"
+    },
+    {
+      "id": "kilo/qwen/qwen-plus-2025-07-28:thinking",
+      "name": "Kilo Gateway/Qwen: Qwen Plus 0728 (thinking)"
+    },
+    {
+      "id": "kilo/qwen/qwen-plus",
+      "name": "Kilo Gateway/Qwen: Qwen-Plus"
+    },
+    {
+      "id": "kilo/qwen/qwen-2.5-7b-instruct",
+      "name": "Kilo Gateway/Qwen: Qwen2.5 7B Instruct"
+    },
+    {
+      "id": "kilo/qwen/qwen3-14b",
+      "name": "Kilo Gateway/Qwen: Qwen3 14B"
+    },
+    {
+      "id": "kilo/qwen/qwen3-235b-a22b",
+      "name": "Kilo Gateway/Qwen: Qwen3 235B A22B"
+    },
+    {
+      "id": "kilo/qwen/qwen3-235b-a22b-2507",
+      "name": "Kilo Gateway/Qwen: Qwen3 235B A22B Instruct 2507"
+    },
+    {
+      "id": "kilo/qwen/qwen3-235b-a22b-thinking-2507",
+      "name": "Kilo Gateway/Qwen: Qwen3 235B A22B Thinking 2507"
+    },
+    {
+      "id": "kilo/qwen/qwen3-30b-a3b",
+      "name": "Kilo Gateway/Qwen: Qwen3 30B A3B"
+    },
+    {
+      "id": "kilo/qwen/qwen3-30b-a3b-instruct-2507",
+      "name": "Kilo Gateway/Qwen: Qwen3 30B A3B Instruct 2507"
+    },
+    {
+      "id": "kilo/qwen/qwen3-30b-a3b-thinking-2507",
+      "name": "Kilo Gateway/Qwen: Qwen3 30B A3B Thinking 2507"
+    },
+    {
+      "id": "kilo/qwen/qwen3-32b",
+      "name": "Kilo Gateway/Qwen: Qwen3 32B"
+    },
+    {
+      "id": "kilo/qwen/qwen3-8b",
+      "name": "Kilo Gateway/Qwen: Qwen3 8B"
+    },
+    {
+      "id": "kilo/qwen/qwen3-coder-30b-a3b-instruct",
+      "name": "Kilo Gateway/Qwen: Qwen3 Coder 30B A3B Instruct"
+    },
+    {
+      "id": "kilo/qwen/qwen3-coder",
+      "name": "Kilo Gateway/Qwen: Qwen3 Coder 480B A35B"
+    },
+    {
+      "id": "kilo/qwen/qwen3-coder-flash",
+      "name": "Kilo Gateway/Qwen: Qwen3 Coder Flash"
+    },
+    {
+      "id": "kilo/qwen/qwen3-coder-next",
+      "name": "Kilo Gateway/Qwen: Qwen3 Coder Next"
+    },
+    {
+      "id": "kilo/qwen/qwen3-coder-plus",
+      "name": "Kilo Gateway/Qwen: Qwen3 Coder Plus"
+    },
+    {
+      "id": "kilo/qwen/qwen3-max",
+      "name": "Kilo Gateway/Qwen: Qwen3 Max"
+    },
+    {
+      "id": "kilo/qwen/qwen3-max-thinking",
+      "name": "Kilo Gateway/Qwen: Qwen3 Max Thinking"
+    },
+    {
+      "id": "kilo/qwen/qwen3-next-80b-a3b-instruct",
+      "name": "Kilo Gateway/Qwen: Qwen3 Next 80B A3B Instruct"
+    },
+    {
+      "id": "kilo/qwen/qwen3-next-80b-a3b-thinking",
+      "name": "Kilo Gateway/Qwen: Qwen3 Next 80B A3B Thinking"
+    },
+    {
+      "id": "kilo/qwen/qwen3-vl-235b-a22b-instruct",
+      "name": "Kilo Gateway/Qwen: Qwen3 VL 235B A22B Instruct"
+    },
+    {
+      "id": "kilo/qwen/qwen3-vl-235b-a22b-thinking",
+      "name": "Kilo Gateway/Qwen: Qwen3 VL 235B A22B Thinking"
+    },
+    {
+      "id": "kilo/qwen/qwen3-vl-30b-a3b-instruct",
+      "name": "Kilo Gateway/Qwen: Qwen3 VL 30B A3B Instruct"
+    },
+    {
+      "id": "kilo/qwen/qwen3-vl-30b-a3b-thinking",
+      "name": "Kilo Gateway/Qwen: Qwen3 VL 30B A3B Thinking"
+    },
+    {
+      "id": "kilo/qwen/qwen3-vl-32b-instruct",
+      "name": "Kilo Gateway/Qwen: Qwen3 VL 32B Instruct"
+    },
+    {
+      "id": "kilo/qwen/qwen3-vl-8b-instruct",
+      "name": "Kilo Gateway/Qwen: Qwen3 VL 8B Instruct"
+    },
+    {
+      "id": "kilo/qwen/qwen3-vl-8b-thinking",
+      "name": "Kilo Gateway/Qwen: Qwen3 VL 8B Thinking"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-397b-a17b",
+      "name": "Kilo Gateway/Qwen: Qwen3.5 397B A17B"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-plus-02-15",
+      "name": "Kilo Gateway/Qwen: Qwen3.5 Plus 2026-02-15"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-plus-20260420",
+      "name": "Kilo Gateway/Qwen: Qwen3.5 Plus 2026-04-20"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-122b-a10b",
+      "name": "Kilo Gateway/Qwen: Qwen3.5-122B-A10B"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-27b",
+      "name": "Kilo Gateway/Qwen: Qwen3.5-27B"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-35b-a3b",
+      "name": "Kilo Gateway/Qwen: Qwen3.5-35B-A3B"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-9b",
+      "name": "Kilo Gateway/Qwen: Qwen3.5-9B"
+    },
+    {
+      "id": "kilo/qwen/qwen3.5-flash-02-23",
+      "name": "Kilo Gateway/Qwen: Qwen3.5-Flash"
+    },
+    {
+      "id": "kilo/qwen/qwen3.6-27b",
+      "name": "Kilo Gateway/Qwen: Qwen3.6 27B"
+    },
+    {
+      "id": "kilo/qwen/qwen3.6-35b-a3b",
+      "name": "Kilo Gateway/Qwen: Qwen3.6 35B A3B"
+    },
+    {
+      "id": "kilo/qwen/qwen3.6-flash",
+      "name": "Kilo Gateway/Qwen: Qwen3.6 Flash"
+    },
+    {
+      "id": "kilo/qwen/qwen3.6-max-preview",
+      "name": "Kilo Gateway/Qwen: Qwen3.6 Max Preview"
+    },
+    {
+      "id": "kilo/qwen/qwen3.6-plus",
+      "name": "Kilo Gateway/Qwen: Qwen3.6 Plus"
+    },
+    {
+      "id": "kilo/qwen/qwen3.7-max",
+      "name": "Kilo Gateway/Qwen: Qwen3.7 Max (50% off)"
+    },
+    {
+      "id": "kilo/qwen/qwen3.7-plus",
+      "name": "Kilo Gateway/Qwen: Qwen3.7 Plus (20% off)"
+    },
+    {
+      "id": "kilo/qwen/qwen-2.5-72b-instruct",
+      "name": "Kilo Gateway/Qwen2.5 72B Instruct"
+    },
+    {
+      "id": "kilo/rekaai/reka-edge",
+      "name": "Kilo Gateway/Reka Edge"
+    },
+    {
+      "id": "kilo/relace/relace-search",
+      "name": "Kilo Gateway/Relace: Relace Search"
+    },
+    {
+      "id": "kilo/sao10k/l3.1-euryale-70b",
+      "name": "Kilo Gateway/Sao10K: Llama 3.1 Euryale 70B v2.2"
+    },
+    {
+      "id": "kilo/stealth/claude-opus-4.6",
+      "name": "Kilo Gateway/Stealth: Claude Opus 4.6 (20% off)"
+    },
+    {
+      "id": "kilo/stealth/claude-opus-4.7",
+      "name": "Kilo Gateway/Stealth: Claude Opus 4.7 (20% off)"
+    },
+    {
+      "id": "kilo/stealth/claude-opus-4.8",
+      "name": "Kilo Gateway/Stealth: Claude Opus 4.8 (20% off)"
+    },
+    {
+      "id": "kilo/stealth/claude-sonnet-4.6",
+      "name": "Kilo Gateway/Stealth: Claude Sonnet 4.6 (20% off)"
+    },
+    {
+      "id": "kilo/stealth/qwen3.6-plus",
+      "name": "Kilo Gateway/Stealth: Qwen3.6 Plus (50% off)"
+    },
+    {
+      "id": "kilo/stepfun/step-3.5-flash",
+      "name": "Kilo Gateway/StepFun: Step 3.5 Flash (retires Jun 29)"
+    },
+    {
+      "id": "kilo/stepfun/step-3.7-flash",
+      "name": "Kilo Gateway/StepFun: Step 3.7 Flash"
+    },
+    {
+      "id": "kilo/stepfun/step-3.7-flash:free",
+      "name": "Kilo Gateway/StepFun: Step 3.7 Flash (free)"
+    },
+    {
+      "id": "kilo/tencent/hy3-preview",
+      "name": "Kilo Gateway/Tencent: Hy3 preview"
+    },
+    {
+      "id": "kilo/thedrummer/unslopnemo-12b",
+      "name": "Kilo Gateway/TheDrummer: UnslopNemo 12B"
+    },
+    {
+      "id": "kilo/upstage/solar-pro-3",
+      "name": "Kilo Gateway/Upstage: Solar Pro 3"
+    },
+    {
+      "id": "kilo/x-ai/grok-4.20",
+      "name": "Kilo Gateway/xAI: Grok 4.20"
+    },
+    {
+      "id": "kilo/x-ai/grok-4.3",
+      "name": "Kilo Gateway/xAI: Grok 4.3"
+    },
+    {
+      "id": "kilo/x-ai/grok-build-0.1",
+      "name": "Kilo Gateway/xAI: Grok Build 0.1"
+    },
+    {
+      "id": "kilo/xiaomi/mimo-v2.5",
+      "name": "Kilo Gateway/Xiaomi: MiMo-V2.5"
+    },
+    {
+      "id": "kilo/xiaomi/mimo-v2.5-pro",
+      "name": "Kilo Gateway/Xiaomi: MiMo-V2.5-Pro"
+    },
+    {
+      "id": "kilo/z-ai/glm-4.5",
+      "name": "Kilo Gateway/Z.ai: GLM 4.5"
+    },
+    {
+      "id": "kilo/z-ai/glm-4.5-air",
+      "name": "Kilo Gateway/Z.ai: GLM 4.5 Air"
+    },
+    {
+      "id": "kilo/z-ai/glm-4.5v",
+      "name": "Kilo Gateway/Z.ai: GLM 4.5V"
+    },
+    {
+      "id": "kilo/z-ai/glm-4.6",
+      "name": "Kilo Gateway/Z.ai: GLM 4.6"
+    },
+    {
+      "id": "kilo/z-ai/glm-4.6v",
+      "name": "Kilo Gateway/Z.ai: GLM 4.6V"
+    },
+    {
+      "id": "kilo/z-ai/glm-4.7",
+      "name": "Kilo Gateway/Z.ai: GLM 4.7"
+    },
+    {
+      "id": "kilo/z-ai/glm-4.7-flash",
+      "name": "Kilo Gateway/Z.ai: GLM 4.7 Flash"
+    },
+    {
+      "id": "kilo/z-ai/glm-5",
+      "name": "Kilo Gateway/Z.ai: GLM 5"
+    },
+    {
+      "id": "kilo/z-ai/glm-5-turbo",
+      "name": "Kilo Gateway/Z.ai: GLM 5 Turbo"
+    },
+    {
+      "id": "kilo/z-ai/glm-5.1",
+      "name": "Kilo Gateway/Z.ai: GLM 5.1"
+    },
+    {
+      "id": "kilo/z-ai/glm-5.2",
+      "name": "Kilo Gateway/Z.ai: GLM 5.2"
+    },
+    {
+      "id": "kilo/z-ai/glm-5v-turbo",
+      "name": "Kilo Gateway/Z.ai: GLM 5V Turbo"
+    }
+  ],
   "modes": [],
   "name": "Kilo",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "none",
+      "name": "None"
+    },
+    {
+      "id": "low",
+      "name": "Low"
+    },
+    {
+      "id": "medium",
+      "name": "Medium"
+    },
+    {
+      "id": "high",
+      "name": "High"
+    },
+    {
+      "id": "max",
+      "name": "Max"
+    }
+  ],
   "version": "7.3.54"
 };

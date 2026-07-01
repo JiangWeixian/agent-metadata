@@ -170,7 +170,16 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "default",
+  "currentModelId": "probe-dummy-model",
+  "currentReasoningEffortId": "default",
   "id": "poolside",
+  "models": [
+    {
+      "description": "probe-dummy-model",
+      "id": "probe-dummy-model",
+      "name": "probe-dummy-model"
+    }
+  ],
   "modes": [
     {
       "description": "Prompts for permission on first use of each tool",
@@ -195,5 +204,35 @@ export const agent: AgentMetadata = {
   ],
   "name": "Poolside",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "default",
+      "name": "Default"
+    },
+    {
+      "id": "xhigh",
+      "name": "Extra high"
+    },
+    {
+      "id": "high",
+      "name": "High"
+    },
+    {
+      "id": "medium",
+      "name": "Medium"
+    },
+    {
+      "id": "low",
+      "name": "Low"
+    },
+    {
+      "id": "minimal",
+      "name": "Minimal"
+    },
+    {
+      "id": "none",
+      "name": "None"
+    }
+  ],
   "version": "1.0.7"
 };

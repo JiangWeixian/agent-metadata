@@ -102,7 +102,15 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "agent",
+  "currentModelId": "probe-dummy/probe-dummy-model",
+  "currentReasoningEffortId": "auto",
   "id": "dimcode",
+  "models": [
+    {
+      "id": "probe-dummy/probe-dummy-model",
+      "name": "probe-dummy / probe-dummy-model"
+    }
+  ],
   "modes": [
     {
       "description": "Run with normal agent tool access.",
@@ -122,5 +130,11 @@ export const agent: AgentMetadata = {
   ],
   "name": "DimCode",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "auto",
+      "name": "Auto"
+    }
+  ],
   "version": "0.2.11"
 };

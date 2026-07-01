@@ -137,9 +137,13 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": null,
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "sigit",
+  "models": [],
   "modes": [],
   "name": "siGit Code",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "1.2.2"
 };

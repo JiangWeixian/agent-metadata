@@ -711,7 +711,31 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "agent",
+  "currentModelId": "gpt-5.5",
+  "currentReasoningEffortId": "high",
   "id": "codex-acp",
+  "models": [
+    {
+      "description": "Frontier model for complex coding, research, and real-world work.",
+      "id": "gpt-5.5",
+      "name": "GPT-5.5"
+    },
+    {
+      "description": "Strong model for everyday coding.",
+      "id": "gpt-5.4",
+      "name": "GPT-5.4"
+    },
+    {
+      "description": "Small, fast, and cost-efficient model for simpler coding tasks.",
+      "id": "gpt-5.4-mini",
+      "name": "GPT-5.4-Mini"
+    },
+    {
+      "description": "Ultra-fast coding model.",
+      "id": "gpt-5.3-codex-spark",
+      "name": "GPT-5.3-Codex-Spark"
+    }
+  ],
   "modes": [
     {
       "description": "Requires approval to edit files and run commands.",
@@ -731,5 +755,27 @@ export const agent: AgentMetadata = {
   ],
   "name": "Codex",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "description": "Fast responses with lighter reasoning",
+      "id": "low",
+      "name": "low"
+    },
+    {
+      "description": "Balances speed and reasoning depth for everyday tasks",
+      "id": "medium",
+      "name": "medium"
+    },
+    {
+      "description": "Greater reasoning depth for complex problems",
+      "id": "high",
+      "name": "high"
+    },
+    {
+      "description": "Extra high reasoning depth for complex problems",
+      "id": "xhigh",
+      "name": "xhigh"
+    }
+  ],
   "version": "1.0.1"
 };

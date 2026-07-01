@@ -46,7 +46,10 @@ export const agent: AgentMetadata = {
   "commands": [],
   "configOptions": [],
   "currentModeId": "default",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "glm-acp-agent",
+  "models": [],
   "modes": [
     {
       "description": "Prompt before edits and commands.",
@@ -66,5 +69,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "GLM Agent",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "1.1.4"
 };

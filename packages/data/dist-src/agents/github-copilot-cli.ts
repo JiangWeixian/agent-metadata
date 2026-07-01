@@ -373,7 +373,10 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "https://agentclientprotocol.com/protocol/session-modes#agent",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "github-copilot-cli",
+  "models": [],
   "modes": [
     {
       "description": "Default agent mode for conversational interactions",
@@ -393,5 +396,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "GitHub Copilot",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "1.0.65"
 };

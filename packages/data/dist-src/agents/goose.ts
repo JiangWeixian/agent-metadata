@@ -498,7 +498,111 @@ export const agent: AgentMetadata = {
     }
   ],
   "currentModeId": "auto",
+  "currentModelId": "probe-dummy-model",
+  "currentReasoningEffortId": "off",
   "id": "goose",
+  "models": [
+    {
+      "id": "probe-dummy-model",
+      "name": "probe-dummy-model"
+    },
+    {
+      "id": "gpt-4o",
+      "name": "GPT-4o"
+    },
+    {
+      "id": "gpt-4o-mini",
+      "name": "GPT-4o mini"
+    },
+    {
+      "id": "gpt-4.1",
+      "name": "GPT-4.1"
+    },
+    {
+      "id": "gpt-4.1-mini",
+      "name": "GPT-4.1 mini"
+    },
+    {
+      "id": "o1",
+      "name": "o1"
+    },
+    {
+      "id": "o3",
+      "name": "o3"
+    },
+    {
+      "id": "gpt-3.5-turbo",
+      "name": "GPT-3.5-turbo"
+    },
+    {
+      "id": "gpt-4-turbo",
+      "name": "GPT-4 Turbo"
+    },
+    {
+      "id": "o4-mini",
+      "name": "o4-mini"
+    },
+    {
+      "id": "gpt-5",
+      "name": "GPT-5"
+    },
+    {
+      "id": "gpt-5-mini",
+      "name": "GPT-5 Mini"
+    },
+    {
+      "id": "gpt-5-nano",
+      "name": "GPT-5 Nano"
+    },
+    {
+      "id": "gpt-5-pro",
+      "name": "GPT-5 Pro"
+    },
+    {
+      "id": "gpt-5-codex",
+      "name": "GPT-5-Codex"
+    },
+    {
+      "id": "gpt-5.1",
+      "name": "GPT-5.1"
+    },
+    {
+      "id": "gpt-5.1-codex",
+      "name": "GPT-5.1 Codex"
+    },
+    {
+      "id": "gpt-5.2",
+      "name": "GPT-5.2"
+    },
+    {
+      "id": "gpt-5.2-codex",
+      "name": "GPT-5.2 Codex"
+    },
+    {
+      "id": "gpt-5.2-pro",
+      "name": "GPT-5.2 Pro"
+    },
+    {
+      "id": "gpt-5.3-codex",
+      "name": "GPT-5.3 Codex"
+    },
+    {
+      "id": "gpt-5.4",
+      "name": "GPT-5.4"
+    },
+    {
+      "id": "gpt-5.4-mini",
+      "name": "GPT-5.4 mini"
+    },
+    {
+      "id": "gpt-5.4-nano",
+      "name": "GPT-5.4 nano"
+    },
+    {
+      "id": "gpt-5.4-pro",
+      "name": "GPT-5.4 Pro"
+    }
+  ],
   "modes": [
     {
       "description": "Automatically approve tool calls",
@@ -523,5 +627,11 @@ export const agent: AgentMetadata = {
   ],
   "name": "goose",
   "protocolVersion": 1,
+  "reasoningEfforts": [
+    {
+      "id": "off",
+      "name": "off"
+    }
+  ],
   "version": "1.39.0"
 };

@@ -28,6 +28,20 @@ export interface AgentConfigOption {
   [key: string]: unknown
 }
 
+/** A selectable model offered by an agent (mirrors the shape of SessionMode). */
+export interface AgentModel {
+  id: string
+  name: string
+  description?: null | string
+}
+
+/** A selectable reasoning-effort level offered by an agent. */
+export interface AgentReasoningEffort {
+  id: string
+  name: string
+  description?: null | string
+}
+
 export interface AgentMetadata {
   id: string
   name: string
@@ -38,6 +52,10 @@ export interface AgentMetadata {
   authMethods: AgentAuthMethod[]
   modes: SessionMode[]
   currentModeId: null | string
+  models: AgentModel[]
+  currentModelId: null | string
+  reasoningEfforts: AgentReasoningEffort[]
+  currentReasoningEffortId: null | string
   configOptions: AgentConfigOption[]
   commands: AvailableCommand[]
 }

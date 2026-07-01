@@ -69,12 +69,20 @@ interface AgentMetadata {
   authMethods: AgentAuthMethod[]
   modes: SessionMode[]
   currentModeId: null | string
+  models: AgentModel[]
+  currentModelId: null | string
+  reasoningEfforts: AgentReasoningEffort[]
+  currentReasoningEffortId: null | string
   configOptions: AgentConfigOption[]
   commands: AvailableCommand[]
 }
+
+// Flattened, type-safe views derived from configOptions — mirror the modes/currentModeId shape.
+interface AgentModel { id: string; name: string; description?: null | string }
+interface AgentReasoningEffort { id: string; name: string; description?: null | string }
 ```
 
-Source of truth: [`src/types.ts`](src/types.ts). The capability, auth-method, and config-option interfaces keep known fields typed and allow agent-specific extensions through an index signature.
+Source of truth: [`src/types.ts`](src/types.ts). `models`, `currentModelId`, `reasoningEfforts`, and `currentReasoningEffortId` are derived from `configOptions` (the `category: "model"` / `id: "model"` and `category: "thought_level"` selects) so consumers get a typed list without casting. `configOptions` itself is preserved verbatim for backward compatibility.
 
 ## How it is built
 

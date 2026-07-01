@@ -125,7 +125,10 @@ export const agent: AgentMetadata = {
   ],
   "configOptions": [],
   "currentModeId": "agent",
+  "currentModelId": null,
+  "currentReasoningEffortId": null,
   "id": "fast-agent",
+  "models": [],
   "modes": [
     {
       "description": "You are a helpful AI Agent.",
@@ -135,5 +138,6 @@ export const agent: AgentMetadata = {
   ],
   "name": "fast-agent",
   "protocolVersion": 1,
+  "reasoningEfforts": [],
   "version": "0.7.22"
 };
